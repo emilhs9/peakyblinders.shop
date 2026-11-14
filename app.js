@@ -449,6 +449,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- T-SHIRTS / BEST SELLERS CAROUSEL ---
+  const tshirtsCarouselTrack = document.getElementById('tshirtsCarouselTrack');
+  const tshirtsPrevBtn = document.getElementById('tshirtsPrevBtn');
+  const tshirtsNextBtn = document.getElementById('tshirtsNextBtn');
+
+  if (tshirtsCarouselTrack) {
+    const updateCarouselArrows = () => {
+      const scrollLeft = tshirtsCarouselTrack.scrollLeft;
+      const maxScroll = tshirtsCarouselTrack.scrollWidth - tshirtsCarouselTrack.clientWidth - 10;
+      if (tshirtsPrevBtn) {
+        tshirtsPrevBtn.style.display = scrollLeft > 20 ? 'flex' : 'none';
+      }
+      if (tshirtsNextBtn) {
+        tshirtsNextBtn.style.display = scrollLeft >= maxScroll ? 'none' : 'flex';
+      }
+    };
+
+    if (tshirtsNextBtn) {
+      tshirtsNextBtn.addEventListener('click', () => {
+        const scrollDistance = tshirtsCarouselTrack.clientWidth * 0.75;
+        tshirtsCarouselTrack.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+      });
+    }
+
+    if (tshirtsPrevBtn) {
+      tshirtsPrevBtn.addEventListener('click', () => {
+        const scrollDistance = tshirtsCarouselTrack.clientWidth * 0.75;
+        tshirtsCarouselTrack.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+      });
+    }
+
+    tshirtsCarouselTrack.addEventListener('scroll', updateCarouselArrows, { passive: true });
+    updateCarouselArrows();
+  }
+
   // --- INITIALIZE ---
   renderCart();
   updateAllDisplayedPrices();
