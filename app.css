@@ -1,26 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Roboto+Condensed:wght@400;500;600;700&display=swap');
+/* ==========================================================
+   PEAKY BLINDERS OFFICIAL STORE - MASTER STYLESHEET (app.css)
+   Pixel-perfect 1:1 replica of https://peakyblinders.shop/
+   Teemill Engine Architecture: Courier Prime & Roboto Condensed
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --primary-color: #253646;
-  --primary-hover: #1b2733;
-  --secondary-color: #702E3F;
-  --accent-color: #c5a059;
-  --text-dark: #000000;
-  --text-muted: #666666;
+  --primary-hover: #1a2733;
+  --color-wine: #702E3F;
+  --color-navy: #253646;
+  --bg-black: #000000;
+  --bg-dark: #0b0b0b;
   --bg-white: #ffffff;
-  --bg-dark: #000000;
-  --bg-surface: #141414;
-  --bg-announcement: #1a1a1a;
-  --bg-card: #f9f9f9;
-  --border-light: #e5e5e5;
-  --border-dark: #2a2a2a;
+  --text-dark: #000000;
+  --text-muted: #555555;
+  --border-color: #e5e5e5;
   
   --font-serif: 'Courier Prime', Courier, monospace;
   --font-sans: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, sans-serif;
-
+  
   --header-height: 64px;
-  --transition-fast: 0.2s ease;
-  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.15s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 *, *::before, *::after {
@@ -32,21 +35,18 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-serif);
-  color: var(--text-dark);
   background-color: var(--bg-white);
+  color: var(--text-dark);
   line-height: 1.5;
   overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img {
@@ -55,27 +55,47 @@ img {
   display: block;
 }
 
-button, input {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
   font-family: inherit;
-  font-size: inherit;
   border: none;
   background: none;
-  outline: none;
+  cursor: pointer;
 }
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
+/* ==========================================================
+   CONTAINER SYSTEM (1:1 TEEMILL BREAKPOINTS)
+   ========================================================== */
 .container {
   width: 100%;
-  max-width: 1380px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container { max-width: 720px; }
+}
+
+@media (min-width: 992px) {
+  .container { max-width: 960px; }
+}
+
+@media (min-width: 1200px) {
+  .container { max-width: 1140px; }
 }
 
 /* ==========================================================
-   1. SITE HEADER (STICKY AT TOP)
+   1. STICKY HEADER & NAVBAR
    ========================================================== */
 .site-header {
   position: sticky;
@@ -85,23 +105,22 @@ button, input {
   height: var(--header-height);
   background-color: #000000;
   color: #ffffff;
-  z-index: 100;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-container {
   height: 100%;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: clamp(4.5rem, 7vw, 7rem);
+  gap: clamp(4rem, 6.5vw, 8.5rem);
 }
 
 .header-left-group {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2.25rem;
 }
 
 .logo-wrapper {
@@ -115,6 +134,7 @@ button, input {
   height: 44px;
   width: auto;
   object-fit: contain;
+  display: block;
   transition: opacity var(--transition-fast);
 }
 
@@ -125,19 +145,17 @@ button, input {
 .main-navigation {
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  gap: 1.55rem;
 }
 
 .nav-link {
-  font-family: 'Roboto Condensed', sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  letter-spacing: 0.01em;
   color: #ffffff;
-  padding: 0;
-  margin: 0;
+  line-height: 1;
   white-space: nowrap;
   transition: opacity var(--transition-fast);
 }
@@ -149,7 +167,7 @@ button, input {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
   flex-shrink: 0;
 }
 
@@ -159,8 +177,8 @@ button, input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   background: transparent;
   border: none;
@@ -174,8 +192,8 @@ button, input {
 
 .action-btn svg, .currency-btn svg {
   width: auto;
-  height: 20px;
-  max-height: 20px;
+  height: 22px;
+  max-height: 22px;
   fill: currentColor;
   display: block;
 }
@@ -206,7 +224,7 @@ button, input {
   position: relative;
   width: 100%;
   aspect-ratio: 1920 / 768;
-  min-height: 500px;
+  min-height: 480px;
   max-height: 720px;
   background-color: #0b0b0b;
   overflow: hidden;
@@ -227,7 +245,7 @@ button, input {
 .hero-bottom-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.45) 80%, rgba(0, 0, 0, 0.65) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
 }
 
@@ -246,7 +264,6 @@ button, input {
   font-size: clamp(2rem, 3.8vw, 3rem);
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.02em;
   margin-bottom: 0.85rem;
   color: #ffffff;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
@@ -293,16 +310,20 @@ button, input {
 }
 
 /* ==========================================================
-   3. ANNOUNCEMENT STRIP (UNDER HERO)
+   3. ANNOUNCEMENT STRIP
    ========================================================== */
 .announcement-strip {
-  background-color: var(--bg-announcement);
+  background-color: #000000;
   color: #ffffff;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
   padding: 0.75rem 1rem;
   text-align: center;
-  width: 100%;
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .announcement-inner {
@@ -310,32 +331,21 @@ button, input {
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
-  font-family: var(--font-serif);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.announcement-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .announcement-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: #ffffff;
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: currentColor;
 }
 
 /* ==========================================================
-   4. 4 CATEGORY CARDS GRID (FULL WIDTH)
+   4. 4 CATEGORY CARDS GRID (EDGE-TO-EDGE)
    ========================================================== */
 .category-cards-section {
-  padding: 0.75rem 0 1.5rem 0;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .category-grid {
@@ -343,37 +353,35 @@ button, input {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
   width: 100%;
-  padding: 0 0.75rem;
 }
 
 .category-card {
   position: relative;
   overflow: hidden;
-  background-color: #000;
   aspect-ratio: 1 / 1;
   display: block;
+  background-color: #000000;
 }
 
 .category-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity var(--transition-fast);
-  opacity: 0.95;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .category-card:hover img {
-  transform: scale(1.04);
-  opacity: 1;
+  transform: scale(1.05);
 }
 
 .category-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,0.75) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%);
   display: flex;
   align-items: flex-end;
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem;
 }
 
 .category-card-title {
@@ -387,7 +395,7 @@ button, input {
 
 .section-cta-wrap {
   text-align: center;
-  padding: 2rem 0 1rem 0;
+  padding: 2.25rem 0 1.5rem 0;
 }
 
 .btn-primary {
@@ -396,13 +404,14 @@ button, input {
   justify-content: center;
   background-color: var(--primary-color);
   color: #ffffff;
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.9375rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.85rem 2.25rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2.5rem;
   border: 1px solid var(--primary-color);
+  border-radius: 0px;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -413,33 +422,11 @@ button, input {
   transform: translateY(-2px);
 }
 
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.85rem 2.25rem;
-  border: 1px solid #ffffff;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.btn-outline:hover {
-  background-color: #ffffff;
-  color: var(--text-dark);
-}
-
 /* ==========================================================
-   5. PRODUCT CAROUSEL SECTION
+   5. PRODUCT SECTION & CAROUSEL
    ========================================================== */
-.carousel-section {
-  padding: 2.5rem 0 3rem 0;
+.main-products-section {
+  padding: 2.5rem 0 3.5rem 0;
 }
 
 .section-header {
@@ -457,6 +444,10 @@ button, input {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.01em;
+}
+
+.carousel-section {
+  padding: 2.5rem 0 3rem 0;
 }
 
 .carousel-nav-buttons {
@@ -502,26 +493,32 @@ button, input {
 
 .product-carousel-item {
   flex: 0 0 calc((100% - 4.5rem) / 4);
-  min-width: 260px;
+  min-width: 250px;
 }
 
 /* ==========================================================
    6. PRODUCT CARD DESIGN
    ========================================================== */
+.product-grid-12 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem 1.5rem;
+}
+
 .product-card {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-white);
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  transition: transform var(--transition-smooth);
   position: relative;
 }
 
 .product-card-image-wrap {
   position: relative;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background-color: #f6f6f6;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .product-card-image {
@@ -542,7 +539,7 @@ button, input {
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   opacity: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.88);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
@@ -552,7 +549,7 @@ button, input {
   padding: 0.6rem 1.25rem;
   white-space: nowrap;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 0px;
   transition: all var(--transition-fast);
 }
 
@@ -573,7 +570,7 @@ button, input {
 
 .product-card-title {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1.35;
   color: var(--text-dark);
@@ -587,7 +584,7 @@ button, input {
 
 .product-card-price {
   font-family: var(--font-serif);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 0.75rem;
@@ -598,13 +595,14 @@ button, input {
   width: 100%;
   padding: 0.65rem 1rem;
   background-color: #ffffff;
+  color: var(--text-dark);
   border: 1px solid var(--text-dark);
-  font-family: var(--font-sans);
+  border-radius: 0px;
+  font-family: var(--font-serif);
   font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-dark);
+  letter-spacing: 0.05em;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -615,31 +613,47 @@ button, input {
 }
 
 /* ==========================================================
-   7. MAIN 12-PRODUCT GRID
+   7. LOOKBOOK 4-IMAGE GRID (EDGE TO EDGE)
    ========================================================== */
-.main-products-section {
-  padding: 3rem 0;
+.lookbook-section {
+  width: 100%;
+  padding: 0;
+  margin: 2rem 0;
 }
 
-.product-grid-12 {
+.lookbook-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem 1.5rem;
+  gap: 0;
+  width: 100%;
+}
+
+.lookbook-item {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.lookbook-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ==========================================================
-   8. EDITORIAL STORY SECTION
+   8. EDITORIAL STORY SECTION (#253646)
    ========================================================== */
 .story-section {
-  background-color: #000000;
+  background-color: #253646;
   color: #ffffff;
   padding: 5rem 0;
-  margin: 3rem 0;
+  margin: 0;
   text-align: center;
 }
 
 .story-content {
-  max-width: 840px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -648,191 +662,167 @@ button, input {
   font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--accent-color);
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.75);
   margin-bottom: 1rem;
 }
 
 .story-title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  line-height: 1.25;
 }
 
-.story-body {
+.story-text {
   font-family: var(--font-serif);
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: #cccccc;
-  max-width: 720px;
-  margin: 0 auto 2.5rem auto;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.25rem;
 }
 
 /* ==========================================================
-   9. FULL WIDTH BANNERS
+   9. BANNERS (FULLWIDTH)
    ========================================================== */
 .banner-fullwidth {
   width: 100%;
-  position: relative;
   overflow: hidden;
-  max-height: 540px;
 }
 
 .banner-fullwidth img {
   width: 100%;
-  height: 100%;
-  max-height: 540px;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+  display: block;
 }
 
 /* ==========================================================
-   10. PROMO HIGHLIGHTS GRID (4 Cards)
+   10. HIGHLIGHTS 4 CARDS SECTION
    ========================================================== */
 .highlights-section {
-  padding: 4rem 0 2rem 0;
-}
-
-.highlights-title {
-  text-align: center;
-  font-family: var(--font-serif);
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 2.5rem;
-  letter-spacing: -0.01em;
+  padding: 3.5rem 0 3rem 0;
 }
 
 .highlights-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
 }
 
 .highlight-card {
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  background-color: #000;
   display: block;
+  background-color: #000000;
 }
 
 .highlight-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .highlight-card:hover img {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .highlight-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.75) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.75) 100%);
   display: flex;
   align-items: flex-end;
-  padding: 1.5rem;
+  padding: 1.25rem;
 }
 
 .highlight-card-title {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: #ffffff;
+  letter-spacing: 0.05em;
 }
 
 /* ==========================================================
-   11. TRUST BADGES / GUARANTEE
+   11. QUALITY GUARANTEE (#702E3F)
    ========================================================== */
 .trust-section {
-  background-color: #f7f7f7;
-  padding: 4rem 0;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-  margin-top: 3rem;
+  background-color: #702E3F;
+  color: #ffffff;
+  padding: 4.5rem 0;
 }
 
 .trust-title {
-  text-align: center;
   font-family: var(--font-serif);
-  font-size: 1.75rem;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
   font-weight: 700;
   text-transform: uppercase;
+  text-align: center;
   margin-bottom: 3rem;
+  letter-spacing: -0.01em;
 }
 
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  text-align: center;
 }
 
 .trust-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  text-align: center;
 }
 
 .trust-icon-box {
-  width: 64px;
-  height: 64px;
-  background-color: var(--primary-color);
-  color: #ffffff;
+  width: 3.5rem;
+  height: 3.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  transition: transform var(--transition-fast), background-color var(--transition-fast);
-}
-
-.trust-item:hover .trust-icon-box {
-  transform: translateY(-4px);
-  background-color: var(--secondary-color);
+  margin-bottom: 1rem;
 }
 
 .trust-icon-box svg {
-  width: 28px;
-  height: 28px;
+  width: 2.75rem;
+  height: 2.75rem;
   fill: currentColor;
 }
 
 .trust-text {
   font-family: var(--font-serif);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 700;
-  text-transform: uppercase;
-  color: var(--text-dark);
+  color: #ffffff;
 }
 
 /* ==========================================================
-   12. NEWSLETTER SECTION
+   12. NEWSLETTER SECTION (#030303)
    ========================================================== */
 .newsletter-section {
-  background-color: #000000;
+  background-color: #030303;
   color: #ffffff;
   padding: 4.5rem 0;
   text-align: center;
 }
 
 .newsletter-inner {
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
 .newsletter-title {
   font-family: var(--font-serif);
-  font-size: 2.25rem;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
@@ -840,9 +830,9 @@ button, input {
 
 .newsletter-subtitle {
   font-family: var(--font-serif);
-  font-size: 1rem;
-  color: #bbbbbb;
-  line-height: 1.6;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #aaaaaa;
   margin-bottom: 2rem;
 }
 
@@ -850,124 +840,119 @@ button, input {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 480px;
-  margin: 0 auto;
 }
 
 .form-group-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .newsletter-input {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.85rem 1rem;
   background-color: #ffffff;
-  color: var(--text-dark);
+  border: 1px solid #ffffff;
   font-family: var(--font-serif);
   font-size: 0.9375rem;
-  border: 1px solid #ffffff;
-  border-radius: 0;
+  color: #000000;
+  border-radius: 0px;
+  outline: none;
 }
 
 .newsletter-input:focus {
-  border-color: var(--accent-color);
+  border-color: #cccccc;
 }
 
 .newsletter-submit {
-  width: 100%;
-  background-color: var(--primary-color);
+  padding: 0.85rem 2rem;
+  background-color: #253646;
   color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 1rem;
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0.95rem 1rem;
+  border: 1px solid #253646;
+  border-radius: 0px;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .newsletter-submit:hover {
-  background-color: var(--primary-hover);
+  background-color: #1a2733;
 }
 
 .newsletter-policy {
-  margin-top: 1rem;
   font-size: 0.75rem;
-  color: #888888;
+  color: #777777;
+  margin-top: 0.5rem;
 }
 
 .newsletter-policy a {
   text-decoration: underline;
-  color: #aaaaaa;
+  color: #888888;
 }
 
 /* ==========================================================
-   13. SOCIAL BAR & LEGAL STRIP
+   13. SOCIAL MEDIA BAR & LEGAL STRIP
    ========================================================== */
 .social-bar {
-  background-color: #111111;
+  background-color: #000000;
   padding: 1.5rem 0;
-  border-top: 1px solid #222222;
-  border-bottom: 1px solid #222222;
-  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .social-links {
-  display: inline-flex;
-  gap: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
 }
 
 .social-link {
   color: #ffffff;
-  width: 40px;
-  height: 40px;
+  transition: opacity var(--transition-fast);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all var(--transition-fast);
 }
 
 .social-link:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: #ffffff;
-  transform: translateY(-2px);
+  opacity: 0.75;
 }
 
 .social-link svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
   fill: currentColor;
 }
 
 .legal-strip {
-  background-color: #0b0b0b;
-  color: #777777;
-  font-size: 0.75rem;
-  padding: 1.5rem 1rem;
+  background-color: #000000;
+  color: #888888;
+  font-family: var(--font-serif);
+  font-size: 0.8125rem;
   text-align: center;
-  border-bottom: 1px solid #1a1a1a;
-  line-height: 1.6;
+  padding: 1.25rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ==========================================================
    14. SITE FOOTER
    ========================================================== */
 .site-footer {
-  background-color: var(--bg-dark);
+  background-color: #000000;
   color: #ffffff;
-  padding: 4.5rem 0 2rem 0;
+  padding: 4rem 0 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1.5fr;
-  gap: 3.5rem;
-  margin-bottom: 4rem;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .footer-col-title {
@@ -975,10 +960,8 @@ button, input {
   font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.05em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
 }
 
 .footer-links {
@@ -989,58 +972,44 @@ button, input {
 }
 
 .footer-links a {
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
   color: #aaaaaa;
-  transition: color var(--transition-fast), transform var(--transition-fast);
-  display: inline-block;
+  transition: color var(--transition-fast);
 }
 
 .footer-links a:hover {
   color: #ffffff;
-  transform: translateX(4px);
 }
 
-.footer-payment-desc {
-  font-size: 0.875rem;
-  color: #aaaaaa;
+.footer-desc {
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
   line-height: 1.6;
+  color: #aaaaaa;
   margin-bottom: 1.5rem;
 }
 
 .payment-badges {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-}
-
-.payment-badge-icon {
-  width: 48px;
-  height: 32px;
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background-color: #1a1a1a;
-  border: 1px solid #333333;
-  border-radius: 4px;
-  color: #ffffff;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .payment-badge-icon svg {
-  width: 32px;
-  height: 20px;
-  fill: currentColor;
+  height: 28px;
+  width: auto;
+  fill: #ffffff;
+  opacity: 0.9;
 }
 
 .subfooter {
-  border-top: 1px solid #1a1a1a;
-  padding-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.8125rem;
   color: #777777;
 }
@@ -1048,6 +1017,11 @@ button, input {
 .subfooter-links {
   display: flex;
   gap: 1.5rem;
+}
+
+.subfooter-links a {
+  color: #777777;
+  transition: color var(--transition-fast);
 }
 
 .subfooter-links a:hover {
@@ -1060,9 +1034,8 @@ button, input {
 .drawer-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
-  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 300;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-smooth);
@@ -1079,15 +1052,14 @@ button, input {
   right: 0;
   bottom: 0;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   background-color: #ffffff;
   color: var(--text-dark);
-  z-index: 210;
+  z-index: 350;
   transform: translateX(100%);
   transition: transform var(--transition-smooth);
   display: flex;
   flex-direction: column;
-  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.3);
 }
 
 .cart-drawer.active {
@@ -1095,11 +1067,11 @@ button, input {
 }
 
 .drawer-header {
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .drawer-title {
@@ -1110,10 +1082,10 @@ button, input {
 }
 
 .drawer-close {
-  cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   line-height: 1;
-  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--text-dark);
 }
 
 .cart-drawer-body {
@@ -1124,62 +1096,60 @@ button, input {
 
 .cart-empty-message {
   text-align: center;
-  padding: 3rem 1rem;
-  color: var(--text-muted);
+  padding: 3rem 0;
+  color: #888888;
 }
 
-.cart-item {
+.cart-item-row {
   display: flex;
   gap: 1rem;
-  padding-bottom: 1.25rem;
   margin-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.cart-item-img {
+.cart-item-thumb {
   width: 72px;
-  height: 90px;
+  height: 72px;
   object-fit: cover;
-  background-color: #f6f6f6;
   flex-shrink: 0;
+  background-color: #f6f6f6;
 }
 
 .cart-item-details {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .cart-item-title {
   font-family: var(--font-serif);
   font-size: 0.9375rem;
   font-weight: 700;
-  line-height: 1.3;
   margin-bottom: 0.25rem;
 }
 
-.cart-item-size {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  color: var(--text-muted);
+.cart-item-meta {
+  font-size: 0.8125rem;
+  color: #777777;
   margin-bottom: 0.5rem;
 }
 
-.cart-item-price {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 0.9375rem;
-}
-
-.cart-item-qty {
+.cart-item-qty-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  justify-content: space-between;
+}
+
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #cccccc;
 }
 
 .qty-btn {
-  width: 24px;
-  height: 24px;
-  border: 1px solid #ccc;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1187,40 +1157,45 @@ button, input {
   font-weight: 700;
 }
 
-.qty-count {
-  font-family: var(--font-serif);
-  min-width: 20px;
-  text-align: center;
+.qty-val {
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+.cart-item-del-btn {
+  font-size: 0.8125rem;
+  color: #cc0000;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .cart-drawer-footer {
   padding: 1.5rem;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-color);
   background-color: #fafafa;
 }
 
 .cart-subtotal-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
   font-family: var(--font-serif);
   font-size: 1.125rem;
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .checkout-btn {
   width: 100%;
-  padding: 1rem;
+  padding: 0.9rem 1rem;
   background-color: var(--primary-color);
   color: #ffffff;
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
+  border: none;
   cursor: pointer;
-  text-align: center;
   transition: background-color var(--transition-fast);
 }
 
@@ -1228,13 +1203,11 @@ button, input {
   background-color: var(--primary-hover);
 }
 
-/* Quick View Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
-  z-index: 300;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 400;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1251,36 +1224,29 @@ button, input {
 
 .modal-container {
   background-color: #ffffff;
+  max-width: 820px;
   width: 100%;
-  max-width: 800px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   position: relative;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .modal-close-btn {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  width: 32px;
-  height: 32px;
-  background: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
   cursor: pointer;
-  font-size: 1.25rem;
   z-index: 10;
+  color: var(--text-dark);
 }
 
 .modal-image-col {
   background-color: #f6f6f6;
-  aspect-ratio: 1 / 1.2;
+  aspect-ratio: 1 / 1;
 }
 
 .modal-image-col img {
@@ -1290,32 +1256,28 @@ button, input {
 }
 
 .modal-info-col {
-  padding: 2.5rem;
+  padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
 }
 
 .modal-product-title {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
-  line-height: 1.25;
+  margin-bottom: 0.5rem;
 }
 
 .modal-product-price {
   font-family: var(--font-serif);
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-color);
   margin-bottom: 1.5rem;
 }
 
 .size-selector-label {
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
 
@@ -1326,26 +1288,25 @@ button, input {
 }
 
 .size-pill {
-  width: 44px;
-  height: 44px;
-  border: 1px solid #ccc;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #cccccc;
+  border-radius: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-weight: 700;
-  font-size: 0.875rem;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .size-pill.active, .size-pill:hover {
-  border-color: #000;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
 }
 
-/* Toast notice */
 .toast-notice {
   position: fixed;
   bottom: 2rem;
@@ -1370,7 +1331,7 @@ button, input {
 }
 
 /* ==========================================================
-   15b. COLLECTION / CATEGORY PAGE STYLES
+   16. COLLECTION / CATEGORY PAGE STYLES
    ========================================================== */
 .collection-header-section {
   background-color: #0b0b0b;
@@ -1448,7 +1409,7 @@ button, input {
 }
 
 /* ==========================================================
-   16. RESPONSIVE BREAKPOINTS
+   17. RESPONSIVE BREAKPOINTS
    ========================================================== */
 @media (max-width: 1024px) {
   .category-grid {
@@ -1466,6 +1427,9 @@ button, input {
   .trust-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .lookbook-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1473,7 +1437,7 @@ button, input {
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 70px;
+    --header-height: 60px;
   }
   .header-container {
     justify-content: space-between;
@@ -1517,5 +1481,7 @@ button, input {
   .trust-grid {
     grid-template-columns: 1fr;
   }
+  .lookbook-grid {
+    grid-template-columns: 1fr;
+  }
 }
-
