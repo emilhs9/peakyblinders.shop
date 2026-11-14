@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Peaky Blinders | Official Merchandise</title>
   <meta name="description" content="Welcome to the Garrison Tailors, apparel inspired by the world of Peaky Blinders. Official graphic tees, hoodies, sweatshirts, and gifts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
   <link rel="icon" type="image/png" href="images/img-01-peaky-blinders.png">
 </head>
@@ -67,7 +70,6 @@
     <!-- 2. Hero Section (Round Table with T-Shirts & Mug) -->
     <section class="hero-section" aria-label="Peaky Blinders Apparel Hero">
       <img src="images/img-02-peaky-blinders-apparel.png" alt="Peaky Blinders Apparel" class="hero-banner-image">
-      <div class="hero-bottom-gradient"></div>
       
       <div class="hero-content">
         <h1 class="hero-title">Peaky Blinders Apparel</h1>
@@ -79,10 +81,14 @@
       </div>
     </section>
 
-    <!-- 3. Announcement Strip (Directly Below Hero) -->
+    <!-- 3. Announcement Strip (With clean 8px white gap above and below) -->
     <aside class="announcement-strip" aria-label="Shipping Notice">
       <div class="announcement-inner">
-        <span class="announcement-icon"><svg class="svg-inline--fa mr-2" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="megaphone" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="color: rgb(255, 255, 255);"><path fill="currentColor" d="M576 48V464C576 472.8 568.8 480 560 480C551.2 480 544 472.8 544 464V452.5L349.9 403.1C340.7 447.4 302.2 480 256 480C202.1 480 160 437 160 384C160 374.8 161.3 365.9 163.7 357.4L32 324.5V336C32 344.8 24.84 352 16 352C7.164 352 0 344.8 0 336V176C0 167.2 7.164 160 16 160C24.84 160 32 167.2 32 176V187.5L544 59.51V48C544 39.16 551.2 32 560 32C568.8 32 576 39.16 576 48zM544 419.5V92.49L32 220.5V291.5L544 419.5zM256 448C287.2 448 313.1 425.7 318.8 396.2L194.8 365.2C192.1 371.1 192 377.5 192 384C192 419.3 220.7 448 256 448z"></path></svg></span>
+        <span class="announcement-icon">
+          <svg class="svg-inline--fa" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="truck" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+            <path fill="currentColor" d="M64 32C46.3 32 32 46.3 32 64l0 288c0 17.7 14.3 32 32 32l5.5 0c13.2-37.3 48.7-64 90.5-64s77.4 26.7 90.5 64L384 384l0-320c0-17.7-14.3-32-32-32L64 32zm0 384c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L352 0c35.3 0 64 28.7 64 64l0 32 65.3 0c14 0 27.3 6.1 36.4 16.8l78.7 91.8c7.5 8.7 11.6 19.8 11.6 31.2L608 384l16 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-48 0c0 53-43 96-96 96s-96-43-96-96l-128 0c0 53-43 96-96 96s-96-43-96-96zM416 224l154.9 0l-57.6-67.2c-4.5-5.3-11.2-8.4-18.2-8.8L416 148l0 76zm0 64l0 64 128 0 0-64-128 0z"></path>
+          </svg>
+        </span>
         <span>Free UK Shipping over £50 | Global Shipping Available</span>
       </div>
     </aside>
@@ -93,25 +99,25 @@
         <a href="t-shirts.html" class="category-card">
           <img src="images/img-03.png" alt="T-Shirts">
           <div class="category-card-overlay">
-            <h3 class="category-card-title">T-Shirts</h3>
+            <span class="category-card-btn">T-Shirts</span>
           </div>
         </a>
         <a href="sweatshirts.html" class="category-card">
           <img src="images/img-04.png" alt="Sweatshirts">
           <div class="category-card-overlay">
-            <h3 class="category-card-title">Sweatshirts</h3>
+            <span class="category-card-btn">Sweatshirts</span>
           </div>
         </a>
         <a href="accessories.html" class="category-card">
           <img src="images/img-05.png" alt="Accessories">
           <div class="category-card-overlay">
-            <h3 class="category-card-title">Accessories</h3>
+            <span class="category-card-btn">Accessories</span>
           </div>
         </a>
         <a href="gift-guide.html" class="category-card">
           <img src="images/img-06.png" alt="Gift Guide">
           <div class="category-card-overlay">
-            <h3 class="category-card-title">Gift Guide</h3>
+            <span class="category-card-btn">Gift Guide</span>
           </div>
         </a>
       </div>
@@ -120,126 +126,104 @@
       </div>
     </section>
 
-    <!-- 5. Featured Products Carousel -->
-    <section class="carousel-section container" aria-label="Trending Products">
-      <div class="section-header">
-        <h2 class="section-title">Trending Now</h2>
-        <div class="carousel-nav-buttons">
-          <button class="carousel-arrow" id="carouselPrevBtn" aria-label="Previous product">
-            <svg class="svg-inline--fa" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M234.8 36.25c3.438 3.141 5.156 7.438 5.156 11.75c0 3.891-1.406 7.781-4.25 10.86L53.77 256l181.1 197.1c6 6.5 5.625 16.64-.9062 22.61c-6.5 6-16.59 5.594-22.59-.8906l-192-208c-5.688-6.156-5.688-15.56 0-21.72l192-208C218.2 30.66 228.3 30.25 234.8 36.25z"></path></svg>
-          </button>
-          <button class="carousel-arrow" id="carouselNextBtn" aria-label="Next product">
-            <svg class="svg-inline--fa" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M85.14 475.8c-3.438-3.141-5.156-7.438-5.156-11.75c0-3.891 1.406-7.781 4.25-10.86l181.1-197.1L84.23 58.86c-6-6.5-5.625-16.64 .9062-22.61c6.5-6 16.59-5.594 22.59 .8906l192 208c5.688 6.156 5.688 15.56 0 21.72l-192 208C101.7 481.3 91.64 481.8 85.14 475.8z"></path></svg>
-          </button>
-        </div>
-      </div>
+    <!-- 5. 8-Item Product Grid (2 Rows of 4 Cards) -->
+    <section class="products-grid-section container" aria-label="Featured Products">
+      <div class="products-grid-8">
+        <!-- 1. Peaky Blinders Christmas Jumper -->
+        <article class="product-card" data-product-id="pb-c1">
+          <div class="product-card-image-wrap">
+            <img src="images/img-07-peaky-blinders-christmas-jumpe.jpg" alt="Peaky Blinders Christmas Jumper" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">Peaky Blinders Christmas Jumper</h3>
+            <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
+          </div>
+        </article>
 
-      <div class="carousel-track-container">
-        <div class="carousel-track" id="productCarouselTrack">
-          <!-- 1. Christmas Jumper -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c1">
-            <div class="product-card-image-wrap">
-              <img src="images/img-07-peaky-blinders-christmas-jumpe.jpg" alt="Peaky Blinders Christmas Jumper" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Peaky Blinders Christmas Jumper</h3>
-              <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <!-- 2. No F**king Fighting Hoodie -->
+        <article class="product-card" data-product-id="pb-c2">
+          <div class="product-card-image-wrap">
+            <img src="images/img-08-no-f-king-fighting-hoodie.jpg" alt="No F**king Fighting Hoodie" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">No F**king Fighting Hoodie</h3>
+            <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
+          </div>
+        </article>
 
-          <!-- 2. No F**king Fighting Hoodie -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c2">
-            <div class="product-card-image-wrap">
-              <img src="images/img-08-no-f-king-fighting-hoodie.jpg" alt="No F**king Fighting Hoodie" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">No F**king Fighting Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <!-- 3. Peaky Blinders Winter Jumper -->
+        <article class="product-card" data-product-id="pb-c3">
+          <div class="product-card-image-wrap">
+            <img src="images/img-09-peaky-blinders-winter-jumper.jpg" alt="Peaky Blinders Winter Jumper" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">Peaky Blinders Winter Jumper</h3>
+            <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
+          </div>
+        </article>
 
-          <!-- 3. Winter Jumper -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c3">
-            <div class="product-card-image-wrap">
-              <img src="images/img-09-peaky-blinders-winter-jumper.jpg" alt="Peaky Blinders Winter Jumper" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Peaky Blinders Winter Jumper</h3>
-              <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <!-- 4. Small Heath T-Shirt -->
+        <article class="product-card" data-product-id="pb-c4">
+          <div class="product-card-image-wrap">
+            <img src="images/img-10-small-heath-t-shirt.jpg" alt="Small Heath T-Shirt" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">Small Heath T-Shirt</h3>
+            <div class="product-card-price tabular-nums" data-base-price="22">£22</div>
+          </div>
+        </article>
 
-          <!-- 4. Small Heath T-Shirt -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c4">
-            <div class="product-card-image-wrap">
-              <img src="images/img-10-small-heath-t-shirt.jpg" alt="Small Heath T-Shirt" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Small Heath T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="22">£22</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <!-- 5. Final Notes Hoodie -->
+        <article class="product-card" data-product-id="pb-c5">
+          <div class="product-card-image-wrap">
+            <img src="images/img-11-final-notes-hoodie.jpg" alt="Final Notes Hoodie" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">Final Notes Hoodie</h3>
+            <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
+          </div>
+        </article>
 
-          <!-- 5. Final Notes Hoodie -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c5">
-            <div class="product-card-image-wrap">
-              <img src="images/img-11-final-notes-hoodie.jpg" alt="Final Notes Hoodie" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Final Notes Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <!-- 6. King of Hearts Limited Edition -->
+        <article class="product-card" data-product-id="pb-c6">
+          <div class="product-card-image-wrap">
+            <img src="images/img-12-king-of-hearts-limted-edition-.jpg" alt="King of Hearts Limted Edition Backprint T-shirt" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">King of Hearts Limted Edition Backprint T-shirt</h3>
+            <div class="product-card-price tabular-nums" data-base-price="30">£30</div>
+          </div>
+        </article>
 
-          <!-- 6. King of Hearts Limited Edition -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c6">
-            <div class="product-card-image-wrap">
-              <img src="images/img-12-king-of-hearts-limted-edition-.jpg" alt="King of Hearts Limted Edition Backprint T-shirt" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">King of Hearts Limted Edition Backprint T-shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="30">£30</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <!-- 7. The Streets Belong to Us -->
+        <article class="product-card" data-product-id="pb-c7">
+          <div class="product-card-image-wrap">
+            <img src="images/img-13-the-streets-belong-to-us-t-shi.jpg" alt="The Streets Belong to Us T-Shirt" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">The Streets Belong to Us T-Shirt</h3>
+            <div class="product-card-price tabular-nums" data-base-price="22">£22</div>
+          </div>
+        </article>
 
-          <!-- 7. The Streets Belong to Us -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c7">
-            <div class="product-card-image-wrap">
-              <img src="images/img-13-the-streets-belong-to-us-t-shi.jpg" alt="The Streets Belong to Us T-Shirt" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">The Streets Belong to Us T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="22">£22</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- 8. Garrison Tavern Oversized -->
-          <article class="product-card product-carousel-item" data-product-id="pb-c8">
-            <div class="product-card-image-wrap">
-              <img src="images/img-14-the-garrison-tavern-oversized-.png" alt="The Garrison Tavern Oversized T-Shirt" class="product-card-image">
-              <button class="quick-view-btn">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">The Garrison Tavern Oversized T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="25">£25</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-        </div>
+        <!-- 8. Garrison Tavern Oversized -->
+        <article class="product-card" data-product-id="pb-c8">
+          <div class="product-card-image-wrap">
+            <img src="images/img-14-the-garrison-tavern-oversized-.png" alt="The Garrison Tavern Oversized T-Shirt" class="product-card-image">
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+          <div class="product-card-info">
+            <h3 class="product-card-title">The Garrison Tavern Oversized T-Shirt</h3>
+            <div class="product-card-price tabular-nums" data-base-price="25">£25</div>
+          </div>
+        </article>
       </div>
     </section>
 
