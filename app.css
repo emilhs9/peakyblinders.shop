@@ -308,32 +308,41 @@ button {
 }
 
 /* ==========================================================
-   3. ANNOUNCEMENT STRIP
+   3. ANNOUNCEMENT STRIP (1:1 TEEMILL REPLICA)
    ========================================================== */
 .announcement-strip {
   background-color: #1a1a1a;
   color: #ffffff;
   width: 100%;
-  padding: 0.35rem 1rem;
-  margin: 8px 0;
+  padding: 0.65rem 1rem;
+  margin: 16px 0;
   text-align: center;
   font-family: var(--font-serif);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .announcement-inner {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
+}
+
+.announcement-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .announcement-icon svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
   fill: currentColor;
   display: block;
 }
