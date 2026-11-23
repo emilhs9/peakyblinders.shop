@@ -458,7 +458,7 @@ button {
 }
 
 /* ==========================================================
-   5. 8-ITEM PRODUCT GRID (2 ROWS OF 4)
+   5. 8-ITEM PRODUCT GRID (2 ROWS OF 4 - 1:1 REPLICA)
    ========================================================== */
 .products-grid-section {
   padding: 1.5rem 0 3.5rem 0;
@@ -467,8 +467,22 @@ button {
 .products-grid-8 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem 1.25rem;
+  gap: 2.75rem 1.15rem;
   width: 100%;
+}
+
+.products-grid-8 .product-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  transition: none;
+}
+
+.products-grid-8 .product-card:hover {
+  transform: none;
 }
 
 .products-grid-8 .product-card-image-wrap {
@@ -485,11 +499,61 @@ button {
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: none;
 }
 
 .products-grid-8 .product-card:hover .product-card-image {
-  transform: scale(1.04);
+  transform: none;
+}
+
+.products-grid-8 .quick-view-btn {
+  display: none !important;
+}
+
+.products-grid-8 .product-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+}
+
+.products-grid-8 .product-card-title {
+  font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #000000;
+  margin-bottom: 0.75rem;
+  text-align: left;
+  transition: none;
+}
+
+.products-grid-8 .product-card:hover .product-card-title {
+  color: #000000;
+}
+
+.products-grid-8 .product-card-price {
+  font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .products-grid-8 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .products-grid-8 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 0.75rem;
+  }
 }
 .main-products-section {
   padding: 2.5rem 0 3.5rem 0;

@@ -484,6 +484,78 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCarouselArrows();
   }
 
+  // --- PRODUCT DETAIL PAGE (product.html) ---
+  const productCatalog = {
+    'pb-c1': { title: 'Peaky Blinders Christmas Jumper', basePrice: 40, image: 'images/img-07-peaky-blinders-christmas-jumpe.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-c2': { title: 'No F**king Fighting Hoodie', basePrice: 47, image: 'images/img-08-no-f-king-fighting-hoodie.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-c3': { title: 'Peaky Blinders Winter Jumper', basePrice: 40, image: 'images/img-09-peaky-blinders-winter-jumper.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-c4': { title: 'Small Heath T-Shirt', basePrice: 22, image: 'images/img-10-small-heath-t-shirt.jpg', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-c5': { title: 'Final Notes Hoodie', basePrice: 47, image: 'images/img-11-final-notes-hoodie.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-c6': { title: 'King of Hearts Limted Edition Backprint T-shirt', basePrice: 30, image: 'images/img-12-king-of-hearts-limted-edition-.jpg', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-c7': { title: 'The Streets Belong to Us T-Shirt', basePrice: 22, image: 'images/img-13-the-streets-belong-to-us-t-shi.jpg', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-c8': { title: 'The Garrison Tavern Oversized T-Shirt', basePrice: 25, image: 'images/img-14-the-garrison-tavern-oversized-.png', category: 'Oversized', catUrl: 'oversized.html' },
+    'pb-m1': { title: 'Solomons Bakery Oversized Sweatshirt', basePrice: 35, image: 'images/img-15-solomons-bakery-oversized-swea.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-m2': { title: 'Bleak Midwinter Oversized Sweatshirt', basePrice: 40, image: 'images/img-16-bleak-midwinter-oversized-swea.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-m3': { title: 'The Streets Belong to Us T-Shirt', basePrice: 22, image: 'images/img-17-the-streets-belong-to-us-t-shi.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-m4': { title: 'Take Over T-Shirt', basePrice: 22, image: 'images/img-18-take-over-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-m5': { title: 'No F**king Fighting Hoodie', basePrice: 47, image: 'images/img-19-no-f-king-fighting-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-m6': { title: 'Peaky Blinders Bakerboy Hoodie', basePrice: 47, image: 'images/img-20-peaky-blinders-bakerboy-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-m7': { title: 'King of Hearts T-Shirt', basePrice: 22, image: 'images/img-21-king-of-hearts-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' }
+  };
+
+  const detailTitleEl = document.getElementById('detailTitle');
+  if (detailTitleEl) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const prodId = urlParams.get('id') || 'pb-c1';
+    const product = productCatalog[prodId] || productCatalog['pb-c1'];
+
+    let selectedDetailSize = 'M';
+    const detailImageEl = document.getElementById('detailImage');
+    const detailPriceEl = document.getElementById('detailPrice');
+    const detailBreadcrumbTitleEl = document.getElementById('detailBreadcrumbTitle');
+    const detailCatLinkEl = document.getElementById('detailCatLink');
+    const detailAddBtn = document.getElementById('detailAddBtn');
+    const detailSizePills = document.querySelectorAll('.detail-size-section .size-pill');
+
+    if (product) {
+      document.title = `${product.title} | Peaky Blinders Official Store`;
+      detailTitleEl.textContent = product.title;
+      if (detailBreadcrumbTitleEl) detailBreadcrumbTitleEl.textContent = product.title;
+      if (detailImageEl) {
+        detailImageEl.src = product.image;
+        detailImageEl.alt = product.title;
+      }
+      if (detailPriceEl) {
+        detailPriceEl.setAttribute('data-base-price', product.basePrice);
+        detailPriceEl.textContent = formatPrice(product.basePrice);
+      }
+      if (detailCatLinkEl) {
+        detailCatLinkEl.textContent = product.category;
+        detailCatLinkEl.href = product.catUrl;
+      }
+    }
+
+    detailSizePills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        detailSizePills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        selectedDetailSize = pill.getAttribute('data-size') || 'M';
+      });
+    });
+
+    if (detailAddBtn) {
+      detailAddBtn.addEventListener('click', () => {
+        addToCart({
+          id: prodId,
+          title: product.title,
+          basePrice: product.basePrice,
+          image: product.image,
+          size: selectedDetailSize
+        });
+      });
+    }
+  }
+
   // --- INITIALIZE ---
   renderCart();
   updateAllDisplayedPrices();
