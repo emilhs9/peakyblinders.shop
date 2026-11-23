@@ -586,7 +586,7 @@ button {
 
 /* 6. Peaky Blinders T-Shirts / Best Sellers Carousel Slider (1:1 Replica) */
 .tshirts-carousel-section {
-  padding: 3rem 0 3.5rem 0;
+  padding: 1.5rem 0 3rem 0;
   position: relative;
   width: 100%;
 }
@@ -598,12 +598,12 @@ button {
 
 .tshirts-carousel-track {
   display: flex;
-  gap: 1rem;
+  gap: 12px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 4px 2px;
+  padding: 4px 0;
 }
 
 .tshirts-carousel-track::-webkit-scrollbar {
@@ -611,30 +611,32 @@ button {
 }
 
 .tshirt-carousel-card {
-  flex: 0 0 calc((100% - 7 * 1rem) / 8);
-  min-width: 120px;
+  flex: 0 0 calc((100% - 7 * 12px) / 8);
+  min-width: 105px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  text-decoration: none;
+  color: inherit;
   cursor: pointer;
   background: transparent;
-  transition: transform 0.2s ease;
+  transition: none;
 }
 
 .tshirt-carousel-card:hover {
-  transform: translateY(-2px);
+  transform: none;
 }
 
 .tshirt-card-image-wrap {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: #f7f7f7;
+  background-color: transparent;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 6px;
 }
 
 .tshirt-card-image-wrap img,
@@ -643,43 +645,50 @@ button {
   height: 100%;
   object-fit: contain;
   display: block;
+  transition: none;
 }
 
 .tshirt-card-info {
   text-align: center;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tshirt-card-title {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.75rem;
+  font-size: clamp(0.68rem, 0.8vw, 0.72rem);
   font-weight: 700;
   line-height: 1.25;
   color: #000000;
-  margin-bottom: 0.25rem;
+  margin-bottom: 3px;
   min-height: 2.5em;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  text-align: center;
 }
 
 .tshirt-card-price {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.75rem;
+  font-size: clamp(0.68rem, 0.8vw, 0.72rem);
   font-weight: 700;
   color: #000000;
+  text-align: center;
+  margin: 0;
 }
 
 .tshirts-arrow {
   position: absolute;
-  top: 36%;
+  top: 32%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: #ffffff;
-  border: 1px solid #e2e2e2;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -691,23 +700,44 @@ button {
 .tshirts-arrow:hover {
   background-color: #f8f8f8;
   border-color: #ccc;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .tshirts-arrow.prev {
-  left: -16px;
+  left: -14px;
   display: none;
 }
 
 .tshirts-arrow.next {
-  right: -12px;
+  right: -14px;
 }
 
 .tshirts-arrow svg {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   color: #555555;
   fill: currentColor;
+}
+
+.best-sellers-btn {
+  background-color: #243342;
+  color: #ffffff;
+  font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.best-sellers-btn:hover {
+  background-color: #1a2530;
+  color: #ffffff;
 }
 
 @media (max-width: 1200px) {
