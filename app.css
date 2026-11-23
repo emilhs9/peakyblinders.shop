@@ -17,16 +17,18 @@
   --text-dark: #000000;
   --text-muted: #555555;
   --border-color: #e5e5e5;
-  
+
   --font-serif: 'Courier Prime', Courier, monospace;
   --font-sans: 'Roboto Condensed', 'Roboto Condensed Fallback', -apple-system, BlinkMacSystemFont, sans-serif;
-  
+
   --header-height: 56px;
   --transition-fast: 0.15s ease;
   --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -83,15 +85,21 @@ button {
 }
 
 @media (min-width: 768px) {
-  .container { max-width: 720px; }
+  .container {
+    max-width: 720px;
+  }
 }
 
 @media (min-width: 992px) {
-  .container { max-width: 960px; }
+  .container {
+    max-width: 960px;
+  }
 }
 
 @media (min-width: 1200px) {
-  .container { max-width: 1140px; }
+  .container {
+    max-width: 1140px;
+  }
 }
 
 /* ==========================================================
@@ -173,7 +181,8 @@ button {
   flex-shrink: 0;
 }
 
-.action-btn, .currency-btn {
+.action-btn,
+.currency-btn {
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
@@ -188,11 +197,13 @@ button {
   transition: opacity var(--transition-fast);
 }
 
-.action-btn:hover, .currency-btn:hover {
+.action-btn:hover,
+.currency-btn:hover {
   opacity: 0.7;
 }
 
-.action-btn svg, .currency-btn svg {
+.action-btn svg,
+.currency-btn svg {
   width: auto;
   height: 18px;
   max-height: 18px;
@@ -461,13 +472,13 @@ button {
    5. 8-ITEM PRODUCT GRID (2 ROWS OF 4 - 1:1 REPLICA)
    ========================================================== */
 .products-grid-section {
-  padding: 1.25rem 0 3rem 0;
+  padding: 1rem 0 2.5rem 0;
 }
 
 .products-grid-8 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem 1.15rem;
+  gap: 1.375rem 0.95rem;
   width: 100%;
 }
 
@@ -490,7 +501,7 @@ button {
   overflow: hidden;
   background-color: #f2f2f2;
   position: relative;
-  margin-bottom: 6px;
+  margin-bottom: 0;
 }
 
 .products-grid-8 .product-card-image {
@@ -516,15 +527,16 @@ button {
   align-items: flex-start;
   text-align: left;
   width: 100%;
+  padding-top: 7px;
 }
 
 .products-grid-8 .product-card-title {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.8125rem;
+  font-size: clamp(0.7rem, 0.85vw, 0.76rem);
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.25;
   color: #000000;
-  margin-bottom: 0;
+  margin: 0;
   text-align: left;
   transition: none;
 }
@@ -550,6 +562,7 @@ button {
     gap: 1.5rem 0.75rem;
   }
 }
+
 .main-products-section {
   padding: 2.5rem 0 3.5rem 0;
 }
@@ -1552,7 +1565,8 @@ button {
   transition: all var(--transition-fast);
 }
 
-.size-pill.active, .size-pill:hover {
+.size-pill.active,
+.size-pill:hover {
   background-color: var(--primary-color);
   color: #ffffff;
   border-color: var(--primary-color);
@@ -1666,21 +1680,27 @@ button {
   .category-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .product-carousel-item {
     flex: 0 0 calc((100% - 1.5rem) / 2);
   }
+
   .product-grid-12 {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .highlights-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .trust-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .lookbook-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1690,39 +1710,51 @@ button {
   :root {
     --header-height: 60px;
   }
+
   .header-container {
     justify-content: space-between;
   }
+
   .main-navigation {
     display: none;
   }
+
   .mobile-menu-toggle {
     display: flex;
   }
+
   .hero-section {
     min-height: 400px;
   }
+
   .hero-content {
     padding-bottom: 2rem;
   }
+
   .hero-title {
     font-size: 2.2rem;
   }
+
   .hero-buttons {
     gap: 1rem;
   }
+
   .hero-btn {
     width: 140px;
   }
+
   .product-grid-12 {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .product-carousel-item {
     flex: 0 0 80%;
   }
+
   .footer-grid {
     grid-template-columns: 1fr;
   }
+
   .modal-container {
     grid-template-columns: 1fr;
   }
@@ -1732,12 +1764,15 @@ button {
   .category-grid {
     grid-template-columns: 1fr;
   }
+
   .highlights-grid {
     grid-template-columns: 1fr;
   }
+
   .trust-grid {
     grid-template-columns: 1fr;
   }
+
   .lookbook-grid {
     grid-template-columns: 1fr;
   }
