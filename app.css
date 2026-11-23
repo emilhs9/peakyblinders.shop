@@ -248,7 +248,7 @@ button {
 
 .hero-content {
   position: absolute;
-  bottom: 8%;
+  bottom: 14%;
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
