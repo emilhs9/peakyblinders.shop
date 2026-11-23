@@ -248,11 +248,11 @@ button {
 
 .hero-content {
   position: absolute;
-  bottom: 14%;
+  bottom: calc(14% + 15px);
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
-  max-width: 800px;
+  max-width: 960px;
   padding: 0 1rem;
   text-align: center;
   color: #ffffff;
@@ -261,20 +261,20 @@ button {
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+  font-size: clamp(1.7rem, 3.4vw, 2.9rem);
   font-weight: 700;
   line-height: 1.15;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   color: #ffffff;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
 .hero-subtitle {
   font-family: var(--font-serif);
-  font-size: clamp(0.75rem, 1.1vw, 0.875rem);
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
   line-height: 1.4;
   color: #ffffff;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
 }
 
@@ -282,7 +282,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.1rem;
+  gap: 1.35rem;
 }
 
 .hero-btn {
@@ -292,11 +292,11 @@ button {
   background-color: #ffffff;
   color: #000000;
   font-family: var(--font-serif);
-  font-size: 0.8125rem;
+  font-size: 0.975rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  padding: 0.35rem 0.75rem;
-  width: 116px;
+  padding: 0.45rem 0.9rem;
+  width: 140px;
   border-radius: 0;
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -1642,7 +1642,7 @@ button {
     padding-bottom: 2rem;
   }
   .hero-title {
-    font-size: 1.85rem;
+    font-size: 2.2rem;
   }
   .product-grid-12 {
     grid-template-columns: repeat(2, 1fr);
