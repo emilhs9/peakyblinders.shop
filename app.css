@@ -263,6 +263,7 @@ button {
   font-family: var(--font-serif);
   font-size: clamp(1.85rem, 3.8vw, 2.75rem);
   font-weight: 700;
+  -webkit-text-stroke: 0.35px #ffffff;
   line-height: 1.15;
   margin-bottom: 1.15rem;
   color: #ffffff;
@@ -272,6 +273,8 @@ button {
 .hero-subtitle {
   font-family: var(--font-serif);
   font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+  font-weight: 700;
+  -webkit-text-stroke: 0.2px #ffffff;
   line-height: 1.4;
   color: #ffffff;
   margin-bottom: 2.1rem;
@@ -294,6 +297,7 @@ button {
   font-family: var(--font-serif);
   font-size: 0.8125rem;
   font-weight: 700;
+  -webkit-text-stroke: 0.2px #000000;
   letter-spacing: 0.02em;
   padding: 0.45rem 1rem;
   width: 218px;
