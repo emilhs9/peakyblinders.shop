@@ -120,7 +120,7 @@ button {
 .header-left-group {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .logo-wrapper {
@@ -145,7 +145,7 @@ button {
 .main-navigation {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
+  gap: 1.15rem;
 }
 
 .nav-link {
@@ -169,7 +169,7 @@ button {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  margin-left: 3.75rem;
+  margin-left: clamp(4rem, 8vw, 7.5rem);
   flex-shrink: 0;
 }
 
@@ -248,11 +248,11 @@ button {
 
 .hero-content {
   position: absolute;
-  bottom: calc(14% + 15px);
+  bottom: 18.5%;
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
-  max-width: 860px;
+  max-width: 900px;
   padding: 0 1rem;
   text-align: center;
   color: #ffffff;
@@ -261,31 +261,31 @@ button {
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+  font-size: clamp(1.6rem, 2.7vw, 2.35rem);
   font-weight: 700;
-  -webkit-text-stroke: 0.35px #ffffff;
   line-height: 1.15;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.35rem;
   color: #ffffff;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
 }
 
 .hero-subtitle {
   font-family: var(--font-serif);
-  font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
-  font-weight: 700;
-  -webkit-text-stroke: 0.2px #ffffff;
+  font-size: clamp(0.72rem, 1.05vw, 0.8125rem);
+  font-weight: 400;
   line-height: 1.4;
   color: #ffffff;
-  margin-bottom: 2.1rem;
+  margin-bottom: 2.35rem;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
 }
 
 .hero-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2.1rem;
+  gap: 2.6rem;
 }
 
 .hero-btn {
@@ -295,13 +295,12 @@ button {
   background-color: #ffffff;
   color: #000000;
   font-family: var(--font-serif);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  -webkit-text-stroke: 0.2px #000000;
   letter-spacing: 0.02em;
-  padding: 0.45rem 1rem;
-  width: 218px;
-  height: 32px;
+  padding: 0.35rem 1rem;
+  width: 216px;
+  height: 30px;
   border-radius: 0;
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -320,10 +319,10 @@ button {
   color: #ffffff;
   width: 100%;
   padding: 0.65rem 1rem;
-  margin: 16px 0;
+  margin: 15px 0;
   text-align: center;
   font-family: var(--font-serif);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   border: none;
