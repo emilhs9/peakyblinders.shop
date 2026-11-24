@@ -268,12 +268,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('featuredProductsGrid');
     if (!grid || !products || products.length === 0) return;
 
-    // Take first 8 products
+    // Take first 8 products (exactly matches real peakyblinders.shop homepage)
     const featured = products.slice(0, 8);
     grid.innerHTML = featured.map(p => `
       <a href="product.html?id=${p.id}" class="product-card" data-product-id="${p.id}">
         <div class="product-card-image-wrap">
-          <img src="${p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
+          <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
         </div>
         <div class="product-card-info">
           <h3 class="product-card-title">${p.name}</h3>
@@ -287,19 +287,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('tshirtsCarouselTrack');
     if (!track || !products || products.length === 0) return;
 
-    // Take 12 items for carousel (mix of sweatshirts and t-shirts)
-    const carouselItems = products.slice(8, 20);
-    const cardsHtml = carouselItems.map(p => `
-      <a href="product.html?id=${p.id}" class="tshirt-carousel-card" data-product-id="${p.id}">
-        <div class="tshirt-card-image-wrap">
-          <img src="${p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
-        </div>
-        <div class="tshirt-card-info">
-          <h3 class="tshirt-card-title">${p.name}</h3>
-          <div class="tshirt-card-price tabular-nums" data-base-price="${p.price}">${formatPrice(p.price)}</div>
-        </div>
-      </a>
-    `).join('');
+    // 12 carousel products exactly matching the real peakyblinders.shop slider
+    const carouselConfig = [
+      { id: 'solomons-bakery-oversized-sweatshi', name: 'Solomons Bakery Oversized Sweatshirt', price: 35, image: 'images/img-15-solomons-bakery-oversized-swea.png' },
+      { id: 'bleak-midwinter-oversized-jumper', name: 'Bleak Midwinter Oversized Sweatshirt', price: 40, image: 'images/img-16-bleak-midwinter-oversized-swea.png' },
+      { id: 'the-streets-belong-to-us-t-shirt', name: 'The Streets Belong to Us T-Shirt', price: 22, image: 'images/img-17-the-streets-belong-to-us-t-shi.png' },
+      { id: 'peaky-blinders-women-t-shirt', name: 'Take Over T-Shirt', price: 22, image: 'images/img-18-take-over-t-shirt.png' },
+      { id: 'peaky-blinders-merch-hoodie', name: 'No F**king Fighting Hoodie', price: 47, image: 'images/img-19-no-f-king-fighting-hoodie.png' },
+      { id: 'peaky-blinders-by-order-hoodie', name: 'Peaky Blinders Bakerboy Hoodie', price: 47, image: 'images/img-20-peaky-blinders-bakerboy-hoodie.png' },
+      { id: 'king-of-hearts-t-shirt', name: 'King of Hearts T-Shirt', price: 22, image: 'images/img-21-king-of-hearts-t-shirt.png' },
+      { id: 'bleak-midwinter-t-shirt', name: 'Bleak Midwinter T-Shirt', price: 22, image: 'images/img-22-bleak-midwinter-t-shirt.png' },
+      { id: 'solomons-bakery-t-shirt', name: 'Solomons Bakery T-Shirt', price: 22, image: 'images/img-23-solomons-bakery-t-shirt.png' },
+      { id: 'the-final-message-t-shirt', name: 'Letter to Tom Shelby T-Shirt', price: 22, image: 'images/img-24-letter-to-tom-shelby-t-shirt.png' },
+      { id: 'peaky-blinders-king-of-hearts-t-shirt', name: 'King of Hearts (Back Print) T-Shirt', price: 30, image: 'images/img-35-king-of-hearts-backprint.png' },
+      { id: 'shelby-co-ltd-t-shirt', name: 'Shelby Co. Ltd T-Shirt', price: 22, image: 'images/img-36-shelby-co-ltd-t-shirt.png' }
+    ];
+
+    const cardsHtml = carouselConfig.map(c => {
+      const p = products.find(prod => prod.id === c.id) || c;
+      const title = c.name;
+      const img = c.image || p.image;
+      const price = c.price || p.price;
+      return `
+        <a href="product.html?id=${c.id}" class="tshirt-carousel-card" data-product-id="${c.id}">
+          <div class="tshirt-card-image-wrap">
+            <img src="${img}" alt="${title}" class="product-card-image" loading="lazy">
+          </div>
+          <div class="tshirt-card-info">
+            <h3 class="tshirt-card-title">${title}</h3>
+            <div class="tshirt-card-price tabular-nums" data-base-price="${price}">${formatPrice(price)}</div>
+          </div>
+        </a>
+      `;
+    }).join('');
 
     track.innerHTML = cardsHtml + '<div class="tshirt-carousel-spacer" aria-hidden="true"></div>';
 

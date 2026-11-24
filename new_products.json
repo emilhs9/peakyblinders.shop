@@ -11,6 +11,868 @@
   },
   "products": [
     {
+      "id": "peaky-blinders-christmas-jumper",
+      "name": "Peaky Blinders Christmas Jumper",
+      "category": "Hoodies & Sweatshirts",
+      "price": 40,
+      "image": "https://images.podos.io/36643e7dc3f5638387d748732e3bd48b032467e65c5c1d10.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-christmas-jumper/",
+      "variants": [
+        {
+          "color": "Black",
+          "colorHex": "#000000",
+          "sizes": [
+            {
+              "size": "S",
+              "price": 40,
+              "variantId": "a2b80da2-9206-4c6e-9f51-c7b31b0ccc9b"
+            },
+            {
+              "size": "M",
+              "price": 40,
+              "variantId": "a2b80da2-b703-439f-a63b-ab1788b8a568"
+            },
+            {
+              "size": "L",
+              "price": 40,
+              "variantId": "a2b80da2-cd0d-4f90-aaeb-bdf1bfc48c25"
+            },
+            {
+              "size": "XL",
+              "price": 40,
+              "variantId": "a2b80da2-dba4-42d0-b4d7-3d4c226950d3"
+            },
+            {
+              "size": "XXL",
+              "price": 40,
+              "variantId": "a2b80da2-eab7-4d1a-8e6c-adca0619e812"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-07-peaky-blinders-christmas-jumpe.jpg"
+    },
+    {
+      "id": "peaky-blinders-merch-hoodie",
+      "name": "No F**king Fighting Hoodie",
+      "category": "Hoodies & Sweatshirts",
+      "price": 47,
+      "image": "https://images.podos.io/7e504eed7d495efb071f3a8199de25f802904e36ef43ac81.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-merch-hoodie/",
+      "variants": [
+        {
+          "color": "Black",
+          "colorHex": "#000000",
+          "sizes": [
+            {
+              "size": "S",
+              "price": 47,
+              "variantId": "a151ff48-d3e5-421c-8ac5-3f664fdda3a5"
+            },
+            {
+              "size": "M",
+              "price": 47,
+              "variantId": "a151ff48-f6c7-4445-9e30-6ae45578c4f5"
+            },
+            {
+              "size": "L",
+              "price": 47,
+              "variantId": "a151ff49-0349-45ce-8d3a-2bf65ae029e2"
+            },
+            {
+              "size": "XL",
+              "price": 47,
+              "variantId": "a151ff49-0ff2-40fc-884e-df4b12366454"
+            },
+            {
+              "size": "XXL",
+              "price": 47,
+              "variantId": "a151ff49-1d54-463c-a7fd-3bba54afba55"
+            },
+            {
+              "size": "XXXL",
+              "price": 47,
+              "variantId": "a151ff49-2a27-4523-b052-86bff1bbe627"
+            },
+            {
+              "size": "XXXXL",
+              "price": 47,
+              "variantId": "a151ff49-378a-4b78-988a-a672109afc1e"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 47,
+              "variantId": "a151ff49-4486-4b68-898c-bdac8081429a"
+            }
+          ]
+        },
+        {
+          "color": "Slate Grey",
+          "colorHex": "#72827e",
+          "sizes": [
+            {
+              "size": "S",
+              "price": 47,
+              "variantId": "a15200ac-6d27-4561-b1d2-9b79d0d25eb7"
+            },
+            {
+              "size": "M",
+              "price": 47,
+              "variantId": "a15200ac-7e66-4844-bb55-d598967f8b21"
+            },
+            {
+              "size": "L",
+              "price": 47,
+              "variantId": "a15200ac-8c5b-464e-ad69-850cd7831cc2"
+            },
+            {
+              "size": "XL",
+              "price": 47,
+              "variantId": "a15200ac-9bb5-4f68-a8f9-97da3140dc32"
+            },
+            {
+              "size": "XXL",
+              "price": 47,
+              "variantId": "a15200ac-aad7-40b6-9036-acfdd1f4c433"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-08-no-f-king-fighting-hoodie.jpg"
+    },
+    {
+      "id": "peaky-blinders-winter-jumper",
+      "name": "Peaky Blinders Winter Jumper",
+      "category": "Hoodies & Sweatshirts",
+      "price": 40,
+      "image": "https://images.podos.io/b438fc0370e0f4e6a3c218513cf353d178cf70d04c389128.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-winter-jumper/",
+      "variants": [
+        {
+          "color": "Black",
+          "colorHex": "#000000",
+          "sizes": [
+            {
+              "size": "8",
+              "price": 40,
+              "variantId": "a2b810c3-c5d6-4c2a-800c-1fba4b133b30"
+            },
+            {
+              "size": "10",
+              "price": 40,
+              "variantId": "a2b810c3-eb62-4854-a9d8-0580f37297b1"
+            },
+            {
+              "size": "12",
+              "price": 40,
+              "variantId": "a2b810c4-0037-473e-8e6c-153a8f67769e"
+            },
+            {
+              "size": "14",
+              "price": 40,
+              "variantId": "a2b810c4-0be4-404d-8d0c-b8934c353200"
+            },
+            {
+              "size": "16",
+              "price": 40,
+              "variantId": "a2b810c4-1b30-4ce7-befe-7b6a193da2e3"
+            },
+            {
+              "size": "18",
+              "price": 40,
+              "variantId": "a2b810c4-4cee-435b-9b8d-812478ef14c1"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-09-peaky-blinders-winter-jumper.jpg"
+    },
+    {
+      "id": "peaky-blinders-silhouette-t-shirt",
+      "name": "Small Heath T-Shirt",
+      "category": "T-shirts",
+      "price": 22,
+      "image": "https://images.podos.io/a0cc6e0555fbb0ea6848c67199e5540cb60efb77ceadedf3.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-silhouette-t-shirt/",
+      "variants": [
+        {
+          "color": "White",
+          "colorHex": "#ffffff",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a075082d-5414-47f8-bc8d-0da6962a0c3b"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a075082d-88f4-4137-b648-102bc8a81a52"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a075082d-a993-4c8b-b110-ed92895f48cf"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a075082d-bde7-41ac-8462-0e0b3ef5d53a"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a075082d-d265-4711-b320-c03fe0eb82da"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a075082d-e74a-4674-97e2-3ea7a0b7b502"
+            },
+            {
+              "size": "XXXL",
+              "price": 22,
+              "variantId": "a075082d-fc91-4783-ad5d-13dff3a953bb"
+            },
+            {
+              "size": "XXXXL",
+              "price": 22,
+              "variantId": "a075082e-136d-40fa-b852-1df899ee4971"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 22,
+              "variantId": "a075082e-2b65-49ab-8ba5-4d437eee11ea"
+            }
+          ]
+        },
+        {
+          "color": "Stone Blue",
+          "colorHex": "#899EAB",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a105dc2c-d726-4356-baec-7f9dca763af7"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a105dc38-5588-4e5f-8e13-0796a8cf5f36"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a105dc38-74c2-49ca-a113-246a39e425c3"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a105dc38-9502-4bb8-a835-7bb2c2d902db"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a105dc38-b576-4754-9387-6974ceabbf4d"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a105dc38-d58f-45d9-89ad-7fe13be465da"
+            },
+            {
+              "size": "XXXL",
+              "price": 22,
+              "variantId": "a105dc38-f6f5-4797-9c0e-0a6db7984ef2"
+            },
+            {
+              "size": "XXXXL",
+              "price": 22,
+              "variantId": "a105dc39-0d5c-4568-b0ae-d0d87629cf99"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 22,
+              "variantId": "a105dc39-2416-4222-bfc5-993c06499455"
+            }
+          ]
+        },
+        {
+          "color": "Athletic Grey",
+          "colorHex": "#B3B3B3",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a105dc33-64b0-4a2c-83db-ffb7c5909c57"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a105dc38-6005-4f1b-9ed9-a5a67066578a"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a105dc38-7f8e-41ff-a7ea-701aa7d23688"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a105dc38-9ffc-427d-804f-66ec14198d3f"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a105dc38-c0a1-4f44-8b06-1ed6603496a9"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a105dc38-e16d-468e-9acc-ec3313951091"
+            },
+            {
+              "size": "XXXL",
+              "price": 22,
+              "variantId": "a105dc39-0241-4d60-b028-d834fbc4420d"
+            },
+            {
+              "size": "XXXXL",
+              "price": 22,
+              "variantId": "a105dc39-18fa-4f8f-bdb9-02aa42e109bc"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 22,
+              "variantId": "a105dc39-2f95-4dcd-9e7e-9ed782bef624"
+            }
+          ]
+        },
+        {
+          "color": "Oat",
+          "colorHex": "#E7DDCC",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a105dc38-4a01-43cb-9d84-25dcce175da7"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a105dc38-6945-40df-b65d-a67f7efdb9f7"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a105dc38-89be-418f-9fab-dbc79f00be5f"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a105dc38-aaec-4c29-8cd0-1642e8d06ffc"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a105dc38-ca5a-450a-9c78-ad5c7a47fe6a"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a105dc38-ec24-492c-8ea4-1aa8daaa3d42"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-10-small-heath-t-shirt.jpg"
+    },
+    {
+      "id": "peaky-blinders-final-notes-hoodie",
+      "name": "Final Notes Hoodie",
+      "category": "Hoodies & Sweatshirts",
+      "price": 47,
+      "image": "https://images.podos.io/589fd91795c29d6ad96a035f6dba857d037805b737c8c683.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-final-notes-hoodie/",
+      "variants": [
+        {
+          "color": "Black",
+          "colorHex": "#000000",
+          "sizes": [
+            {
+              "size": "S",
+              "price": 47,
+              "variantId": "a1520082-ad67-4f91-ae61-9c46563ca9b8"
+            },
+            {
+              "size": "M",
+              "price": 47,
+              "variantId": "a1520082-f134-41a2-a130-69cfdae4b007"
+            },
+            {
+              "size": "L",
+              "price": 47,
+              "variantId": "a1520083-1974-449e-bd2f-92a3dbabfaf7"
+            },
+            {
+              "size": "XL",
+              "price": 47,
+              "variantId": "a1520083-4107-47a8-80c6-8c806f946219"
+            },
+            {
+              "size": "XXL",
+              "price": 47,
+              "variantId": "a1520083-68c2-453e-86ff-557733d6534c"
+            },
+            {
+              "size": "XXXL",
+              "price": 47,
+              "variantId": "a1520083-9913-487c-a10b-8f5fd38b9cb5"
+            },
+            {
+              "size": "XXXXL",
+              "price": 47,
+              "variantId": "a1520083-b88a-47ad-adfc-4ed1773149a7"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 47,
+              "variantId": "a1520083-cccf-4949-9b4f-cdb75f117d19"
+            }
+          ]
+        },
+        {
+          "color": "Slate Grey",
+          "colorHex": "#72827e",
+          "sizes": [
+            {
+              "size": "S",
+              "price": 47,
+              "variantId": "a1520082-cd5e-4be3-8632-e1a20c6e3806"
+            },
+            {
+              "size": "M",
+              "price": 47,
+              "variantId": "a1520082-fac3-4405-91d8-658f6b0bb13f"
+            },
+            {
+              "size": "L",
+              "price": 47,
+              "variantId": "a1520083-2376-4a4f-ada4-957167426940"
+            },
+            {
+              "size": "XL",
+              "price": 47,
+              "variantId": "a1520083-4b38-4387-9aa6-c5d223592a49"
+            },
+            {
+              "size": "XXL",
+              "price": 47,
+              "variantId": "a1520083-73e4-4ee6-bf23-f86d3b6f7257"
+            }
+          ]
+        },
+        {
+          "color": "Navy",
+          "colorHex": "#0d1b30",
+          "sizes": [
+            {
+              "size": "S",
+              "price": 47,
+              "variantId": "a1520082-d818-4e56-84d6-195807ac2754"
+            },
+            {
+              "size": "M",
+              "price": 47,
+              "variantId": "a1520083-054c-40bb-b5fc-1eda9dfdf08c"
+            },
+            {
+              "size": "L",
+              "price": 47,
+              "variantId": "a1520083-2d0d-44c9-a95b-b31116985cce"
+            },
+            {
+              "size": "XL",
+              "price": 47,
+              "variantId": "a1520083-558a-442d-9a15-ab1866980517"
+            },
+            {
+              "size": "XXL",
+              "price": 47,
+              "variantId": "a1520083-8f46-46c6-ba31-8263653a2cff"
+            },
+            {
+              "size": "XXXL",
+              "price": 47,
+              "variantId": "a1520083-adf3-4311-b5a5-25e6b216bcc4"
+            },
+            {
+              "size": "XXXXL",
+              "price": 47,
+              "variantId": "a1520083-c21d-4c17-9266-12eb08080ced"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 47,
+              "variantId": "a1520083-dd1d-402a-8650-666675d53483"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-11-final-notes-hoodie.jpg"
+    },
+    {
+      "id": "peaky-blinders-king-of-hearts-t-shirt",
+      "name": "King of Hearts Limted Edition Backprint T-shirt",
+      "category": "T-shirts",
+      "price": 30,
+      "image": "https://images.podos.io/88cb7de3c3b546f19fb6d76c6fd1e048eb3c2b495096243b.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-king-of-hearts-t-shirt/",
+      "variants": [
+        {
+          "color": "White",
+          "colorHex": "#ffffff",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 30,
+              "variantId": "a1504fb8-56e5-472d-9e71-085d16f74647"
+            },
+            {
+              "size": "S",
+              "price": 30,
+              "variantId": "a1504fb8-6718-4263-9bb6-541afbb45c34"
+            },
+            {
+              "size": "M",
+              "price": 30,
+              "variantId": "a1504fb8-77a2-4b53-8479-3fab71a46ac7"
+            },
+            {
+              "size": "L",
+              "price": 30,
+              "variantId": "a1504fb8-83e7-4223-aefc-f36238fb0bff"
+            },
+            {
+              "size": "XL",
+              "price": 30,
+              "variantId": "a1504fb8-9108-41ee-99f6-ce634283f511"
+            },
+            {
+              "size": "XXL",
+              "price": 30,
+              "variantId": "a1504fb8-9f2b-4f59-935c-b14cb076bdb4"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-12-king-of-hearts-limted-edition-.jpg"
+    },
+    {
+      "id": "the-streets-belong-to-us-t-shirt",
+      "name": "The Streets Belong to Us T-Shirt",
+      "category": "T-shirts",
+      "price": 22,
+      "image": "https://images.podos.io/82e5434f9e2bd68bf5b371d7c43817f11da11792d32f7b99.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/the-streets-belong-to-us-t-shirt/",
+      "variants": [
+        {
+          "color": "Slate Grey",
+          "colorHex": "#606263",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a20118f5-0ed3-4df0-aaa1-11a181b8c9ef"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a20118f5-1cf1-4b34-9c34-901fd8c9d1d5"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a20118f5-3b5a-4acf-b263-faeec8d8914b"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a20118f5-47ac-4486-97c0-0a2729a1c9df"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a20118f5-5471-44fd-a23b-1213c4eb8f5b"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a20118f5-66b5-4df1-8a77-04fb5304b1fc"
+            }
+          ]
+        },
+        {
+          "color": "Navy Blue",
+          "colorHex": "#0d1b30",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a235856e-b849-4820-ae64-cdd63d732458"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a2358577-0bd7-4470-ade9-2b6557df6993"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a2358577-3822-459c-9345-d4f3738c6d10"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a2358577-665a-4126-9cfc-9c4f527d8f60"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a2358577-921c-4509-8cd6-47c946f9419f"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a2358577-bb74-450b-b176-d95b6bba89ca"
+            },
+            {
+              "size": "XXXL",
+              "price": 22,
+              "variantId": "a2358577-e7ba-4931-9ad8-e183ed64e152"
+            },
+            {
+              "size": "XXXXL",
+              "price": 22,
+              "variantId": "a2358578-072c-470b-9c28-1b967ef3d03d"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 22,
+              "variantId": "a2358578-26a5-4a02-9fe6-a3477ed9bc71"
+            }
+          ]
+        },
+        {
+          "color": "Black",
+          "colorHex": "#000000",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a2358572-ba3a-4a20-9807-8e9b4e0ba072"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a2358577-1a82-4fee-9a43-dde774c39122"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a2358577-485d-444e-a0e7-62707d81252c"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a2358577-7595-4cc9-b4b9-8dc79eb9927d"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a2358577-9f6b-4803-b9e3-6cdf69fcaa86"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a2358577-ca62-4808-9768-444b9bd5f02c"
+            },
+            {
+              "size": "XXXL",
+              "price": 22,
+              "variantId": "a2358577-f72a-4e7a-a46f-0e780354b5a5"
+            },
+            {
+              "size": "XXXXL",
+              "price": 22,
+              "variantId": "a2358578-16ee-446a-9846-27bdfb711528"
+            },
+            {
+              "size": "XXXXXL",
+              "price": 22,
+              "variantId": "a2358578-3597-4e17-9511-57907dc7429b"
+            }
+          ]
+        },
+        {
+          "color": "Chocolate",
+          "colorHex": "#493b39",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 22,
+              "variantId": "a2358576-fc5b-44f8-a026-076d5b675a31"
+            },
+            {
+              "size": "S",
+              "price": 22,
+              "variantId": "a2358577-2776-42d9-b384-f6e4415563ff"
+            },
+            {
+              "size": "M",
+              "price": 22,
+              "variantId": "a2358577-5727-40c6-85b4-c89607b08732"
+            },
+            {
+              "size": "L",
+              "price": 22,
+              "variantId": "a2358577-831a-46be-b5ef-71326e5d6010"
+            },
+            {
+              "size": "XL",
+              "price": 22,
+              "variantId": "a2358577-ac7d-4a7d-801b-6141a283cfc1"
+            },
+            {
+              "size": "XXL",
+              "price": 22,
+              "variantId": "a2358577-d78d-4e97-8822-1cd5a91b2fae"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-13-the-streets-belong-to-us-t-shi.jpg"
+    },
+    {
+      "id": "the-garrison-tavern-oversized-t-shirt",
+      "name": "The Garrison Tavern Oversized T-Shirt",
+      "category": "T-shirts",
+      "price": 25,
+      "image": "https://images.podos.io/6ffb33ca49662aae7d516e6050f7ecbf833078bbb9146650.png.jpg?w=640&h=auto",
+      "productUrl": "https://peakyblinders.shop/product/the-garrison-tavern-oversized-t-shirt/",
+      "variants": [
+        {
+          "color": "Black",
+          "colorHex": "#000000",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 25,
+              "variantId": "a20ba041-0068-4c29-8d7e-bb4f04323a54"
+            },
+            {
+              "size": "S",
+              "price": 25,
+              "variantId": "a20ba041-25b6-4f4c-9f96-a8954a3d1be7"
+            },
+            {
+              "size": "M",
+              "price": 25,
+              "variantId": "a20ba041-3391-4da1-a7ef-a7f3042bdfe8"
+            },
+            {
+              "size": "L",
+              "price": 25,
+              "variantId": "a20ba041-41e0-4b8b-88bf-0adaebf258bc"
+            },
+            {
+              "size": "XL",
+              "price": 25,
+              "variantId": "a20ba041-4fa1-4d40-9e0c-4e68ca879912"
+            },
+            {
+              "size": "XXL",
+              "price": 25,
+              "variantId": "a20ba041-5cff-466a-9833-de771a4e5056"
+            }
+          ]
+        },
+        {
+          "color": "Evergreen",
+          "colorHex": "#23312d",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 25,
+              "variantId": "a23585b5-30ad-4d21-a679-ba19b5c2043c"
+            },
+            {
+              "size": "S",
+              "price": 25,
+              "variantId": "a23585bf-1103-4c70-b036-67d55c82ec9e"
+            },
+            {
+              "size": "M",
+              "price": 25,
+              "variantId": "a23585bf-3387-4ba4-82e1-1b55c1749a2f"
+            },
+            {
+              "size": "L",
+              "price": 25,
+              "variantId": "a23585bf-5a1f-4ad8-972c-250459962cae"
+            },
+            {
+              "size": "XL",
+              "price": 25,
+              "variantId": "a23585bf-81f9-43c6-b200-ce8033dada71"
+            },
+            {
+              "size": "XXL",
+              "price": 25,
+              "variantId": "a23585bf-a825-4602-b813-a81e559c14a9"
+            }
+          ]
+        },
+        {
+          "color": "Navy",
+          "colorHex": "#0D0D25",
+          "sizes": [
+            {
+              "size": "XS",
+              "price": 25,
+              "variantId": "a23585bb-1388-47bc-8c0a-d54bdf8ee1c5"
+            },
+            {
+              "size": "S",
+              "price": 25,
+              "variantId": "a23585bf-1ce1-48ce-a40d-99ee78d28f5b"
+            },
+            {
+              "size": "M",
+              "price": 25,
+              "variantId": "a23585bf-403d-4093-b505-a3166c877901"
+            },
+            {
+              "size": "L",
+              "price": 25,
+              "variantId": "a23585bf-67bb-476d-b23a-1a7c670b1c4a"
+            },
+            {
+              "size": "XL",
+              "price": 25,
+              "variantId": "a23585bf-8e86-448d-8def-e45439e9db8e"
+            },
+            {
+              "size": "XXL",
+              "price": 25,
+              "variantId": "a23585bf-b9a8-4554-914b-49cccd159f3f"
+            }
+          ]
+        }
+      ],
+      "featuredImage": "images/img-14-the-garrison-tavern-oversized-.png"
+    },
+    {
       "id": "garrison-peaky-blinders-t-shirt",
       "name": "The Garrison (Dark) T-Shirt",
       "category": "T-shirts",
@@ -3662,205 +4524,6 @@
       ]
     },
     {
-      "id": "peaky-blinders-silhouette-t-shirt",
-      "name": "Peaky Blinders Small Heath T-Shirt",
-      "category": "T-shirts",
-      "price": 22,
-      "image": "https://images.podos.io/a0cc6e0555fbb0ea6848c67199e5540cb60efb77ceadedf3.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-silhouette-t-shirt/",
-      "variants": [
-        {
-          "color": "White",
-          "colorHex": "#ffffff",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a075082d-5414-47f8-bc8d-0da6962a0c3b"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a075082d-88f4-4137-b648-102bc8a81a52"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a075082d-a993-4c8b-b110-ed92895f48cf"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a075082d-bde7-41ac-8462-0e0b3ef5d53a"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a075082d-d265-4711-b320-c03fe0eb82da"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a075082d-e74a-4674-97e2-3ea7a0b7b502"
-            },
-            {
-              "size": "XXXL",
-              "price": 22,
-              "variantId": "a075082d-fc91-4783-ad5d-13dff3a953bb"
-            },
-            {
-              "size": "XXXXL",
-              "price": 22,
-              "variantId": "a075082e-136d-40fa-b852-1df899ee4971"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 22,
-              "variantId": "a075082e-2b65-49ab-8ba5-4d437eee11ea"
-            }
-          ]
-        },
-        {
-          "color": "Stone Blue",
-          "colorHex": "#899EAB",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a105dc2c-d726-4356-baec-7f9dca763af7"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a105dc38-5588-4e5f-8e13-0796a8cf5f36"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a105dc38-74c2-49ca-a113-246a39e425c3"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a105dc38-9502-4bb8-a835-7bb2c2d902db"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a105dc38-b576-4754-9387-6974ceabbf4d"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a105dc38-d58f-45d9-89ad-7fe13be465da"
-            },
-            {
-              "size": "XXXL",
-              "price": 22,
-              "variantId": "a105dc38-f6f5-4797-9c0e-0a6db7984ef2"
-            },
-            {
-              "size": "XXXXL",
-              "price": 22,
-              "variantId": "a105dc39-0d5c-4568-b0ae-d0d87629cf99"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 22,
-              "variantId": "a105dc39-2416-4222-bfc5-993c06499455"
-            }
-          ]
-        },
-        {
-          "color": "Athletic Grey",
-          "colorHex": "#B3B3B3",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a105dc33-64b0-4a2c-83db-ffb7c5909c57"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a105dc38-6005-4f1b-9ed9-a5a67066578a"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a105dc38-7f8e-41ff-a7ea-701aa7d23688"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a105dc38-9ffc-427d-804f-66ec14198d3f"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a105dc38-c0a1-4f44-8b06-1ed6603496a9"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a105dc38-e16d-468e-9acc-ec3313951091"
-            },
-            {
-              "size": "XXXL",
-              "price": 22,
-              "variantId": "a105dc39-0241-4d60-b028-d834fbc4420d"
-            },
-            {
-              "size": "XXXXL",
-              "price": 22,
-              "variantId": "a105dc39-18fa-4f8f-bdb9-02aa42e109bc"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 22,
-              "variantId": "a105dc39-2f95-4dcd-9e7e-9ed782bef624"
-            }
-          ]
-        },
-        {
-          "color": "Oat",
-          "colorHex": "#E7DDCC",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a105dc38-4a01-43cb-9d84-25dcce175da7"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a105dc38-6945-40df-b65d-a67f7efdb9f7"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a105dc38-89be-418f-9fab-dbc79f00be5f"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a105dc38-aaec-4c29-8cd0-1642e8d06ffc"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a105dc38-ca5a-450a-9c78-ad5c7a47fe6a"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a105dc38-ec24-492c-8ea4-1aa8daaa3d42"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "peaky-blinders-small-heath-hoodie",
       "name": "Peaky Blinders Hoodie",
       "category": "Hoodies & Sweatshirts",
@@ -5808,52 +6471,6 @@
       ]
     },
     {
-      "id": "peaky-blinders-king-of-hearts-t-shirt",
-      "name": "King of Hearts (Back Print) T-Shirt",
-      "category": "T-shirts",
-      "price": 30,
-      "image": "https://images.podos.io/88cb7de3c3b546f19fb6d76c6fd1e048eb3c2b495096243b.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-king-of-hearts-t-shirt/",
-      "variants": [
-        {
-          "color": "White",
-          "colorHex": "#ffffff",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 30,
-              "variantId": "a1504fb8-56e5-472d-9e71-085d16f74647"
-            },
-            {
-              "size": "S",
-              "price": 30,
-              "variantId": "a1504fb8-6718-4263-9bb6-541afbb45c34"
-            },
-            {
-              "size": "M",
-              "price": 30,
-              "variantId": "a1504fb8-77a2-4b53-8479-3fab71a46ac7"
-            },
-            {
-              "size": "L",
-              "price": 30,
-              "variantId": "a1504fb8-83e7-4223-aefc-f36238fb0bff"
-            },
-            {
-              "size": "XL",
-              "price": 30,
-              "variantId": "a1504fb8-9108-41ee-99f6-ce634283f511"
-            },
-            {
-              "size": "XXL",
-              "price": 30,
-              "variantId": "a1504fb8-9f2b-4f59-935c-b14cb076bdb4"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "no-fking-fighting-limited-edition-oversize-t-shirt",
       "name": "No F**king Fighting Limited Edition Oversized T-Shirt",
       "category": "T-shirts",
@@ -6758,139 +7375,6 @@
       ]
     },
     {
-      "id": "peaky-blinders-final-notes-hoodie",
-      "name": "Letter to Tom Shelby Hoodie",
-      "category": "Hoodies & Sweatshirts",
-      "price": 47,
-      "image": "https://images.podos.io/589fd91795c29d6ad96a035f6dba857d037805b737c8c683.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-final-notes-hoodie/",
-      "variants": [
-        {
-          "color": "Black",
-          "colorHex": "#000000",
-          "sizes": [
-            {
-              "size": "S",
-              "price": 47,
-              "variantId": "a1520082-ad67-4f91-ae61-9c46563ca9b8"
-            },
-            {
-              "size": "M",
-              "price": 47,
-              "variantId": "a1520082-f134-41a2-a130-69cfdae4b007"
-            },
-            {
-              "size": "L",
-              "price": 47,
-              "variantId": "a1520083-1974-449e-bd2f-92a3dbabfaf7"
-            },
-            {
-              "size": "XL",
-              "price": 47,
-              "variantId": "a1520083-4107-47a8-80c6-8c806f946219"
-            },
-            {
-              "size": "XXL",
-              "price": 47,
-              "variantId": "a1520083-68c2-453e-86ff-557733d6534c"
-            },
-            {
-              "size": "XXXL",
-              "price": 47,
-              "variantId": "a1520083-9913-487c-a10b-8f5fd38b9cb5"
-            },
-            {
-              "size": "XXXXL",
-              "price": 47,
-              "variantId": "a1520083-b88a-47ad-adfc-4ed1773149a7"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 47,
-              "variantId": "a1520083-cccf-4949-9b4f-cdb75f117d19"
-            }
-          ]
-        },
-        {
-          "color": "Slate Grey",
-          "colorHex": "#72827e",
-          "sizes": [
-            {
-              "size": "S",
-              "price": 47,
-              "variantId": "a1520082-cd5e-4be3-8632-e1a20c6e3806"
-            },
-            {
-              "size": "M",
-              "price": 47,
-              "variantId": "a1520082-fac3-4405-91d8-658f6b0bb13f"
-            },
-            {
-              "size": "L",
-              "price": 47,
-              "variantId": "a1520083-2376-4a4f-ada4-957167426940"
-            },
-            {
-              "size": "XL",
-              "price": 47,
-              "variantId": "a1520083-4b38-4387-9aa6-c5d223592a49"
-            },
-            {
-              "size": "XXL",
-              "price": 47,
-              "variantId": "a1520083-73e4-4ee6-bf23-f86d3b6f7257"
-            }
-          ]
-        },
-        {
-          "color": "Navy",
-          "colorHex": "#0d1b30",
-          "sizes": [
-            {
-              "size": "S",
-              "price": 47,
-              "variantId": "a1520082-d818-4e56-84d6-195807ac2754"
-            },
-            {
-              "size": "M",
-              "price": 47,
-              "variantId": "a1520083-054c-40bb-b5fc-1eda9dfdf08c"
-            },
-            {
-              "size": "L",
-              "price": 47,
-              "variantId": "a1520083-2d0d-44c9-a95b-b31116985cce"
-            },
-            {
-              "size": "XL",
-              "price": 47,
-              "variantId": "a1520083-558a-442d-9a15-ab1866980517"
-            },
-            {
-              "size": "XXL",
-              "price": 47,
-              "variantId": "a1520083-8f46-46c6-ba31-8263653a2cff"
-            },
-            {
-              "size": "XXXL",
-              "price": 47,
-              "variantId": "a1520083-adf3-4311-b5a5-25e6b216bcc4"
-            },
-            {
-              "size": "XXXXL",
-              "price": 47,
-              "variantId": "a1520083-c21d-4c17-9266-12eb08080ced"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 47,
-              "variantId": "a1520083-dd1d-402a-8650-666675d53483"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "the-final-message-t-shirt",
       "name": "Letter to Tom Shelby T-Shirt",
       "category": "T-shirts",
@@ -7086,93 +7570,6 @@
               "size": "One Size",
               "price": 20,
               "variantId": "a152a1c4-05f7-4ca5-9b7f-b393db5f3755"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "peaky-blinders-merch-hoodie",
-      "name": "No F**king Fighting Hoodie",
-      "category": "Hoodies & Sweatshirts",
-      "price": 47,
-      "image": "https://images.podos.io/7e504eed7d495efb071f3a8199de25f802904e36ef43ac81.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-merch-hoodie/",
-      "variants": [
-        {
-          "color": "Black",
-          "colorHex": "#000000",
-          "sizes": [
-            {
-              "size": "S",
-              "price": 47,
-              "variantId": "a151ff48-d3e5-421c-8ac5-3f664fdda3a5"
-            },
-            {
-              "size": "M",
-              "price": 47,
-              "variantId": "a151ff48-f6c7-4445-9e30-6ae45578c4f5"
-            },
-            {
-              "size": "L",
-              "price": 47,
-              "variantId": "a151ff49-0349-45ce-8d3a-2bf65ae029e2"
-            },
-            {
-              "size": "XL",
-              "price": 47,
-              "variantId": "a151ff49-0ff2-40fc-884e-df4b12366454"
-            },
-            {
-              "size": "XXL",
-              "price": 47,
-              "variantId": "a151ff49-1d54-463c-a7fd-3bba54afba55"
-            },
-            {
-              "size": "XXXL",
-              "price": 47,
-              "variantId": "a151ff49-2a27-4523-b052-86bff1bbe627"
-            },
-            {
-              "size": "XXXXL",
-              "price": 47,
-              "variantId": "a151ff49-378a-4b78-988a-a672109afc1e"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 47,
-              "variantId": "a151ff49-4486-4b68-898c-bdac8081429a"
-            }
-          ]
-        },
-        {
-          "color": "Slate Grey",
-          "colorHex": "#72827e",
-          "sizes": [
-            {
-              "size": "S",
-              "price": 47,
-              "variantId": "a15200ac-6d27-4561-b1d2-9b79d0d25eb7"
-            },
-            {
-              "size": "M",
-              "price": 47,
-              "variantId": "a15200ac-7e66-4844-bb55-d598967f8b21"
-            },
-            {
-              "size": "L",
-              "price": 47,
-              "variantId": "a15200ac-8c5b-464e-ad69-850cd7831cc2"
-            },
-            {
-              "size": "XL",
-              "price": 47,
-              "variantId": "a15200ac-9bb5-4f68-a8f9-97da3140dc32"
-            },
-            {
-              "size": "XXL",
-              "price": 47,
-              "variantId": "a15200ac-aad7-40b6-9036-acfdd1f4c433"
             }
           ]
         }
@@ -8079,190 +8476,6 @@
       ]
     },
     {
-      "id": "the-streets-belong-to-us-t-shirt",
-      "name": "The Streets Belong to Us T-Shirt",
-      "category": "T-shirts",
-      "price": 22,
-      "image": "https://images.podos.io/82e5434f9e2bd68bf5b371d7c43817f11da11792d32f7b99.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/the-streets-belong-to-us-t-shirt/",
-      "variants": [
-        {
-          "color": "Slate Grey",
-          "colorHex": "#606263",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a20118f5-0ed3-4df0-aaa1-11a181b8c9ef"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a20118f5-1cf1-4b34-9c34-901fd8c9d1d5"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a20118f5-3b5a-4acf-b263-faeec8d8914b"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a20118f5-47ac-4486-97c0-0a2729a1c9df"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a20118f5-5471-44fd-a23b-1213c4eb8f5b"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a20118f5-66b5-4df1-8a77-04fb5304b1fc"
-            }
-          ]
-        },
-        {
-          "color": "Navy Blue",
-          "colorHex": "#0d1b30",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a235856e-b849-4820-ae64-cdd63d732458"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a2358577-0bd7-4470-ade9-2b6557df6993"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a2358577-3822-459c-9345-d4f3738c6d10"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a2358577-665a-4126-9cfc-9c4f527d8f60"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a2358577-921c-4509-8cd6-47c946f9419f"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a2358577-bb74-450b-b176-d95b6bba89ca"
-            },
-            {
-              "size": "XXXL",
-              "price": 22,
-              "variantId": "a2358577-e7ba-4931-9ad8-e183ed64e152"
-            },
-            {
-              "size": "XXXXL",
-              "price": 22,
-              "variantId": "a2358578-072c-470b-9c28-1b967ef3d03d"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 22,
-              "variantId": "a2358578-26a5-4a02-9fe6-a3477ed9bc71"
-            }
-          ]
-        },
-        {
-          "color": "Black",
-          "colorHex": "#000000",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a2358572-ba3a-4a20-9807-8e9b4e0ba072"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a2358577-1a82-4fee-9a43-dde774c39122"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a2358577-485d-444e-a0e7-62707d81252c"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a2358577-7595-4cc9-b4b9-8dc79eb9927d"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a2358577-9f6b-4803-b9e3-6cdf69fcaa86"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a2358577-ca62-4808-9768-444b9bd5f02c"
-            },
-            {
-              "size": "XXXL",
-              "price": 22,
-              "variantId": "a2358577-f72a-4e7a-a46f-0e780354b5a5"
-            },
-            {
-              "size": "XXXXL",
-              "price": 22,
-              "variantId": "a2358578-16ee-446a-9846-27bdfb711528"
-            },
-            {
-              "size": "XXXXXL",
-              "price": 22,
-              "variantId": "a2358578-3597-4e17-9511-57907dc7429b"
-            }
-          ]
-        },
-        {
-          "color": "Chocolate",
-          "colorHex": "#493b39",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 22,
-              "variantId": "a2358576-fc5b-44f8-a026-076d5b675a31"
-            },
-            {
-              "size": "S",
-              "price": 22,
-              "variantId": "a2358577-2776-42d9-b384-f6e4415563ff"
-            },
-            {
-              "size": "M",
-              "price": 22,
-              "variantId": "a2358577-5727-40c6-85b4-c89607b08732"
-            },
-            {
-              "size": "L",
-              "price": 22,
-              "variantId": "a2358577-831a-46be-b5ef-71326e5d6010"
-            },
-            {
-              "size": "XL",
-              "price": 22,
-              "variantId": "a2358577-ac7d-4a7d-801b-6141a283cfc1"
-            },
-            {
-              "size": "XXL",
-              "price": 22,
-              "variantId": "a2358577-d78d-4e97-8822-1cd5a91b2fae"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "the-garrison-tavern-t-shirt",
       "name": "The Garrison Tavern T-Shirt",
       "category": "T-shirts",
@@ -8739,165 +8952,6 @@
       ]
     },
     {
-      "id": "the-garrison-tavern-oversized-t-shirt",
-      "name": "The Garrison Tavern Oversized T-Shirt",
-      "category": "T-shirts",
-      "price": 25,
-      "image": "https://images.podos.io/6ffb33ca49662aae7d516e6050f7ecbf833078bbb9146650.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/the-garrison-tavern-oversized-t-shirt/",
-      "variants": [
-        {
-          "color": "Black",
-          "colorHex": "#000000",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 25,
-              "variantId": "a20ba041-0068-4c29-8d7e-bb4f04323a54"
-            },
-            {
-              "size": "S",
-              "price": 25,
-              "variantId": "a20ba041-25b6-4f4c-9f96-a8954a3d1be7"
-            },
-            {
-              "size": "M",
-              "price": 25,
-              "variantId": "a20ba041-3391-4da1-a7ef-a7f3042bdfe8"
-            },
-            {
-              "size": "L",
-              "price": 25,
-              "variantId": "a20ba041-41e0-4b8b-88bf-0adaebf258bc"
-            },
-            {
-              "size": "XL",
-              "price": 25,
-              "variantId": "a20ba041-4fa1-4d40-9e0c-4e68ca879912"
-            },
-            {
-              "size": "XXL",
-              "price": 25,
-              "variantId": "a20ba041-5cff-466a-9833-de771a4e5056"
-            }
-          ]
-        },
-        {
-          "color": "Evergreen",
-          "colorHex": "#23312d",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 25,
-              "variantId": "a23585b5-30ad-4d21-a679-ba19b5c2043c"
-            },
-            {
-              "size": "S",
-              "price": 25,
-              "variantId": "a23585bf-1103-4c70-b036-67d55c82ec9e"
-            },
-            {
-              "size": "M",
-              "price": 25,
-              "variantId": "a23585bf-3387-4ba4-82e1-1b55c1749a2f"
-            },
-            {
-              "size": "L",
-              "price": 25,
-              "variantId": "a23585bf-5a1f-4ad8-972c-250459962cae"
-            },
-            {
-              "size": "XL",
-              "price": 25,
-              "variantId": "a23585bf-81f9-43c6-b200-ce8033dada71"
-            },
-            {
-              "size": "XXL",
-              "price": 25,
-              "variantId": "a23585bf-a825-4602-b813-a81e559c14a9"
-            }
-          ]
-        },
-        {
-          "color": "Navy",
-          "colorHex": "#0D0D25",
-          "sizes": [
-            {
-              "size": "XS",
-              "price": 25,
-              "variantId": "a23585bb-1388-47bc-8c0a-d54bdf8ee1c5"
-            },
-            {
-              "size": "S",
-              "price": 25,
-              "variantId": "a23585bf-1ce1-48ce-a40d-99ee78d28f5b"
-            },
-            {
-              "size": "M",
-              "price": 25,
-              "variantId": "a23585bf-403d-4093-b505-a3166c877901"
-            },
-            {
-              "size": "L",
-              "price": 25,
-              "variantId": "a23585bf-67bb-476d-b23a-1a7c670b1c4a"
-            },
-            {
-              "size": "XL",
-              "price": 25,
-              "variantId": "a23585bf-8e86-448d-8def-e45439e9db8e"
-            },
-            {
-              "size": "XXL",
-              "price": 25,
-              "variantId": "a23585bf-b9a8-4554-914b-49cccd159f3f"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "peaky-blinders-christmas-jumper",
-      "name": "Peaky Blinders Christmas Jumper",
-      "category": "Hoodies & Sweatshirts",
-      "price": 40,
-      "image": "https://images.podos.io/36643e7dc3f5638387d748732e3bd48b032467e65c5c1d10.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-christmas-jumper/",
-      "variants": [
-        {
-          "color": "Black",
-          "colorHex": "#000000",
-          "sizes": [
-            {
-              "size": "S",
-              "price": 40,
-              "variantId": "a2b80da2-9206-4c6e-9f51-c7b31b0ccc9b"
-            },
-            {
-              "size": "M",
-              "price": 40,
-              "variantId": "a2b80da2-b703-439f-a63b-ab1788b8a568"
-            },
-            {
-              "size": "L",
-              "price": 40,
-              "variantId": "a2b80da2-cd0d-4f90-aaeb-bdf1bfc48c25"
-            },
-            {
-              "size": "XL",
-              "price": 40,
-              "variantId": "a2b80da2-dba4-42d0-b4d7-3d4c226950d3"
-            },
-            {
-              "size": "XXL",
-              "price": 40,
-              "variantId": "a2b80da2-eab7-4d1a-8e6c-adca0619e812"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "peaky-blinders-christmas-t-shirt",
       "name": "Peaky Blinders Christmas T-Shirt",
       "category": "T-shirts",
@@ -9076,52 +9130,6 @@
               "size": "XXL",
               "price": 22,
               "variantId": "a2fc6db1-f3bc-4ffe-89a5-fb3d023d628b"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "peaky-blinders-winter-jumper",
-      "name": "Peaky Blinders Winter Jumper",
-      "category": "Hoodies & Sweatshirts",
-      "price": 40,
-      "image": "https://images.podos.io/b438fc0370e0f4e6a3c218513cf353d178cf70d04c389128.png.jpg?w=640&h=auto",
-      "productUrl": "https://peakyblinders.shop/product/peaky-blinders-winter-jumper/",
-      "variants": [
-        {
-          "color": "Black",
-          "colorHex": "#000000",
-          "sizes": [
-            {
-              "size": "8",
-              "price": 40,
-              "variantId": "a2b810c3-c5d6-4c2a-800c-1fba4b133b30"
-            },
-            {
-              "size": "10",
-              "price": 40,
-              "variantId": "a2b810c3-eb62-4854-a9d8-0580f37297b1"
-            },
-            {
-              "size": "12",
-              "price": 40,
-              "variantId": "a2b810c4-0037-473e-8e6c-153a8f67769e"
-            },
-            {
-              "size": "14",
-              "price": 40,
-              "variantId": "a2b810c4-0be4-404d-8d0c-b8934c353200"
-            },
-            {
-              "size": "16",
-              "price": 40,
-              "variantId": "a2b810c4-1b30-4ce7-befe-7b6a193da2e3"
-            },
-            {
-              "size": "18",
-              "price": 40,
-              "variantId": "a2b810c4-4cee-435b-9b8d-812478ef14c1"
             }
           ]
         }
