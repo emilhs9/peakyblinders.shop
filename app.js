@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     USD: { simvol: '$', kurs: 1.3032, htmlSimvol: dollarSvg, ad: 'United States Dollar' },
     EUR: { simvol: '€', kurs: 1.1949, htmlSimvol: euroSvg, ad: 'Euro' },
     CAD: { simvol: '$', kurs: 1.8722, htmlSimvol: dollarSvg + '<sub>c</sub>', ad: 'Canadian Dollar' },
-    AUD: { simvol: '$', kurs: 1.967, htmlSimvol: '$<sub>A</sub>', ad: 'Australian Dollar' },
+    AUD: { simvol: '$', kurs: 1.967, htmlSimvol: dollarSvg + '<sub>A</sub>', ad: 'Australian Dollar' },
     JPY: { simvol: '¥', kurs: 207.1755, htmlSimvol: '¥', ad: 'Japanese Yen' }
   };
 
