@@ -481,32 +481,78 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tshirtsCarouselTrack) {
     const updateCarouselArrows = () => {
       const scrollLeft = tshirtsCarouselTrack.scrollLeft;
-      const maxScroll = tshirtsCarouselTrack.scrollWidth - tshirtsCarouselTrack.clientWidth - 10;
+      const maxScroll = tshirtsCarouselTrack.scrollWidth - tshirtsCarouselTrack.clientWidth;
       if (tshirtsPrevBtn) {
-        tshirtsPrevBtn.style.display = scrollLeft > 20 ? 'flex' : 'none';
+        tshirtsPrevBtn.style.display = scrollLeft > 15 ? 'flex' : 'none';
       }
       if (tshirtsNextBtn) {
-        tshirtsNextBtn.style.display = scrollLeft >= maxScroll ? 'none' : 'flex';
+        tshirtsNextBtn.style.display = (maxScroll > 15 && scrollLeft < maxScroll - 15) ? 'flex' : 'none';
       }
     };
 
     if (tshirtsNextBtn) {
       tshirtsNextBtn.addEventListener('click', () => {
-        const scrollDistance = tshirtsCarouselTrack.clientWidth * 0.75;
+        const scrollDistance = tshirtsCarouselTrack.clientWidth;
         tshirtsCarouselTrack.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+        setTimeout(updateCarouselArrows, 400);
       });
     }
 
     if (tshirtsPrevBtn) {
       tshirtsPrevBtn.addEventListener('click', () => {
-        const scrollDistance = tshirtsCarouselTrack.clientWidth * 0.75;
+        const scrollDistance = tshirtsCarouselTrack.clientWidth;
         tshirtsCarouselTrack.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+        setTimeout(updateCarouselArrows, 400);
       });
     }
+
+    // Drag to slide support
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let hasDragged = false;
+
+    tshirtsCarouselTrack.addEventListener('mousedown', (e) => {
+      isDown = true;
+      hasDragged = false;
+      startX = e.pageX - tshirtsCarouselTrack.offsetLeft;
+      scrollStart = tshirtsCarouselTrack.scrollLeft;
+      tshirtsCarouselTrack.style.scrollBehavior = 'auto';
+      tshirtsCarouselTrack.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      tshirtsCarouselTrack.style.scrollBehavior = 'smooth';
+      tshirtsCarouselTrack.style.cursor = 'grab';
+      updateCarouselArrows();
+    });
+
+    tshirtsCarouselTrack.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - tshirtsCarouselTrack.offsetLeft;
+      const walk = (x - startX);
+      if (Math.abs(walk) > 5) {
+        hasDragged = true;
+      }
+      tshirtsCarouselTrack.scrollLeft = scrollStart - walk;
+    });
+
+    tshirtsCarouselTrack.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+        }
+      });
+    });
 
     tshirtsCarouselTrack.addEventListener('scroll', updateCarouselArrows, { passive: true });
     window.addEventListener('resize', updateCarouselArrows);
     updateCarouselArrows();
+    setTimeout(updateCarouselArrows, 150);
+    setTimeout(updateCarouselArrows, 600);
   }
 
   // --- PRODUCT DETAIL PAGE (product.html) ---

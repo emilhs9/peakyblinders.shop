@@ -620,13 +620,16 @@ button {
 
 .tshirts-carousel-track {
   display: flex;
-  gap: 10px;
+  gap: 14px;
   overflow-x: auto;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   padding: 8px 0;
   width: 100%;
+  cursor: grab;
+  user-select: none;
 }
 
 .tshirts-carousel-track::-webkit-scrollbar {
@@ -636,7 +639,8 @@ button {
 }
 
 .tshirt-carousel-card {
-  flex: 0 0 calc((100% - 7 * 10px) / 8);
+  flex: 0 0 calc((100% - 3 * 14px) / 4);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -705,19 +709,19 @@ button {
 
 .tshirts-arrow {
   position: absolute;
-  top: 32%;
+  top: 38%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: 20;
   transition: all 0.2s ease;
 }
 
@@ -764,27 +768,15 @@ button {
   color: #ffffff;
 }
 
-@media (max-width: 1200px) {
-  .tshirt-carousel-card {
-    flex: 0 0 calc((100% - 5 * 10px) / 6);
-  }
-}
-
 @media (max-width: 992px) {
   .tshirt-carousel-card {
-    flex: 0 0 calc((100% - 3 * 10px) / 4);
+    flex: 0 0 calc((100% - 2 * 12px) / 3);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .tshirt-carousel-card {
-    flex: 0 0 calc((100% - 2 * 10px) / 3);
-  }
-}
-
-@media (max-width: 480px) {
-  .tshirt-carousel-card {
-    flex: 0 0 calc((100% - 1 * 8px) / 2);
+    flex: 0 0 calc((100% - 1 * 10px) / 2);
   }
 }
 
