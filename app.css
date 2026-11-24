@@ -1347,54 +1347,90 @@ button {
 }
 
 .footer-legal-wrap {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
+  max-width: 960px;
   margin: 0 auto;
-}
-
-.footer-social-bar {
-  margin-top: 90px;
-  margin-bottom: 36px;
-  width: 100%;
-}
-
-.footer-social-links {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin: 0;
-}
-
-.footer-social-links .social-link {
-  color: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity var(--transition-fast);
-}
-
-.footer-social-links .social-link:hover {
-  opacity: 0.75;
-}
-
-.footer-social-links .social-link svg {
-  width: 42px;
-  height: 42px;
-  fill: currentColor;
+  padding-top: 100px;
+  padding-bottom: 24px;
+  text-align: center;
+  position: relative;
 }
 
 .footer-legal-text {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 1.155rem;
-  line-height: 1.45;
+  font-size: 0.75rem;
+  line-height: 1.5;
   color: #ffffff;
   text-align: center;
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto 18px auto;
+  margin: 0 auto;
+}
+
+.legal-text-p {
+  margin: 0;
+  display: inline-block;
+  text-align: center;
+}
+
+.legal-line-1 {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.legal-line-2 {
+  display: inline-block;
+  white-space: nowrap;
+  margin-top: 5px;
+}
+
+.legal-icon-anchor {
+  position: relative;
+  display: inline-block;
+}
+
+.social-link-floating {
+  position: absolute;
+  bottom: calc(100% + 34px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: opacity var(--transition-fast);
+}
+
+.social-link-floating:hover {
+  opacity: 0.75;
+}
+
+.social-link-floating svg {
+  width: 38px;
+  height: 38px;
+  fill: currentColor;
+}
+
+.social-link-floating[aria-label="YouTube"] svg {
+  width: 46px;
+  height: 32px;
+}
+
+@media (max-width: 860px) {
+  .footer-legal-wrap {
+    padding-top: 40px;
+  }
+  .legal-line-1,
+  .legal-line-2 {
+    white-space: normal;
+  }
+  .social-link-floating {
+    position: static;
+    transform: none;
+    margin: 0 16px 20px 16px;
+  }
+  .legal-icon-anchor {
+    display: inline;
+  }
 }
 
 .footer-banner {
