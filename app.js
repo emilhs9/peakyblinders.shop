@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'pb-m5': { title: 'No F**king Fighting Hoodie', basePrice: 47, image: 'images/img-19-no-f-king-fighting-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
     'pb-m6': { title: 'Peaky Blinders Bakerboy Hoodie', basePrice: 47, image: 'images/img-20-peaky-blinders-bakerboy-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
     'pb-m7': { title: 'King of Hearts T-Shirt', basePrice: 22, image: 'images/img-21-king-of-hearts-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m8': { title: 'The Garrison Tavern Oversized T-Shirt', basePrice: 25, image: 'images/img-37-garrison-tavern-flat.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-m8': { title: 'Bleak Midwinter T-Shirt', basePrice: 22, image: 'images/img-22-bleak-midwinter-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
     'pb-m9': { title: 'Solomons Bakery T-Shirt', basePrice: 22, image: 'images/img-23-solomons-bakery-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
     'pb-m10': { title: 'Letter to Tom Shelby T-Shirt', basePrice: 22, image: 'images/img-24-letter-to-tom-shelby-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
     'pb-m11': { title: 'King of Hearts (Back Print) T-Shirt', basePrice: 30, image: 'images/img-35-king-of-hearts-backprint.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
@@ -492,16 +492,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (tshirtsNextBtn) {
       tshirtsNextBtn.addEventListener('click', () => {
-        const scrollDistance = tshirtsCarouselTrack.clientWidth;
-        tshirtsCarouselTrack.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+        tshirtsCarouselTrack.scrollTo({
+          left: tshirtsCarouselTrack.scrollWidth,
+          behavior: 'smooth'
+        });
         setTimeout(updateCarouselArrows, 400);
       });
     }
 
     if (tshirtsPrevBtn) {
       tshirtsPrevBtn.addEventListener('click', () => {
-        const scrollDistance = tshirtsCarouselTrack.clientWidth;
-        tshirtsCarouselTrack.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+        tshirtsCarouselTrack.scrollTo({
+          left: 0,
+          behavior: 'smooth'
+        });
         setTimeout(updateCarouselArrows, 400);
       });
     }
