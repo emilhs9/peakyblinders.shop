@@ -991,42 +991,42 @@ button {
 .story-section {
   background-color: #253646;
   color: #ffffff;
-  padding: 5rem 0;
+  padding: 5rem 0 5.25rem 0;
   margin: 0;
-  text-align: center;
+  text-align: left;
 }
 
 .story-content {
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.story-subtitle {
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 1rem;
+  max-width: 880px;
+  margin: 0;
+  text-align: left;
 }
 
 .story-title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-size: 1.25rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  margin-bottom: 1.5rem;
-  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 1.75rem;
+  line-height: 1.4;
+  color: #ffffff;
 }
 
 .story-text {
   font-family: var(--font-serif);
-  font-size: 1rem;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: #ffffff;
+  margin-bottom: 1.625rem;
+}
+
+.story-text:last-child {
+  margin-bottom: 0;
+}
+
+.story-text em {
+  font-style: italic;
 }
 
 /* ==========================================================
