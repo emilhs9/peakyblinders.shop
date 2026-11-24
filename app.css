@@ -1485,9 +1485,9 @@ button {
 .currency-symbols {
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  gap: 15px;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 1.134rem;
+  font-size: 1.36rem;
   color: #ffffff;
 }
 
@@ -1498,7 +1498,7 @@ button {
 
 .currency-symbol.active {
   border-bottom: 2px solid #ffffff;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
 }
 
 .site-subfooter {
