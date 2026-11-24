@@ -1415,7 +1415,7 @@ button {
 .site-main-footer {
   background-color: #000000;
   color: #ffffff;
-  padding: 30px 0 48px 0;
+  padding: 40px 0 48px 0;
 }
 
 .site-footer-inner {
@@ -1536,22 +1536,27 @@ button {
 
 .site-subfooter {
   background-color: #3b3b3d;
-  padding: 18px 0;
+  min-height: 35px;
+  padding: 8px 0;
   text-align: center;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .subfooter-links {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;
+  gap: 30px;
 }
 
 .subfooter-links a {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 1.15rem;
+  font-size: 0.85rem;
   color: #ffffff;
   text-decoration: none;
+  line-height: 1.2;
   transition: opacity var(--transition-fast);
 }
 
