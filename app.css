@@ -1047,7 +1047,7 @@ button {
    10. HIGHLIGHTS 4 CARDS SECTION
    ========================================================== */
 .highlights-section {
-  padding: 3rem 0 3.25rem 0;
+  padding: 3rem 0 25px 0;
 }
 
 .highlights-title {
@@ -1115,20 +1115,22 @@ button {
 
 .highlights-section .section-cta-wrap {
   text-align: center;
-  padding-top: 2rem;
+  padding: 60px 0 0 0;
   margin: 0;
+  line-height: 1;
 }
 
 .highlights-btn {
   background-color: #243342;
   color: #ffffff;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   text-decoration: none;
-  height: 26px;
-  line-height: 26px;
-  padding: 0 37px;
+  height: 33px;
+  line-height: 33px;
+  width: 300px;
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
