@@ -10,8 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
       CAD: { symbol: '$', rate: 1.74 },
       AUD: { symbol: '$', rate: 1.95 }
     },
-    cart: []
+    cart: [],
+    products: []
   };
+
+  // --- PRODUCTS DATA SOURCE ---
+  // Primary: window.PEAKY_PRODUCTS_DATA (instant, CORS-safe, offline-capable)
+  // Secondary: fetch('products.json')
+  if (window.PEAKY_PRODUCTS_DATA && Array.isArray(window.PEAKY_PRODUCTS_DATA.products)) {
+    state.products = window.PEAKY_PRODUCTS_DATA.products;
+  }
 
   // --- DOM ELEMENTS ---
   const cartDrawer = document.getElementById('cartDrawer');
@@ -28,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalTitle = document.getElementById('modalTitle');
   const modalPrice = document.getElementById('modalPrice');
   const modalAddBtn = document.getElementById('modalAddBtn');
-  const sizePills = document.querySelectorAll('.size-pill');
+  const sizePills = document.querySelectorAll('#quickViewModal .size-pill');
 
   const currencyPicker = document.getElementById('currencyPicker');
   const headerCurrencySymbol = document.getElementById('headerCurrencySymbol');
@@ -60,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function formatPrice(baseGbpPrice) {
     const rateInfo = state.exchangeRates[state.currency] || { symbol: '£', rate: 1.0 };
-    const converted = (baseGbpPrice * rateInfo.rate).toFixed(0);
+    const converted = Math.round(baseGbpPrice * rateInfo.rate);
     return `${rateInfo.symbol}${converted}`;
   }
 
@@ -195,9 +203,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function openQuickView(product) {
     currentModalProduct = product;
     selectedModalSize = 'M';
-    if (modalImage) modalImage.src = product.image;
-    if (modalTitle) modalTitle.textContent = product.title;
-    if (modalPrice) modalPrice.textContent = formatPrice(product.basePrice);
+    if (modalImage) {
+      modalImage.src = product.image;
+      modalImage.alt = product.name || product.title;
+    }
+    if (modalTitle) modalTitle.textContent = product.name || product.title;
+    if (modalPrice) {
+      const priceVal = product.price !== undefined ? product.price : product.basePrice;
+      modalPrice.setAttribute('data-base-price', priceVal);
+      modalPrice.textContent = formatPrice(priceVal);
+    }
 
     sizePills.forEach(pill => {
       pill.classList.toggle('active', pill.getAttribute('data-size') === 'M');
@@ -234,8 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalAddBtn) {
     modalAddBtn.addEventListener('click', () => {
       if (currentModalProduct) {
+        const title = currentModalProduct.name || currentModalProduct.title;
+        const basePrice = currentModalProduct.price !== undefined ? currentModalProduct.price : currentModalProduct.basePrice;
         addToCart({
-          ...currentModalProduct,
+          id: currentModalProduct.id,
+          title: title,
+          basePrice: basePrice,
+          image: currentModalProduct.image,
           size: selectedModalSize
         });
         closeQuickView();
@@ -243,95 +263,367 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Attach Quick View to all product cards
-  document.querySelectorAll('.product-card').forEach(card => {
-    const id = card.getAttribute('data-product-id');
-    const title = card.querySelector('.product-card-title')?.textContent.trim();
-    const priceEl = card.querySelector('[data-base-price]');
-    const basePrice = priceEl ? parseFloat(priceEl.getAttribute('data-base-price')) : 25;
-    const imgEl = card.querySelector('.product-card-image');
-    const image = imgEl ? imgEl.getAttribute('src') : '';
+  // --- DYNAMIC RENDERING: FEATURED 8 GRID (index.html) ---
+  function renderFeaturedProducts(products) {
+    const grid = document.getElementById('featuredProductsGrid');
+    if (!grid || !products || products.length === 0) return;
 
-    const product = { id, title, basePrice, image };
+    // Take first 8 products
+    const featured = products.slice(0, 8);
+    grid.innerHTML = featured.map(p => `
+      <a href="product.html?id=${p.id}" class="product-card" data-product-id="${p.id}">
+        <div class="product-card-image-wrap">
+          <img src="${p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
+        </div>
+        <div class="product-card-info">
+          <h3 class="product-card-title">${p.name}</h3>
+        </div>
+      </a>
+    `).join('');
+  }
 
-    const qvBtn = card.querySelector('.quick-view-btn');
-    if (qvBtn) {
-      qvBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openQuickView(product);
-      });
+  // --- DYNAMIC RENDERING: CAROUSEL TRACK (index.html) ---
+  function renderCarouselProducts(products) {
+    const track = document.getElementById('tshirtsCarouselTrack');
+    if (!track || !products || products.length === 0) return;
+
+    // Take 12 items for carousel (mix of sweatshirts and t-shirts)
+    const carouselItems = products.slice(8, 20);
+    const cardsHtml = carouselItems.map(p => `
+      <a href="product.html?id=${p.id}" class="tshirt-carousel-card" data-product-id="${p.id}">
+        <div class="tshirt-card-image-wrap">
+          <img src="${p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
+        </div>
+        <div class="tshirt-card-info">
+          <h3 class="tshirt-card-title">${p.name}</h3>
+          <div class="tshirt-card-price tabular-nums" data-base-price="${p.price}">${formatPrice(p.price)}</div>
+        </div>
+      </a>
+    `).join('');
+
+    track.innerHTML = cardsHtml + '<div class="tshirt-carousel-spacer" aria-hidden="true"></div>';
+
+    initCarouselListeners();
+  }
+
+  function initCarouselListeners() {
+    const tshirtsCarouselTrack = document.getElementById('tshirtsCarouselTrack');
+    const tshirtsPrevBtn = document.getElementById('tshirtsPrevBtn');
+    const tshirtsNextBtn = document.getElementById('tshirtsNextBtn');
+    if (!tshirtsCarouselTrack) return;
+
+    const updateCarouselArrows = () => {
+      const scrollLeft = tshirtsCarouselTrack.scrollLeft;
+      const maxScroll = tshirtsCarouselTrack.scrollWidth - tshirtsCarouselTrack.clientWidth;
+      if (tshirtsPrevBtn) {
+        tshirtsPrevBtn.style.display = scrollLeft > 15 ? 'flex' : 'none';
+      }
+      if (tshirtsNextBtn) {
+        tshirtsNextBtn.style.display = (maxScroll > 15 && scrollLeft < maxScroll - 15) ? 'flex' : 'none';
+      }
+    };
+
+    if (tshirtsNextBtn) {
+      tshirtsNextBtn.onclick = () => {
+        tshirtsCarouselTrack.scrollTo({
+          left: tshirtsCarouselTrack.scrollWidth,
+          behavior: 'smooth'
+        });
+        setTimeout(updateCarouselArrows, 400);
+      };
     }
 
-    const addBtn = card.querySelector('.product-add-btn');
-    if (addBtn) {
-      addBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        addToCart({ ...product, size: 'L' });
-      });
-    }
-  });
-
-  // --- CAROUSEL NAVIGATION ---
-  const carouselTrack = document.getElementById('productCarouselTrack');
-  const prevBtn = document.getElementById('carouselPrevBtn');
-  const nextBtn = document.getElementById('carouselNextBtn');
-
-  if (carouselTrack && prevBtn && nextBtn) {
-    let scrollPos = 0;
-
-    function getStep() {
-      const firstItem = carouselTrack.querySelector('.product-carousel-item');
-      return firstItem ? firstItem.offsetWidth + 24 : 300;
+    if (tshirtsPrevBtn) {
+      tshirtsPrevBtn.onclick = () => {
+        tshirtsCarouselTrack.scrollTo({
+          left: 0,
+          behavior: 'smooth'
+        });
+        setTimeout(updateCarouselArrows, 400);
+      };
     }
 
-    nextBtn.addEventListener('click', () => {
-      const step = getStep();
-      const maxScroll = carouselTrack.scrollWidth - carouselTrack.clientWidth;
-      scrollPos = Math.min(scrollPos + step, maxScroll);
-      carouselTrack.scrollTo({ left: scrollPos, behavior: 'smooth' });
-    });
-
-    prevBtn.addEventListener('click', () => {
-      const step = getStep();
-      scrollPos = Math.max(scrollPos - step, 0);
-      carouselTrack.scrollTo({ left: scrollPos, behavior: 'smooth' });
-    });
-
-    // Touch and drag support
     let isDown = false;
     let startX = 0;
-    let scrollLeft = 0;
+    let scrollStart = 0;
+    let hasDragged = false;
 
-    carouselTrack.addEventListener('mousedown', (e) => {
+    tshirtsCarouselTrack.onmousedown = (e) => {
       isDown = true;
-      startX = e.pageX - carouselTrack.offsetLeft;
-      scrollLeft = carouselTrack.scrollLeft;
+      hasDragged = false;
+      startX = e.pageX - tshirtsCarouselTrack.offsetLeft;
+      scrollStart = tshirtsCarouselTrack.scrollLeft;
+      tshirtsCarouselTrack.style.scrollBehavior = 'auto';
+      tshirtsCarouselTrack.style.cursor = 'grabbing';
+    };
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      tshirtsCarouselTrack.style.scrollBehavior = 'smooth';
+      tshirtsCarouselTrack.style.cursor = 'grab';
+      updateCarouselArrows();
     });
-    carouselTrack.addEventListener('mouseleave', () => { isDown = false; });
-    carouselTrack.addEventListener('mouseup', () => { isDown = false; });
-    carouselTrack.addEventListener('mousemove', (e) => {
+
+    tshirtsCarouselTrack.onmousemove = (e) => {
       if (!isDown) return;
       e.preventDefault();
-      const x = e.pageX - carouselTrack.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      carouselTrack.scrollLeft = scrollLeft - walk;
+      const x = e.pageX - tshirtsCarouselTrack.offsetLeft;
+      const walk = (x - startX);
+      if (Math.abs(walk) > 5) {
+        hasDragged = true;
+      }
+      tshirtsCarouselTrack.scrollLeft = scrollStart - walk;
+    };
+
+    tshirtsCarouselTrack.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+        }
+      });
+    });
+
+    tshirtsCarouselTrack.addEventListener('scroll', updateCarouselArrows, { passive: true });
+    window.addEventListener('resize', updateCarouselArrows);
+    updateCarouselArrows();
+    setTimeout(updateCarouselArrows, 150);
+  }
+
+  // --- DYNAMIC RENDERING: CATEGORY PAGES (product-grid-12) ---
+  let currentCategoryProducts = [];
+
+  function getPageCategory() {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('t-shirts')) return 't-shirts';
+    if (path.includes('sweatshirts')) return 'sweatshirts';
+    if (path.includes('accessories')) return 'accessories';
+    if (path.includes('oversized')) return 'oversized';
+    if (path.includes('men')) return 'men';
+    if (path.includes('women')) return 'women';
+    if (path.includes('gift-guide')) return 'gift-guide';
+    return null;
+  }
+
+  function filterProductsForPage(products, pageCategory) {
+    if (!pageCategory) return products;
+
+    switch (pageCategory) {
+      case 't-shirts':
+        return products.filter(p => p.category === 'T-shirts');
+      case 'sweatshirts':
+        return products.filter(p => p.category === 'Hoodies & Sweatshirts');
+      case 'accessories':
+        return products.filter(p => p.category === 'Accessories');
+      case 'oversized':
+        return products.filter(p => p.name.toLowerCase().includes('oversized'));
+      case 'men':
+        return products.filter(p => p.category === 'T-shirts' || p.category === 'Hoodies & Sweatshirts');
+      case 'women':
+        return products.slice(); // Entire collection is unisex
+      case 'gift-guide':
+        return products.filter(p => p.category === 'Accessories' || p.price <= 25);
+      default:
+        return products;
+    }
+  }
+
+  function renderCategoryGrid(products) {
+    const grid = document.getElementById('productsGrid') || document.querySelector('.product-grid-12');
+    if (!grid) return;
+
+    if (!products || products.length === 0) {
+      grid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1; padding: 3rem 0; color: #888;">No products found.</p>';
+      return;
+    }
+
+    grid.innerHTML = products.map(p => `
+      <article class="product-card" data-product-id="${p.id}">
+        <div class="product-card-image-wrap">
+          <a href="product.html?id=${p.id}" style="display:block;">
+            <img src="${p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
+          </a>
+          <button class="quick-view-btn" data-product-id="${p.id}" aria-label="Quick view ${p.name}">Quick View</button>
+        </div>
+        <div class="product-card-info">
+          <a href="product.html?id=${p.id}" style="text-decoration:none; color:inherit;">
+            <h3 class="product-card-title">${p.name}</h3>
+          </a>
+          <div class="product-card-price tabular-nums" data-base-price="${p.price}">${formatPrice(p.price)}</div>
+          <button class="product-add-btn" data-product-id="${p.id}">Add to Bag</button>
+        </div>
+      </article>
+    `).join('');
+
+    // Attach card event listeners
+    grid.querySelectorAll('.quick-view-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pid = btn.getAttribute('data-product-id');
+        const prod = state.products.find(item => item.id === pid);
+        if (prod) openQuickView(prod);
+      });
+    });
+
+    grid.querySelectorAll('.product-add-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pid = btn.getAttribute('data-product-id');
+        const prod = state.products.find(item => item.id === pid);
+        if (prod) {
+          addToCart({
+            id: prod.id,
+            title: prod.name,
+            basePrice: prod.price,
+            image: prod.image,
+            size: 'M'
+          });
+        }
+      });
     });
   }
 
-  // --- CURRENCY SWITCHER ---
-  if (currencyPicker) {
-    currencyPicker.addEventListener('change', (e) => {
-      const chosen = e.target.value;
-      if (state.exchangeRates[chosen]) {
-        state.currency = chosen;
-        state.currencySymbol = state.exchangeRates[chosen].symbol;
-        updateAllDisplayedPrices();
-        showToast(`Currency updated to ${chosen} (${state.currencySymbol})`);
+  function initCategoryPage() {
+    const pageCategory = getPageCategory();
+    if (!pageCategory) return;
+
+    currentCategoryProducts = filterProductsForPage(state.products, pageCategory);
+
+    const countEl = document.getElementById('collectionItemCount') || document.querySelector('.collection-item-count');
+    if (countEl) {
+      countEl.textContent = `Showing ${currentCategoryProducts.length} Products`;
+    }
+
+    renderCategoryGrid(currentCategoryProducts);
+
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        let sorted = [...currentCategoryProducts];
+        if (val === 'price-asc') {
+          sorted.sort((a, b) => a.price - b.price);
+        } else if (val === 'price-desc') {
+          sorted.sort((a, b) => b.price - a.price);
+        }
+        renderCategoryGrid(sorted);
+      });
+    }
+  }
+
+  // --- PRODUCT DETAIL PAGE (product.html) ---
+  function initProductDetailPage() {
+    const detailTitleEl = document.getElementById('detailTitle');
+    if (!detailTitleEl) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const prodId = urlParams.get('id');
+
+    let product = state.products.find(p => p.id === prodId);
+    if (!product) {
+      product = state.products[0];
+    }
+    if (!product) return;
+
+    document.title = `${product.name} | Peaky Blinders Official Store`;
+    detailTitleEl.textContent = product.name;
+
+    const detailBreadcrumbTitleEl = document.getElementById('detailBreadcrumbTitle');
+    if (detailBreadcrumbTitleEl) detailBreadcrumbTitleEl.textContent = product.name;
+
+    const detailImageEl = document.getElementById('detailImage');
+    if (detailImageEl) {
+      detailImageEl.src = product.image;
+      detailImageEl.alt = product.name;
+    }
+
+    const detailPriceEl = document.getElementById('detailPrice');
+    if (detailPriceEl) {
+      detailPriceEl.setAttribute('data-base-price', product.price);
+      detailPriceEl.textContent = formatPrice(product.price);
+    }
+
+    const detailCatLinkEl = document.getElementById('detailCatLink');
+    if (detailCatLinkEl) {
+      detailCatLinkEl.textContent = product.category;
+      if (product.category === 'T-shirts') detailCatLinkEl.href = 't-shirts.html';
+      else if (product.category === 'Hoodies & Sweatshirts') detailCatLinkEl.href = 'sweatshirts.html';
+      else if (product.category === 'Accessories') detailCatLinkEl.href = 'accessories.html';
+      else detailCatLinkEl.href = 't-shirts.html';
+    }
+
+    // Dynamic sizes if available in product variants
+    let selectedDetailSize = 'M';
+    const sizeOptionsContainer = document.querySelector('.size-options');
+    if (sizeOptionsContainer && product.variants && product.variants[0] && Array.isArray(product.variants[0].sizes)) {
+      const sizesList = product.variants[0].sizes.map(s => s.size);
+      if (sizesList.length > 0) {
+        selectedDetailSize = sizesList.includes('M') ? 'M' : sizesList[0];
+        sizeOptionsContainer.innerHTML = sizesList.map(sz => `
+          <button class="size-pill ${sz === selectedDetailSize ? 'active' : ''}" data-size="${sz}">${sz}</button>
+        `).join('');
       }
+    }
+
+    document.querySelectorAll('.detail-size-section .size-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.detail-size-section .size-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        selectedDetailSize = pill.getAttribute('data-size') || 'M';
+      });
     });
+
+    const detailAddBtn = document.getElementById('detailAddBtn');
+    if (detailAddBtn) {
+      detailAddBtn.addEventListener('click', () => {
+        addToCart({
+          id: product.id,
+          title: product.name,
+          basePrice: product.price,
+          image: product.image,
+          size: selectedDetailSize
+        });
+      });
+    }
   }
 
   // --- SEARCH MODAL & LIVE FILTER ---
+  function renderSearchResults(query) {
+    if (!searchResults) return;
+    const q = query.trim().toLowerCase();
+    const source = state.products;
+
+    const matches = q
+      ? source.filter(p => p.name.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)))
+      : source.slice(0, 6);
+
+    if (matches.length === 0) {
+      searchResults.innerHTML = '<p style="text-align:center; padding: 2rem; color: #888;">No products found.</p>';
+      return;
+    }
+
+    searchResults.innerHTML = matches.map(p => `
+      <div class="search-result-item" data-id="${p.id}" style="display: flex; gap: 1rem; align-items: center; padding: 0.75rem; border-bottom: 1px solid #eee; cursor: pointer;">
+        <img src="${p.image}" alt="${p.name}" style="width: 50px; height: 60px; object-fit: cover;">
+        <div>
+          <div style="font-weight: 700; font-family: var(--font-serif);">${p.name}</div>
+          <div style="color: var(--primary-color); font-weight: 700;">${formatPrice(p.price)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    searchResults.querySelectorAll('.search-result-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const pid = item.getAttribute('data-id');
+        const prod = state.products.find(p => p.id === pid);
+        if (prod) {
+          closeSearch();
+          openQuickView(prod);
+        }
+      });
+    });
+  }
+
   function openSearch() {
     if (searchModal) {
       searchModal.classList.add('active');
@@ -363,80 +655,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- PRODUCT CATALOG ---
-  const productCatalog = {
-    'pb-c1': { title: 'Peaky Blinders Christmas Jumper', basePrice: 40, image: 'images/img-07-peaky-blinders-christmas-jumpe.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-c2': { title: 'No F**king Fighting Hoodie', basePrice: 47, image: 'images/img-08-no-f-king-fighting-hoodie.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-c3': { title: 'Peaky Blinders Winter Jumper', basePrice: 40, image: 'images/img-09-peaky-blinders-winter-jumper.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-c4': { title: 'Small Heath T-Shirt', basePrice: 22, image: 'images/img-10-small-heath-t-shirt.jpg', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-c5': { title: 'Final Notes Hoodie', basePrice: 47, image: 'images/img-11-final-notes-hoodie.jpg', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-c6': { title: 'King of Hearts Limted Edition Backprint T-shirt', basePrice: 30, image: 'images/img-12-king-of-hearts-limted-edition-.jpg', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-c7': { title: 'The Streets Belong to Us T-Shirt', basePrice: 22, image: 'images/img-13-the-streets-belong-to-us-t-shi.jpg', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-c8': { title: 'The Garrison Tavern Oversized T-Shirt', basePrice: 25, image: 'images/img-14-the-garrison-tavern-oversized-.png', category: 'Oversized', catUrl: 'oversized.html' },
-    'pb-m1': { title: 'Solomons Bakery Oversized Sweatshirt', basePrice: 35, image: 'images/img-15-solomons-bakery-oversized-swea.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-m2': { title: 'Bleak Midwinter Oversized Sweatshirt', basePrice: 40, image: 'images/img-16-bleak-midwinter-oversized-swea.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-m3': { title: 'The Streets Belong to Us T-Shirt', basePrice: 22, image: 'images/img-17-the-streets-belong-to-us-t-shi.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m4': { title: 'Take Over T-Shirt', basePrice: 22, image: 'images/img-18-take-over-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m5': { title: 'No F**king Fighting Hoodie', basePrice: 47, image: 'images/img-19-no-f-king-fighting-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-m6': { title: 'Peaky Blinders Bakerboy Hoodie', basePrice: 47, image: 'images/img-20-peaky-blinders-bakerboy-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
-    'pb-m7': { title: 'King of Hearts T-Shirt', basePrice: 22, image: 'images/img-21-king-of-hearts-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m8': { title: 'Bleak Midwinter T-Shirt', basePrice: 22, image: 'images/img-22-bleak-midwinter-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m9': { title: 'Solomons Bakery T-Shirt', basePrice: 22, image: 'images/img-23-solomons-bakery-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m10': { title: 'Letter to Tom Shelby T-Shirt', basePrice: 22, image: 'images/img-24-letter-to-tom-shelby-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m11': { title: 'King of Hearts (Back Print) T-Shirt', basePrice: 30, image: 'images/img-35-king-of-hearts-backprint.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m12': { title: 'Shelby Co. Ltd T-Shirt', basePrice: 22, image: 'images/img-36-shelby-co-ltd-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' }
-  };
-
-  const allProductsData = [];
-  document.querySelectorAll('.product-card').forEach(card => {
-    const id = card.getAttribute('data-product-id');
-    const title = card.querySelector('.product-card-title')?.textContent.trim() || productCatalog[id]?.title;
-    const priceEl = card.querySelector('[data-base-price]');
-    const basePrice = priceEl ? parseFloat(priceEl.getAttribute('data-base-price')) : (productCatalog[id]?.basePrice || 25);
-    const imgEl = card.querySelector('.product-card-image');
-    const image = imgEl ? imgEl.getAttribute('src') : (productCatalog[id]?.image || '');
-    if (id && title) {
-      allProductsData.push({ id, title, basePrice, image });
-    }
-  });
-
-  function renderSearchResults(query) {
-    if (!searchResults) return;
-    const q = query.trim().toLowerCase();
-    const matches = q
-      ? allProductsData.filter(p => p.title.toLowerCase().includes(q))
-      : allProductsData.slice(0, 6);
-
-    if (matches.length === 0) {
-      searchResults.innerHTML = '<p style="text-align:center; padding: 2rem; color: #888;">No products found.</p>';
-      return;
-    }
-
-    searchResults.innerHTML = matches.map(p => `
-      <div class="search-result-item" data-id="${p.id}" style="display: flex; gap: 1rem; align-items: center; padding: 0.75rem; border-bottom: 1px solid #eee; cursor: pointer;">
-        <img src="${p.image}" alt="${p.title}" style="width: 50px; height: 60px; object-fit: cover;">
-        <div>
-          <div style="font-weight: 700; font-family: var(--font-serif);">${p.title}</div>
-          <div style="color: var(--primary-color); font-weight: 700;">${formatPrice(p.basePrice)}</div>
-        </div>
-      </div>
-    `).join('');
-
-    searchResults.querySelectorAll('.search-result-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const pid = item.getAttribute('data-id');
-        const prod = allProductsData.find(p => p.id === pid);
-        if (prod) {
-          closeSearch();
-          openQuickView(prod);
-        }
-      });
-    });
-  }
-
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       renderSearchResults(e.target.value);
+    });
+  }
+
+  // --- CURRENCY SWITCHER ---
+  if (currencyPicker) {
+    currencyPicker.addEventListener('change', (e) => {
+      const chosen = e.target.value;
+      if (state.exchangeRates[chosen]) {
+        state.currency = chosen;
+        state.currencySymbol = state.exchangeRates[chosen].symbol;
+        updateAllDisplayedPrices();
+        showToast(`Currency updated to ${chosen} (${state.currencySymbol})`);
+      }
     });
   }
 
@@ -473,149 +707,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- T-SHIRTS / BEST SELLERS CAROUSEL ---
-  const tshirtsCarouselTrack = document.getElementById('tshirtsCarouselTrack');
-  const tshirtsPrevBtn = document.getElementById('tshirtsPrevBtn');
-  const tshirtsNextBtn = document.getElementById('tshirtsNextBtn');
-
-  if (tshirtsCarouselTrack) {
-    const updateCarouselArrows = () => {
-      const scrollLeft = tshirtsCarouselTrack.scrollLeft;
-      const maxScroll = tshirtsCarouselTrack.scrollWidth - tshirtsCarouselTrack.clientWidth;
-      if (tshirtsPrevBtn) {
-        tshirtsPrevBtn.style.display = scrollLeft > 15 ? 'flex' : 'none';
-      }
-      if (tshirtsNextBtn) {
-        tshirtsNextBtn.style.display = (maxScroll > 15 && scrollLeft < maxScroll - 15) ? 'flex' : 'none';
-      }
-    };
-
-    if (tshirtsNextBtn) {
-      tshirtsNextBtn.addEventListener('click', () => {
-        tshirtsCarouselTrack.scrollTo({
-          left: tshirtsCarouselTrack.scrollWidth,
-          behavior: 'smooth'
-        });
-        setTimeout(updateCarouselArrows, 400);
-      });
-    }
-
-    if (tshirtsPrevBtn) {
-      tshirtsPrevBtn.addEventListener('click', () => {
-        tshirtsCarouselTrack.scrollTo({
-          left: 0,
-          behavior: 'smooth'
-        });
-        setTimeout(updateCarouselArrows, 400);
-      });
-    }
-
-    // Drag to slide support
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
-    let hasDragged = false;
-
-    tshirtsCarouselTrack.addEventListener('mousedown', (e) => {
-      isDown = true;
-      hasDragged = false;
-      startX = e.pageX - tshirtsCarouselTrack.offsetLeft;
-      scrollStart = tshirtsCarouselTrack.scrollLeft;
-      tshirtsCarouselTrack.style.scrollBehavior = 'auto';
-      tshirtsCarouselTrack.style.cursor = 'grabbing';
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (!isDown) return;
-      isDown = false;
-      tshirtsCarouselTrack.style.scrollBehavior = 'smooth';
-      tshirtsCarouselTrack.style.cursor = 'grab';
-      updateCarouselArrows();
-    });
-
-    tshirtsCarouselTrack.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - tshirtsCarouselTrack.offsetLeft;
-      const walk = (x - startX);
-      if (Math.abs(walk) > 5) {
-        hasDragged = true;
-      }
-      tshirtsCarouselTrack.scrollLeft = scrollStart - walk;
-    });
-
-    tshirtsCarouselTrack.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        if (hasDragged) {
-          e.preventDefault();
-        }
-      });
-    });
-
-    tshirtsCarouselTrack.addEventListener('scroll', updateCarouselArrows, { passive: true });
-    window.addEventListener('resize', updateCarouselArrows);
-    updateCarouselArrows();
-    setTimeout(updateCarouselArrows, 150);
-    setTimeout(updateCarouselArrows, 600);
+  // --- MASTER INITIALIZE ---
+  function initApp() {
+    renderFeaturedProducts(state.products);
+    renderCarouselProducts(state.products);
+    initCategoryPage();
+    initProductDetailPage();
+    renderCart();
+    updateAllDisplayedPrices();
   }
 
-  // --- PRODUCT DETAIL PAGE (product.html) ---
-  const detailTitleEl = document.getElementById('detailTitle');
-  if (detailTitleEl) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const prodId = urlParams.get('id') || 'pb-c1';
-    const product = productCatalog[prodId] || productCatalog['pb-c1'];
-
-    let selectedDetailSize = 'M';
-    const detailImageEl = document.getElementById('detailImage');
-    const detailPriceEl = document.getElementById('detailPrice');
-    const detailBreadcrumbTitleEl = document.getElementById('detailBreadcrumbTitle');
-    const detailCatLinkEl = document.getElementById('detailCatLink');
-    const detailAddBtn = document.getElementById('detailAddBtn');
-    const detailSizePills = document.querySelectorAll('.detail-size-section .size-pill');
-
-    if (product) {
-      document.title = `${product.title} | Peaky Blinders Official Store`;
-      detailTitleEl.textContent = product.title;
-      if (detailBreadcrumbTitleEl) detailBreadcrumbTitleEl.textContent = product.title;
-      if (detailImageEl) {
-        detailImageEl.src = product.image;
-        detailImageEl.alt = product.title;
-      }
-      if (detailPriceEl) {
-        detailPriceEl.setAttribute('data-base-price', product.basePrice);
-        detailPriceEl.textContent = formatPrice(product.basePrice);
-      }
-      if (detailCatLinkEl) {
-        detailCatLinkEl.textContent = product.category;
-        detailCatLinkEl.href = product.catUrl;
-      }
-    }
-
-    detailSizePills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        detailSizePills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        selectedDetailSize = pill.getAttribute('data-size') || 'M';
-      });
-    });
-
-    if (detailAddBtn) {
-      detailAddBtn.addEventListener('click', () => {
-        addToCart({
-          id: prodId,
-          title: product.title,
-          basePrice: product.basePrice,
-          image: product.image,
-          size: selectedDetailSize
-        });
-      });
-    }
+  // If products are already present in memory from window.PEAKY_PRODUCTS_DATA, initialize immediately
+  if (state.products && state.products.length > 0) {
+    initApp();
   }
 
-  // --- INITIALIZE ---
-  renderCart();
-  updateAllDisplayedPrices();
+  // In addition, attempt async fetch of products.json (works on web servers)
+  fetch('products.json')
+    .then(res => res.json())
+    .then(data => {
+      if (data && Array.isArray(data.products) && data.products.length > 0) {
+        state.products = data.products;
+        initApp();
+      }
+    })
+    .catch(() => {
+      // Offline or file:// protocol - window.PEAKY_PRODUCTS_DATA handles it
+    });
 });
-
-

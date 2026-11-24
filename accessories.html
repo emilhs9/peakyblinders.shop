@@ -92,7 +92,7 @@
     <section class="main-products-section">
       <div class="container">
         <div class="collection-toolbar">
-          <div class="collection-item-count">Showing 6 Products</div>
+          <div class="collection-item-count" id="collectionItemCount">Showing 6 Products</div>
           <div class="collection-sort-wrap">
             <label for="sortSelect">Sort:</label>
             <select id="sortSelect" class="collection-sort-select">
@@ -103,84 +103,8 @@
           </div>
         </div>
 
-        <div class="product-grid-12">
-          <!-- Item 1 -->
-          <article class="product-card" data-product-id="acc-1">
-            <div class="product-card-image-wrap">
-              <img src="images/img-05.png" alt="Shelby Heavy Canvas Tote Bag" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Shelby Heavy Canvas Tote Bag">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Shelby Heavy Canvas Tote Bag</h3>
-              <div class="product-card-price tabular-nums" data-base-price="18">£18</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 2 -->
-          <article class="product-card" data-product-id="acc-2">
-            <div class="product-card-image-wrap">
-              <img src="images/img-06.png" alt="Garrison Tavern Wool Cap Set" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Garrison Tavern Wool Cap Set">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Garrison Tavern Wool Cap Set</h3>
-              <div class="product-card-price tabular-nums" data-base-price="28">£28</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 3 -->
-          <article class="product-card" data-product-id="acc-3">
-            <div class="product-card-image-wrap">
-              <img src="images/img-33-shop-gifts.jpg" alt="Shelby Enamel Mug &amp; Pin Set" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Shelby Enamel Mug &amp; Pin Set">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Shelby Enamel Mug &amp; Pin Set</h3>
-              <div class="product-card-price tabular-nums" data-base-price="22">£22</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 4 -->
-          <article class="product-card" data-product-id="acc-4">
-            <div class="product-card-image-wrap">
-              <img src="images/img-20-peaky-blinders-bakerboy-hoodie.png" alt="Bakerboy Heritage Set" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Bakerboy Heritage Set">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Bakerboy Heritage Set</h3>
-              <div class="product-card-price tabular-nums" data-base-price="32">£32</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 5 -->
-          <article class="product-card" data-product-id="acc-5">
-            <div class="product-card-image-wrap">
-              <img src="images/img-03.png" alt="Small Heath Heritage Print" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Small Heath Heritage Print">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Small Heath Heritage Print</h3>
-              <div class="product-card-price tabular-nums" data-base-price="15">£15</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 6 -->
-          <article class="product-card" data-product-id="acc-6">
-            <div class="product-card-image-wrap">
-              <img src="images/img-04.png" alt="Shelby Brothers Banner Flag" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Shelby Brothers Banner Flag">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Shelby Brothers Banner Flag</h3>
-              <div class="product-card-price tabular-nums" data-base-price="20">£20</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <div class="product-grid-12" id="productsGrid">
+          <!-- Rendered dynamically from products.json -->
         </div>
       </div>
     </section>
@@ -358,6 +282,7 @@
   <!-- Toast Notice -->
   <div class="toast-notice" id="toastNotice"></div>
 
+  <script src="products-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

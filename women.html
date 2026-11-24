@@ -92,7 +92,7 @@
     <section class="main-products-section">
       <div class="container">
         <div class="collection-toolbar">
-          <div class="collection-item-count">Showing 8 Products</div>
+          <div class="collection-item-count" id="collectionItemCount">Showing 8 Products</div>
           <div class="collection-sort-wrap">
             <label for="sortSelect">Sort:</label>
             <select id="sortSelect" class="collection-sort-select">
@@ -103,110 +103,8 @@
           </div>
         </div>
 
-        <div class="product-grid-12">
-          <!-- Item 1 -->
-          <article class="product-card" data-product-id="women-1">
-            <div class="product-card-image-wrap">
-              <img src="images/img-07-peaky-blinders-christmas-jumpe.jpg" alt="Peaky Blinders Christmas Jumper" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Peaky Blinders Christmas Jumper">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Peaky Blinders Christmas Jumper</h3>
-              <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 2 -->
-          <article class="product-card" data-product-id="women-2">
-            <div class="product-card-image-wrap">
-              <img src="images/img-16-bleak-midwinter-oversized-swea.png" alt="In The Bleak Midwinter Sweatshirt" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view In The Bleak Midwinter Sweatshirt">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">In The Bleak Midwinter Sweatshirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="48">£48</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 3 -->
-          <article class="product-card" data-product-id="women-3">
-            <div class="product-card-image-wrap">
-              <img src="images/img-18-take-over-t-shirt.png" alt="Shelby Take Over T-Shirt" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Shelby Take Over T-Shirt">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Shelby Take Over T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="24">£24</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 4 -->
-          <article class="product-card" data-product-id="women-4">
-            <div class="product-card-image-wrap">
-              <img src="images/img-22-bleak-midwinter-t-shirt.png" alt="In The Bleak Midwinter Graphic Tee" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view In The Bleak Midwinter Graphic Tee">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">In The Bleak Midwinter Graphic Tee</h3>
-              <div class="product-card-price tabular-nums" data-base-price="24">£24</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 5 -->
-          <article class="product-card" data-product-id="women-5">
-            <div class="product-card-image-wrap">
-              <img src="images/img-21-king-of-hearts-t-shirt.png" alt="King of Hearts Fitted Tee" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view King of Hearts Fitted Tee">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">King of Hearts Fitted Tee</h3>
-              <div class="product-card-price tabular-nums" data-base-price="24">£24</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 6 -->
-          <article class="product-card" data-product-id="women-6">
-            <div class="product-card-image-wrap">
-              <img src="images/img-23-solomons-bakery-t-shirt.png" alt="Alfie Solomons Bakery Tee" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Alfie Solomons Bakery Tee">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Alfie Solomons Bakery Tee</h3>
-              <div class="product-card-price tabular-nums" data-base-price="24">£24</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 7 -->
-          <article class="product-card" data-product-id="women-7">
-            <div class="product-card-image-wrap">
-              <img src="images/img-09-peaky-blinders-winter-jumper.jpg" alt="Peaky Blinders Winter Jumper" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Peaky Blinders Winter Jumper">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Peaky Blinders Winter Jumper</h3>
-              <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 8 -->
-          <article class="product-card" data-product-id="women-8">
-            <div class="product-card-image-wrap">
-              <img src="images/img-15-solomons-bakery-oversized-swea.png" alt="Solomons Bakery Sweatshirt" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Solomons Bakery Sweatshirt">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Solomons Bakery Sweatshirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="48">£48</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <div class="product-grid-12" id="productsGrid">
+          <!-- Rendered dynamically from products.json -->
         </div>
       </div>
     </section>
@@ -384,6 +282,7 @@
   <!-- Toast Notice -->
   <div class="toast-notice" id="toastNotice"></div>
 
+  <script src="products-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

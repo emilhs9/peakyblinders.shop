@@ -92,7 +92,7 @@
     <section class="main-products-section">
       <div class="container">
         <div class="collection-toolbar">
-          <div class="collection-item-count">Showing 8 Products</div>
+          <div class="collection-item-count" id="collectionItemCount">Showing 8 Products</div>
           <div class="collection-sort-wrap">
             <label for="sortSelect">Sort:</label>
             <select id="sortSelect" class="collection-sort-select">
@@ -103,110 +103,8 @@
           </div>
         </div>
 
-        <div class="product-grid-12">
-          <!-- Item 1 -->
-          <article class="product-card" data-product-id="gift-1">
-            <div class="product-card-image-wrap">
-              <img src="images/img-07-peaky-blinders-christmas-jumpe.jpg" alt="Peaky Blinders Christmas Jumper" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Peaky Blinders Christmas Jumper">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Peaky Blinders Christmas Jumper</h3>
-              <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 2 -->
-          <article class="product-card" data-product-id="gift-2">
-            <div class="product-card-image-wrap">
-              <img src="images/img-09-peaky-blinders-winter-jumper.jpg" alt="Peaky Blinders Winter Jumper" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Peaky Blinders Winter Jumper">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Peaky Blinders Winter Jumper</h3>
-              <div class="product-card-price tabular-nums" data-base-price="40">£40</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 3 -->
-          <article class="product-card" data-product-id="gift-3">
-            <div class="product-card-image-wrap">
-              <img src="images/img-06.png" alt="Garrison Tavern Holiday Gift Pack" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Garrison Tavern Holiday Gift Pack">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Garrison Tavern Holiday Gift Pack</h3>
-              <div class="product-card-price tabular-nums" data-base-price="45">£45</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 4 -->
-          <article class="product-card" data-product-id="gift-4">
-            <div class="product-card-image-wrap">
-              <img src="images/img-33-shop-gifts.jpg" alt="Shelby Enamel Mug &amp; Pin Bundle" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Shelby Enamel Mug &amp; Pin Bundle">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Shelby Enamel Mug &amp; Pin Bundle</h3>
-              <div class="product-card-price tabular-nums" data-base-price="28">£28</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 5 -->
-          <article class="product-card" data-product-id="gift-5">
-            <div class="product-card-image-wrap">
-              <img src="images/img-08-no-f-king-fighting-hoodie.jpg" alt="No F**king Fighting Gift Hoodie" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view No F**king Fighting Gift Hoodie">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">No F**king Fighting Gift Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 6 -->
-          <article class="product-card" data-product-id="gift-6">
-            <div class="product-card-image-wrap">
-              <img src="images/img-12-king-of-hearts-limted-edition-.jpg" alt="King of Hearts Limited Edition Tee" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view King of Hearts Limited Edition Tee">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">King of Hearts Limited Edition Tee</h3>
-              <div class="product-card-price tabular-nums" data-base-price="26">£26</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 7 -->
-          <article class="product-card" data-product-id="gift-7">
-            <div class="product-card-image-wrap">
-              <img src="images/img-14-the-garrison-tavern-oversized-.png" alt="The Garrison Tavern Luxury Hoodie" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view The Garrison Tavern Luxury Hoodie">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">The Garrison Tavern Luxury Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="52">£52</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 8 -->
-          <article class="product-card" data-product-id="gift-8">
-            <div class="product-card-image-wrap">
-              <img src="images/img-05.png" alt="Shelby Heavy Tote Bag Gift Set" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Shelby Heavy Tote Bag Gift Set">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Shelby Heavy Tote Bag Gift Set</h3>
-              <div class="product-card-price tabular-nums" data-base-price="20">£20</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <div class="product-grid-12" id="productsGrid">
+          <!-- Rendered dynamically from products.json -->
         </div>
       </div>
     </section>
@@ -384,6 +282,7 @@
   <!-- Toast Notice -->
   <div class="toast-notice" id="toastNotice"></div>
 
+  <script src="products-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

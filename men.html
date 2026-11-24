@@ -92,7 +92,7 @@
     <section class="main-products-section">
       <div class="container">
         <div class="collection-toolbar">
-          <div class="collection-item-count">Showing 8 Products</div>
+          <div class="collection-item-count" id="collectionItemCount">Showing 8 Products</div>
           <div class="collection-sort-wrap">
             <label for="sortSelect">Sort:</label>
             <select id="sortSelect" class="collection-sort-select">
@@ -103,110 +103,8 @@
           </div>
         </div>
 
-        <div class="product-grid-12">
-          <!-- Item 1 -->
-          <article class="product-card" data-product-id="men-1">
-            <div class="product-card-image-wrap">
-              <img src="images/img-08-no-f-king-fighting-hoodie.jpg" alt="No F**king Fighting Hoodie" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view No F**king Fighting Hoodie">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">No F**king Fighting Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 2 -->
-          <article class="product-card" data-product-id="men-2">
-            <div class="product-card-image-wrap">
-              <img src="images/img-10-small-heath-t-shirt.jpg" alt="Small Heath T-Shirt" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Small Heath T-Shirt">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Small Heath T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="22">£22</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 3 -->
-          <article class="product-card" data-product-id="men-3">
-            <div class="product-card-image-wrap">
-              <img src="images/img-11-final-notes-hoodie.jpg" alt="Final Notes Hoodie" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Final Notes Hoodie">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Final Notes Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 4 -->
-          <article class="product-card" data-product-id="men-4">
-            <div class="product-card-image-wrap">
-              <img src="images/img-13-the-streets-belong-to-us-t-shi.jpg" alt="The Streets Belong to Us T-Shirt" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view The Streets Belong to Us T-Shirt">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">The Streets Belong to Us T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="26">£26</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 5 -->
-          <article class="product-card" data-product-id="men-5">
-            <div class="product-card-image-wrap">
-              <img src="images/img-17-the-streets-belong-to-us-t-shi.png" alt="The Streets Belong to Us Tee" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view The Streets Belong to Us Tee">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">The Streets Belong to Us Tee</h3>
-              <div class="product-card-price tabular-nums" data-base-price="26">£26</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 6 -->
-          <article class="product-card" data-product-id="men-6">
-            <div class="product-card-image-wrap">
-              <img src="images/img-19-no-f-king-fighting-hoodie.png" alt="No F**king Fighting Heavyweight" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view No F**king Fighting Heavyweight">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">No F**king Fighting Heavyweight</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 7 -->
-          <article class="product-card" data-product-id="men-7">
-            <div class="product-card-image-wrap">
-              <img src="images/img-20-peaky-blinders-bakerboy-hoodie.png" alt="Garrison Bakerboy Hoodie" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Garrison Bakerboy Hoodie">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Garrison Bakerboy Hoodie</h3>
-              <div class="product-card-price tabular-nums" data-base-price="47">£47</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
-
-          <!-- Item 8 -->
-          <article class="product-card" data-product-id="men-8">
-            <div class="product-card-image-wrap">
-              <img src="images/img-24-letter-to-tom-shelby-t-shirt.png" alt="Letter to Thomas Shelby T-Shirt" class="product-card-image" loading="lazy">
-              <button class="quick-view-btn" aria-label="Quick view Letter to Thomas Shelby T-Shirt">Quick View</button>
-            </div>
-            <div class="product-card-info">
-              <h3 class="product-card-title">Letter to Thomas Shelby T-Shirt</h3>
-              <div class="product-card-price tabular-nums" data-base-price="24">£24</div>
-              <button class="product-add-btn">Add to Bag</button>
-            </div>
-          </article>
+        <div class="product-grid-12" id="productsGrid">
+          <!-- Rendered dynamically from products.json -->
         </div>
       </div>
     </section>
@@ -384,6 +282,7 @@
   <!-- Toast Notice -->
   <div class="toast-notice" id="toastNotice"></div>
 
+  <script src="products-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
