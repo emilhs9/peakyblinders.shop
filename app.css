@@ -605,7 +605,7 @@ button {
 
 /* 6. Peaky Blinders T-Shirts / Best Sellers Carousel Slider (1:1 Replica) */
 .tshirts-carousel-section {
-  padding: 1.5rem 0 3.5rem 0;
+  padding: 1.5rem 0 0 0;
   position: relative;
   width: 100%;
   max-width: 100%;
@@ -942,7 +942,9 @@ button {
 .lookbook-section {
   width: 100%;
   padding: 0;
-  margin: 2rem 0;
+  margin: 0;
+  display: block;
+  overflow: hidden;
 }
 
 .lookbook-grid {
@@ -950,12 +952,16 @@ button {
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .lookbook-item {
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .lookbook-item img {
@@ -1757,16 +1763,16 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .lookbook-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 768px) {
+  .lookbook-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   :root {
     --header-height: 60px;
   }
