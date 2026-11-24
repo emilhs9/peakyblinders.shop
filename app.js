@@ -123,12 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function sebetiYenile() {
     if (!sebetSiyahi) return;
 
+    const sebetAyaq = document.querySelector('.cart-drawer-footer');
+
     if (sebet.length === 0) {
-      sebetSiyahi.innerHTML = '<div class="cart-empty-message" style="text-align:center; padding:3rem 1rem; color:#888;"><p>Your basket is currently empty.</p></div>';
+      sebetSiyahi.innerHTML = '<div class="cart-empty-message"><p>Your bag is empty.</p></div>';
       if (sebetCem) sebetCem.textContent = qiymetFormat(0);
       if (sebetSayac) sebetSayac.textContent = '0';
+      if (sebetAyaq) sebetAyaq.style.display = 'none';
       return;
     }
+
+    if (sebetAyaq) sebetAyaq.style.display = 'block';
 
     let cemGbp = 0;
     let umumiSay = 0;

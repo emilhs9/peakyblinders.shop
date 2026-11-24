@@ -1622,7 +1622,7 @@ button {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 300;
+  z-index: 1200;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-smooth);
@@ -1642,7 +1642,7 @@ button {
   max-width: 440px;
   background-color: #ffffff;
   color: var(--text-dark);
-  z-index: 350;
+  z-index: 1300;
   transform: translateX(100%);
   transition: transform var(--transition-smooth);
   display: flex;
@@ -1658,21 +1658,25 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: none;
 }
 
 .drawer-title {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
+  color: #111111;
 }
 
 .drawer-close {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
   color: var(--text-dark);
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .cart-drawer-body {
@@ -1683,8 +1687,11 @@ button {
 
 .cart-empty-message {
   text-align: center;
-  padding: 3rem 0;
-  color: #888888;
+  padding: 4rem 1.5rem;
+  color: #111111;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
 }
 
 .cart-item-row {
@@ -1794,7 +1801,7 @@ button {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.65);
-  z-index: 400;
+  z-index: 1400;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1909,7 +1916,7 @@ button {
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-smooth);
-  z-index: 500;
+  z-index: 1500;
 }
 
 .toast-notice.show {
