@@ -259,7 +259,15 @@ button {
   color: #ffffff;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   line-height: 1;
+}
+
+.currency-btn #headerCurrencySymbol svg {
+  height: 17px;
+  width: auto;
+  fill: currentColor;
+  display: block;
 }
 
 .currency-btn #headerCurrencySymbol sub {
@@ -321,6 +329,13 @@ button {
   font-weight: 700;
   line-height: 1;
   bottom: -0.1em;
+}
+
+.currency-menu-symbol svg {
+  height: 16px;
+  width: auto;
+  fill: currentColor;
+  display: block;
 }
 
 .currency-menu-title {
