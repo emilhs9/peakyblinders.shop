@@ -1214,12 +1214,16 @@ button {
 .bottom-footer-section {
   background-color: #000000;
   color: #ffffff;
-  padding: 77px 0 0 0;
+  padding: 108px 0 0 0;
   text-align: center;
 }
 
+.bottom-footer-section .container {
+  max-width: 1400px;
+}
+
 .newsletter-wrap {
-  max-width: 480px;
+  max-width: 672px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -1227,21 +1231,21 @@ button {
 
 .newsletter-title {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   text-transform: none;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   line-height: 1.25;
   letter-spacing: 0.02em;
 }
 
 .newsletter-subtitle {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.9375rem;
+  font-size: 1.3125rem;
   line-height: 1.55;
   color: #ffffff;
-  margin-bottom: 28px;
+  margin-bottom: 39px;
   text-align: center;
 }
 
@@ -1250,7 +1254,7 @@ button {
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 680px) {
   .newsletter-subtitle .subtitle-line {
     white-space: normal;
   }
@@ -1266,22 +1270,22 @@ button {
 .form-field-wrap {
   position: relative;
   width: 100%;
-  margin-bottom: 18px;
+  margin-bottom: 25px;
 }
 
 .form-field-wrap:nth-child(2) {
-  margin-bottom: 13px;
+  margin-bottom: 18px;
 }
 
 .newsletter-input {
   width: 100%;
-  height: 44px;
+  height: 62px;
   background-color: transparent;
   border: 1px solid #ffffff;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 1.05rem;
+  font-size: 1.47rem;
   color: #ffffff;
-  padding: 0 13px;
+  padding: 0 18px;
   border-radius: 0;
   outline: none;
   box-sizing: border-box;
@@ -1298,24 +1302,24 @@ button {
 
 .field-required {
   position: absolute;
-  right: 10px;
-  bottom: -6px;
+  right: 14px;
+  bottom: -8px;
   background-color: #000000;
-  padding: 0 4px;
+  padding: 0 6px;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.77rem;
+  font-size: 1.08rem;
   color: #ffffff;
   line-height: 1;
   pointer-events: none;
 }
 
 .newsletter-submit {
-  width: 102px;
-  height: 41px;
+  width: 143px;
+  height: 57px;
   background-color: #253646;
   color: #ffffff;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 1.05rem;
+  font-size: 1.47rem;
   font-weight: 700;
   border: none;
   border-radius: 0;
@@ -1324,7 +1328,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 0;
-  margin: 0 0 25px 0;
+  margin: 0 0 35px 0;
   transition: background-color var(--transition-fast);
 }
 
@@ -1334,7 +1338,7 @@ button {
 
 .newsletter-policy-link {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.9625rem;
+  font-size: 1.35rem;
   color: #ffffff;
   text-decoration: none;
   margin: 0;
@@ -1348,17 +1352,17 @@ button {
 
 .footer-legal-wrap {
   width: 100%;
-  max-width: 960px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding-top: 100px;
-  padding-bottom: 24px;
+  padding-top: 140px;
+  padding-bottom: 34px;
   text-align: center;
   position: relative;
 }
 
 .footer-legal-text {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   line-height: 1.5;
   color: #ffffff;
   text-align: center;
@@ -1380,7 +1384,7 @@ button {
 .legal-line-2 {
   display: inline-block;
   white-space: nowrap;
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 .legal-icon-anchor {
@@ -1390,7 +1394,7 @@ button {
 
 .social-link-floating {
   position: absolute;
-  bottom: calc(100% + 34px);
+  bottom: calc(100% + 48px);
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
@@ -1405,17 +1409,17 @@ button {
 }
 
 .social-link-floating svg {
-  width: 38px;
-  height: 38px;
+  width: 53px;
+  height: 53px;
   fill: currentColor;
 }
 
 .social-link-floating[aria-label="YouTube"] svg {
-  width: 46px;
-  height: 32px;
+  width: 64px;
+  height: 45px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1150px) {
   .footer-legal-wrap {
     padding-top: 40px;
   }
