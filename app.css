@@ -1214,32 +1214,32 @@ button {
 .bottom-footer-section {
   background-color: #000000;
   color: #ffffff;
-  padding: 55px 0 0 0;
+  padding: 77px 0 0 0;
   text-align: center;
 }
 
 .newsletter-wrap {
-  max-width: 285px;
+  max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
 
 .newsletter-title {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.89375rem;
+  font-size: 1.25rem;
   font-weight: 700;
   text-transform: none;
   color: #ffffff;
-  margin-bottom: 13px;
+  margin-bottom: 18px;
   line-height: 1.25;
 }
 
 .newsletter-subtitle {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.9625rem;
   line-height: 1.45;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   text-align: center;
 }
 
@@ -1253,22 +1253,22 @@ button {
 .form-field-wrap {
   position: relative;
   width: 100%;
-  margin-bottom: 13px;
+  margin-bottom: 18px;
 }
 
 .form-field-wrap:nth-child(2) {
-  margin-bottom: 9px;
+  margin-bottom: 13px;
 }
 
 .newsletter-input {
   width: 100%;
-  height: 31px;
+  height: 44px;
   background-color: transparent;
   border: 1px solid #ffffff;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   color: #ffffff;
-  padding: 0 9px;
+  padding: 0 13px;
   border-radius: 0;
   outline: none;
   box-sizing: border-box;
@@ -1285,24 +1285,24 @@ button {
 
 .field-required {
   position: absolute;
-  right: 7px;
-  bottom: -4px;
+  right: 10px;
+  bottom: -6px;
   background-color: #000000;
-  padding: 0 3px;
+  padding: 0 4px;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.55rem;
+  font-size: 0.77rem;
   color: #ffffff;
   line-height: 1;
   pointer-events: none;
 }
 
 .newsletter-submit {
-  width: 73px;
-  height: 29px;
+  width: 102px;
+  height: 41px;
   background-color: #253646;
   color: #ffffff;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   font-weight: 700;
   border: none;
   border-radius: 0;
@@ -1311,7 +1311,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 0;
-  margin: 0 0 18px 0;
+  margin: 0 0 25px 0;
   transition: background-color var(--transition-fast);
 }
 
@@ -1321,7 +1321,7 @@ button {
 
 .newsletter-policy-link {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.9625rem;
   color: #ffffff;
   text-decoration: none;
   margin: 0;
@@ -1334,15 +1334,15 @@ button {
 }
 
 .footer-social-bar {
-  margin-top: 64px;
-  margin-bottom: 26px;
+  margin-top: 90px;
+  margin-bottom: 36px;
 }
 
 .footer-social-links {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 478px;
+  width: 670px;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -1360,19 +1360,19 @@ button {
 }
 
 .footer-social-links .social-link svg {
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
   fill: currentColor;
 }
 
 .footer-legal-text {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.6875rem;
+  font-size: 0.9625rem;
   line-height: 1.45;
   color: #ffffff;
   text-align: center;
-  max-width: 682px;
-  margin: 0 auto 11px auto;
+  max-width: 955px;
+  margin: 0 auto 15px auto;
 }
 
 .footer-banner {
