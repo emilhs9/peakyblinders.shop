@@ -381,9 +381,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'pb-m6': { title: 'Peaky Blinders Bakerboy Hoodie', basePrice: 47, image: 'images/img-20-peaky-blinders-bakerboy-hoodie.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
     'pb-m7': { title: 'King of Hearts T-Shirt', basePrice: 22, image: 'images/img-21-king-of-hearts-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
     'pb-m8': { title: 'The Garrison Tavern Oversized T-Shirt', basePrice: 25, image: 'images/img-37-garrison-tavern-flat.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m9': { title: 'Peaky Blinders Winter Jumper', basePrice: 40, image: 'images/img-38-winter-jumper-flat.png', category: 'Sweatshirts & Hoodies', catUrl: 'sweatshirts.html' },
+    'pb-m9': { title: 'Solomons Bakery T-Shirt', basePrice: 22, image: 'images/img-23-solomons-bakery-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
     'pb-m10': { title: 'Letter to Tom Shelby T-Shirt', basePrice: 22, image: 'images/img-24-letter-to-tom-shelby-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
-    'pb-m11': { title: 'Small Heath T-Shirt', basePrice: 22, image: 'images/img-39-small-heath-flat.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
+    'pb-m11': { title: 'King of Hearts (Back Print) T-Shirt', basePrice: 30, image: 'images/img-35-king-of-hearts-backprint.png', category: 'T-Shirts', catUrl: 't-shirts.html' },
     'pb-m12': { title: 'Shelby Co. Ltd T-Shirt', basePrice: 22, image: 'images/img-36-shelby-co-ltd-t-shirt.png', category: 'T-Shirts', catUrl: 't-shirts.html' }
   };
 
@@ -505,6 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     tshirtsCarouselTrack.addEventListener('scroll', updateCarouselArrows, { passive: true });
+    window.addEventListener('resize', updateCarouselArrows);
     updateCarouselArrows();
   }
 
