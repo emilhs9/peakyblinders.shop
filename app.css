@@ -1346,9 +1346,18 @@ button {
   text-decoration: underline;
 }
 
+.footer-legal-wrap {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 .footer-social-bar {
   margin-top: 90px;
   margin-bottom: 36px;
+  width: 100%;
 }
 
 .footer-social-links {
@@ -1356,8 +1365,7 @@ button {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .footer-social-links .social-link {
