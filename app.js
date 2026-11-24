@@ -1,276 +1,305 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- STATE ---
-  const state = {
-    currency: 'GBP',
-    currencySymbol: '£',
-    exchangeRates: {
-      GBP: { symbol: '£', rate: 1.0 },
-      USD: { symbol: '$', rate: 1.28 },
-      EUR: { symbol: '€', rate: 1.18 },
-      CAD: { symbol: '$', rate: 1.74 },
-      AUD: { symbol: '$', rate: 1.95 }
-    },
-    cart: [],
-    products: []
+  const mezenne = {
+    GBP: { simvol: '£', kurs: 1.0 },
+    USD: { simvol: '$', kurs: 1.3032 },
+    EUR: { simvol: '€', kurs: 1.1949 },
+    CAD: { simvol: '$', kurs: 1.8722 },
+    AUD: { simvol: '$', kurs: 1.967 },
+    JPY: { simvol: '¥', kurs: 207.1755 }
   };
 
-  // --- PRODUCTS DATA SOURCE ---
-  // Primary: window.PEAKY_PRODUCTS_DATA (instant, CORS-safe, offline-capable)
-  // Secondary: fetch('products.json')
+  let cariValyuta = localStorage.getItem('peaky_valyuta') || 'GBP';
+  if (!mezenne[cariValyuta]) cariValyuta = 'GBP';
+
+  let sebet = [];
+  try {
+    const yaddas = localStorage.getItem('peaky_sebet');
+    if (yaddas) sebet = JSON.parse(yaddas) || [];
+  } catch (e) {
+    sebet = [];
+  }
+
+  let mehsullar = [];
   if (window.PEAKY_PRODUCTS_DATA && Array.isArray(window.PEAKY_PRODUCTS_DATA.products)) {
-    state.products = window.PEAKY_PRODUCTS_DATA.products;
+    mehsullar = window.PEAKY_PRODUCTS_DATA.products;
   }
 
-  // --- DOM ELEMENTS ---
-  const cartDrawer = document.getElementById('cartDrawer');
-  const drawerBackdrop = document.getElementById('drawerBackdrop');
-  const cartOpenBtns = document.querySelectorAll('.cart-open-trigger');
-  const cartCloseBtn = document.getElementById('cartCloseBtn');
-  const cartItemsList = document.getElementById('cartItemsList');
-  const cartSubtotalEl = document.getElementById('cartSubtotal');
-  const cartBadge = document.getElementById('cartBadge');
+  const sebetQutu = document.getElementById('cartDrawer');
+  const arxaFon = document.getElementById('drawerBackdrop');
+  const sebetAcDugmeler = document.querySelectorAll('.cart-open-trigger');
+  const sebetBaglaDugme = document.getElementById('cartCloseBtn');
+  const sebetSiyahi = document.getElementById('cartItemsList');
+  const sebetCem = document.getElementById('cartSubtotal');
+  const sebetSayac = document.getElementById('cartBadge');
 
-  const quickViewModal = document.getElementById('quickViewModal');
-  const modalCloseBtn = document.getElementById('modalCloseBtn');
-  const modalImage = document.getElementById('modalImage');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalPrice = document.getElementById('modalPrice');
-  const modalAddBtn = document.getElementById('modalAddBtn');
-  const sizePills = document.querySelectorAll('#quickViewModal .size-pill');
+  const baxisModal = document.getElementById('quickViewModal');
+  const baxisBagla = document.getElementById('modalCloseBtn');
+  const baxisSekil = document.getElementById('modalImage');
+  const baxisBasliq = document.getElementById('modalTitle');
+  const baxisQiymet = document.getElementById('modalPrice');
+  const baxisSebeteAt = document.getElementById('modalAddBtn');
+  const baxisOlculer = document.querySelectorAll('#quickViewModal .size-pill');
 
-  const currencyPicker = document.getElementById('currencyPicker');
-  const headerCurrencySymbol = document.getElementById('headerCurrencySymbol');
+  const valyutaSecici = document.getElementById('currencyPicker');
+  const headerValyutaSimvol = document.getElementById('headerCurrencySymbol');
+  const footerValyutalar = document.querySelectorAll('.currency-symbol');
 
-  const searchTrigger = document.getElementById('searchTrigger');
-  const searchModal = document.getElementById('searchModal');
-  const searchCloseBtn = document.getElementById('searchCloseBtn');
-  const searchInput = document.getElementById('searchInput');
-  const searchResults = document.getElementById('searchResults');
+  const axtarisDugme = document.getElementById('searchTrigger');
+  const axtarisModal = document.getElementById('searchModal');
+  const axtarisBagla = document.getElementById('searchCloseBtn');
+  const axtarisGiris = document.getElementById('searchInput');
+  const axtarisNetice = document.getElementById('searchResults');
 
-  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-  const mobileNavClose = document.getElementById('mobileNavClose');
+  const mobilMenyuDugme = document.getElementById('mobileMenuToggle');
+  const mobilMenyuQutu = document.getElementById('mobileNavDrawer');
+  const mobilMenyuBagla = document.getElementById('mobileNavClose');
 
-  const toastNotice = document.getElementById('toastNotice');
+  const bildirisQutu = document.getElementById('toastNotice');
 
-  let currentModalProduct = null;
-  let selectedModalSize = 'M';
+  let aktivModalMehsul = null;
+  let secilenOlcu = 'M';
 
-  // --- HELPERS ---
-  function showToast(message) {
-    if (!toastNotice) return;
-    toastNotice.textContent = message;
-    toastNotice.classList.add('show');
-    setTimeout(() => {
-      toastNotice.classList.remove('show');
-    }, 2800);
+  function bildirisGoster(metn) {
+    if (!bildirisQutu) return;
+    bildirisQutu.textContent = metn;
+    bildirisQutu.classList.add('show');
+    clearTimeout(bildirisQutu._taymer);
+    bildirisQutu._taymer = setTimeout(() => {
+      bildirisQutu.classList.remove('show');
+    }, 2400);
   }
 
-  function formatPrice(baseGbpPrice) {
-    const rateInfo = state.exchangeRates[state.currency] || { symbol: '£', rate: 1.0 };
-    const converted = Math.round(baseGbpPrice * rateInfo.rate);
-    return `${rateInfo.symbol}${converted}`;
+  function qiymetFormat(gbpDeyer) {
+    const v = mezenne[cariValyuta] || mezenne.GBP;
+    const netice = Math.round(Number(gbpDeyer) * v.kurs);
+    return `${v.simvol}${netice}`;
   }
 
-  function updateAllDisplayedPrices() {
+  function qiymetleriYenile() {
     document.querySelectorAll('[data-base-price]').forEach(el => {
-      const base = parseFloat(el.getAttribute('data-base-price'));
-      if (!isNaN(base)) {
-        el.textContent = formatPrice(base);
+      const esas = parseFloat(el.getAttribute('data-base-price'));
+      if (!isNaN(esas)) {
+        el.textContent = qiymetFormat(esas);
       }
     });
-    if (headerCurrencySymbol) {
-      headerCurrencySymbol.textContent = state.currencySymbol;
+
+    if (headerValyutaSimvol) {
+      headerValyutaSimvol.textContent = mezenne[cariValyuta].simvol;
     }
-    renderCart();
+
+    if (valyutaSecici) {
+      valyutaSecici.value = cariValyuta;
+    }
+
+    footerValyutalar.forEach(span => {
+      const txt = span.textContent.trim();
+      let kod = 'GBP';
+      if (txt === '£') kod = 'GBP';
+      else if (txt === '$') kod = 'USD';
+      else if (txt === '€') kod = 'EUR';
+      else if (txt.includes('C')) kod = 'CAD';
+      else if (txt.includes('A')) kod = 'AUD';
+      else if (txt === '¥') kod = 'JPY';
+      span.classList.toggle('active', kod === cariValyuta);
+    });
+
+    sebetiYenile();
   }
 
-  // --- CART FUNCTIONS ---
-  function renderCart() {
-    if (!cartItemsList) return;
+  function valyutaDeyis(yeniKod) {
+    if (!mezenne[yeniKod]) return;
+    cariValyuta = yeniKod;
+    localStorage.setItem('peaky_valyuta', cariValyuta);
+    qiymetleriYenile();
+    bildirisGoster(`${cariValyuta} (${mezenne[cariValyuta].simvol})`);
+  }
 
-    if (state.cart.length === 0) {
-      cartItemsList.innerHTML = `
-        <div class="cart-empty-message">
-          <p>Your basket is currently empty.</p>
-        </div>
-      `;
-      if (cartSubtotalEl) cartSubtotalEl.textContent = formatPrice(0);
-      if (cartBadge) cartBadge.textContent = '0';
+  function sebetiYaddaSaxla() {
+    try {
+      localStorage.setItem('peaky_sebet', JSON.stringify(sebet));
+    } catch (e) {}
+  }
+
+  function sebetiYenile() {
+    if (!sebetSiyahi) return;
+
+    if (sebet.length === 0) {
+      sebetSiyahi.innerHTML = '<div class="cart-empty-message" style="text-align:center; padding:3rem 1rem; color:#888;"><p>Your basket is currently empty.</p></div>';
+      if (sebetCem) sebetCem.textContent = qiymetFormat(0);
+      if (sebetSayac) sebetSayac.textContent = '0';
       return;
     }
 
-    let totalGbp = 0;
-    let totalCount = 0;
+    let cemGbp = 0;
+    let umumiSay = 0;
     let html = '';
 
-    state.cart.forEach((item, index) => {
-      totalGbp += item.basePrice * item.quantity;
-      totalCount += item.quantity;
+    sebet.forEach((mal, sira) => {
+      cemGbp += mal.basePrice * mal.quantity;
+      umumiSay += mal.quantity;
 
       html += `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.title}" class="cart-item-img">
-          <div class="cart-item-details">
-            <h4 class="cart-item-title">${item.title}</h4>
-            <div class="cart-item-size">Size: ${item.size}</div>
-            <div class="cart-item-price tabular-nums">${formatPrice(item.basePrice)}</div>
-            <div class="cart-item-qty">
-              <button class="qty-btn" data-action="dec" data-index="${index}">-</button>
-              <span class="qty-count tabular-nums">${item.quantity}</span>
-              <button class="qty-btn" data-action="inc" data-index="${index}">+</button>
-              <button class="qty-btn" style="margin-left: auto; width: auto; padding: 0 6px;" data-action="del" data-index="${index}">Remove</button>
+        <div class="cart-item" style="display:flex; gap:14px; padding:14px 0; border-bottom:1px solid #222; align-items:center;">
+          <img src="${mal.image}" alt="${mal.title}" class="cart-item-img" style="width:68px; height:80px; object-fit:cover;">
+          <div class="cart-item-details" style="flex:1;">
+            <h4 class="cart-item-title" style="font-family:var(--font-serif); font-size:0.95rem; margin-bottom:4px;">${mal.title}</h4>
+            <div class="cart-item-size" style="font-size:0.8rem; color:#aaa; margin-bottom:6px;">Size: ${mal.size}</div>
+            <div class="cart-item-price tabular-nums" style="font-weight:700; margin-bottom:8px;">${qiymetFormat(mal.basePrice)}</div>
+            <div class="cart-item-qty" style="display:flex; align-items:center; gap:8px;">
+              <button class="qty-btn" data-emel="azalt" data-sira="${sira}" style="width:26px; height:26px; border:1px solid #444; color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">-</button>
+              <span class="qty-count tabular-nums" style="font-size:0.9rem; min-width:18px; text-align:center;">${mal.quantity}</span>
+              <button class="qty-btn" data-emel="artir" data-sira="${sira}" style="width:26px; height:26px; border:1px solid #444; color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">+</button>
+              <button class="qty-btn" data-emel="sil" data-sira="${sira}" style="margin-left:auto; background:none; border:none; color:#888; text-decoration:underline; font-size:0.8rem; cursor:pointer;">Remove</button>
             </div>
           </div>
         </div>
       `;
     });
 
-    cartItemsList.innerHTML = html;
-    if (cartSubtotalEl) cartSubtotalEl.textContent = formatPrice(totalGbp);
-    if (cartBadge) cartBadge.textContent = totalCount.toString();
+    sebetSiyahi.innerHTML = html;
+    if (sebetCem) sebetCem.textContent = qiymetFormat(cemGbp);
+    if (sebetSayac) sebetSayac.textContent = umumiSay.toString();
   }
 
-  function addToCart(product) {
-    const existing = state.cart.find(item => item.id === product.id && item.size === product.size);
-    if (existing) {
-      existing.quantity += 1;
+  function sebeteAt(mal) {
+    const varOlan = sebet.find(x => x.id === mal.id && x.size === mal.size);
+    if (varOlan) {
+      varOlan.quantity += 1;
     } else {
-      state.cart.push({
-        id: product.id,
-        title: product.title,
-        basePrice: product.basePrice,
-        size: product.size || 'M',
-        image: product.image,
+      sebet.push({
+        id: mal.id,
+        title: mal.title,
+        basePrice: mal.basePrice,
+        size: mal.size || 'M',
+        image: mal.image,
         quantity: 1
       });
     }
-    renderCart();
-    openCart();
-    showToast(`Added ${product.title} to your basket`);
+    sebetiYaddaSaxla();
+    sebetiYenile();
+    sebetiAc();
+    bildirisGoster(`${mal.title}`);
   }
 
-  function openCart() {
-    if (cartDrawer && drawerBackdrop) {
-      cartDrawer.classList.add('active');
-      drawerBackdrop.classList.add('active');
+  function sebetiAc() {
+    if (sebetQutu && arxaFon) {
+      sebetQutu.classList.add('active');
+      arxaFon.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
   }
 
-  function closeCart() {
-    if (cartDrawer && drawerBackdrop) {
-      cartDrawer.classList.remove('active');
-      drawerBackdrop.classList.remove('active');
+  function sebetiBagla() {
+    if (sebetQutu && arxaFon) {
+      sebetQutu.classList.remove('active');
+      arxaFon.classList.remove('active');
       document.body.style.overflow = '';
     }
   }
 
-  cartOpenBtns.forEach(btn => btn.addEventListener('click', (e) => {
+  sebetAcDugmeler.forEach(duyme => duyme.addEventListener('click', (e) => {
     e.preventDefault();
-    openCart();
+    sebetiAc();
   }));
 
-  if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCart);
-  if (drawerBackdrop) drawerBackdrop.addEventListener('click', () => {
-    closeCart();
-    closeMobileNav();
+  if (sebetBaglaDugme) sebetBaglaDugme.addEventListener('click', sebetiBagla);
+  if (arxaFon) arxaFon.addEventListener('click', () => {
+    sebetiBagla();
+    mobilMenyuBaglaFunksiya();
   });
 
-  if (cartItemsList) {
-    cartItemsList.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-action]');
-      if (!btn) return;
-      const action = btn.getAttribute('data-action');
-      const idx = parseInt(btn.getAttribute('data-index'), 10);
-      if (isNaN(idx) || !state.cart[idx]) return;
+  if (sebetSiyahi) {
+    sebetSiyahi.addEventListener('click', (e) => {
+      const d = e.target.closest('[data-emel]');
+      if (!d) return;
+      const emel = d.getAttribute('data-emel');
+      const idx = parseInt(d.getAttribute('data-sira'), 10);
+      if (isNaN(idx) || !sebet[idx]) return;
 
-      if (action === 'inc') {
-        state.cart[idx].quantity += 1;
-      } else if (action === 'dec') {
-        state.cart[idx].quantity -= 1;
-        if (state.cart[idx].quantity <= 0) {
-          state.cart.splice(idx, 1);
+      if (emel === 'artir') {
+        sebet[idx].quantity += 1;
+      } else if (emel === 'azalt') {
+        sebet[idx].quantity -= 1;
+        if (sebet[idx].quantity <= 0) {
+          sebet.splice(idx, 1);
         }
-      } else if (action === 'del') {
-        state.cart.splice(idx, 1);
+      } else if (emel === 'sil') {
+        sebet.splice(idx, 1);
       }
-      renderCart();
+      sebetiYaddaSaxla();
+      sebetiYenile();
     });
   }
 
-  // --- QUICK VIEW MODAL ---
-  function openQuickView(product) {
-    currentModalProduct = product;
-    selectedModalSize = 'M';
-    if (modalImage) {
-      modalImage.src = product.image;
-      modalImage.alt = product.name || product.title;
+  function baxisAc(mal) {
+    aktivModalMehsul = mal;
+    secilenOlcu = 'M';
+    if (baxisSekil) {
+      baxisSekil.src = mal.featuredImage || mal.image;
+      baxisSekil.alt = mal.name || mal.title;
     }
-    if (modalTitle) modalTitle.textContent = product.name || product.title;
-    if (modalPrice) {
-      const priceVal = product.price !== undefined ? product.price : product.basePrice;
-      modalPrice.setAttribute('data-base-price', priceVal);
-      modalPrice.textContent = formatPrice(priceVal);
+    if (baxisBasliq) baxisBasliq.textContent = mal.name || mal.title;
+    if (baxisQiymet) {
+      const q = mal.price !== undefined ? mal.price : mal.basePrice;
+      baxisQiymet.setAttribute('data-base-price', q);
+      baxisQiymet.textContent = qiymetFormat(q);
     }
 
-    sizePills.forEach(pill => {
+    baxisOlculer.forEach(pill => {
       pill.classList.toggle('active', pill.getAttribute('data-size') === 'M');
     });
 
-    if (quickViewModal) {
-      quickViewModal.classList.add('active');
+    if (baxisModal) {
+      baxisModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
   }
 
-  function closeQuickView() {
-    if (quickViewModal) {
-      quickViewModal.classList.remove('active');
+  function baxisBaglaFunksiya() {
+    if (baxisModal) {
+      baxisModal.classList.remove('active');
       document.body.style.overflow = '';
     }
   }
 
-  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeQuickView);
-  if (quickViewModal) {
-    quickViewModal.addEventListener('click', (e) => {
-      if (e.target === quickViewModal) closeQuickView();
+  if (baxisBagla) baxisBagla.addEventListener('click', baxisBaglaFunksiya);
+  if (baxisModal) {
+    baxisModal.addEventListener('click', (e) => {
+      if (e.target === baxisModal) baxisBaglaFunksiya();
     });
   }
 
-  sizePills.forEach(pill => {
+  baxisOlculer.forEach(pill => {
     pill.addEventListener('click', () => {
-      sizePills.forEach(p => p.classList.remove('active'));
+      baxisOlculer.forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
-      selectedModalSize = pill.getAttribute('data-size');
+      secilenOlcu = pill.getAttribute('data-size') || 'M';
     });
   });
 
-  if (modalAddBtn) {
-    modalAddBtn.addEventListener('click', () => {
-      if (currentModalProduct) {
-        const title = currentModalProduct.name || currentModalProduct.title;
-        const basePrice = currentModalProduct.price !== undefined ? currentModalProduct.price : currentModalProduct.basePrice;
-        addToCart({
-          id: currentModalProduct.id,
-          title: title,
-          basePrice: basePrice,
-          image: currentModalProduct.image,
-          size: selectedModalSize
+  if (baxisSebeteAt) {
+    baxisSebeteAt.addEventListener('click', () => {
+      if (aktivModalMehsul) {
+        const ad = aktivModalMehsul.name || aktivModalMehsul.title;
+        const q = aktivModalMehsul.price !== undefined ? aktivModalMehsul.price : aktivModalMehsul.basePrice;
+        sebeteAt({
+          id: aktivModalMehsul.id,
+          title: ad,
+          basePrice: q,
+          image: aktivModalMehsul.featuredImage || aktivModalMehsul.image,
+          size: secilenOlcu
         });
-        closeQuickView();
+        baxisBaglaFunksiya();
       }
     });
   }
 
-  // --- DYNAMIC RENDERING: FEATURED 8 GRID (index.html) ---
-  function renderFeaturedProducts(products) {
-    const grid = document.getElementById('featuredProductsGrid');
-    if (!grid || !products || products.length === 0) return;
+  function basSehifeVitrin(siyahi) {
+    const qefes = document.getElementById('featuredProductsGrid');
+    if (!qefes || !siyahi || siyahi.length === 0) return;
 
-    // Take first 8 products (exactly matches real peakyblinders.shop homepage)
-    const featured = products.slice(0, 8);
-    grid.innerHTML = featured.map(p => `
+    const secilmisler = siyahi.slice(0, 8);
+    qefes.innerHTML = secilmisler.map(p => `
       <a href="product.html?id=${p.id}" class="product-card" data-product-id="${p.id}">
         <div class="product-card-image-wrap">
           <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
@@ -282,13 +311,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
   }
 
-  // --- DYNAMIC RENDERING: CAROUSEL TRACK (index.html) ---
-  function renderCarouselProducts(products) {
-    const track = document.getElementById('tshirtsCarouselTrack');
-    if (!track || !products || products.length === 0) return;
+  function basSehifeSlayder(siyahi) {
+    const zolaq = document.getElementById('tshirtsCarouselTrack');
+    if (!zolaq || !siyahi || siyahi.length === 0) return;
 
-    // 12 carousel products exactly matching the real peakyblinders.shop slider
-    const carouselConfig = [
+    const nizam = [
       { id: 'solomons-bakery-oversized-sweatshi', name: 'Solomons Bakery Oversized Sweatshirt', price: 35, image: 'images/img-15-solomons-bakery-oversized-swea.png' },
       { id: 'bleak-midwinter-oversized-jumper', name: 'Bleak Midwinter Oversized Sweatshirt', price: 40, image: 'images/img-16-bleak-midwinter-oversized-swea.png' },
       { id: 'the-streets-belong-to-us-t-shirt', name: 'The Streets Belong to Us T-Shirt', price: 22, image: 'images/img-17-the-streets-belong-to-us-t-shi.png' },
@@ -303,165 +330,143 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 'shelby-co-ltd-t-shirt', name: 'Shelby Co. Ltd T-Shirt', price: 22, image: 'images/img-36-shelby-co-ltd-t-shirt.png' }
     ];
 
-    const cardsHtml = carouselConfig.map(c => {
-      const p = products.find(prod => prod.id === c.id) || c;
-      const title = c.name;
-      const img = c.image || p.image;
-      const price = c.price || p.price;
+    zolaq.innerHTML = nizam.map(c => {
+      const tap = siyahi.find(x => x.id === c.id) || c;
+      const basliq = c.name;
+      const sekil = c.image || tap.image;
+      const qiym = c.price || tap.price;
       return `
         <a href="product.html?id=${c.id}" class="tshirt-carousel-card" data-product-id="${c.id}">
           <div class="tshirt-card-image-wrap">
-            <img src="${img}" alt="${title}" class="product-card-image" loading="lazy">
+            <img src="${sekil}" alt="${basliq}" class="product-card-image" loading="lazy">
           </div>
           <div class="tshirt-card-info">
-            <h3 class="tshirt-card-title">${title}</h3>
-            <div class="tshirt-card-price tabular-nums" data-base-price="${price}">${formatPrice(price)}</div>
+            <h3 class="tshirt-card-title">${basliq}</h3>
+            <div class="tshirt-card-price tabular-nums" data-base-price="${qiym}">${qiymetFormat(qiym)}</div>
           </div>
         </a>
       `;
-    }).join('');
+    }).join('') + '<div class="tshirt-carousel-spacer" aria-hidden="true"></div>';
 
-    track.innerHTML = cardsHtml + '<div class="tshirt-carousel-spacer" aria-hidden="true"></div>';
-
-    initCarouselListeners();
+    slayderQulaqAs(zolaq);
   }
 
-  function initCarouselListeners() {
-    const tshirtsCarouselTrack = document.getElementById('tshirtsCarouselTrack');
-    const tshirtsPrevBtn = document.getElementById('tshirtsPrevBtn');
-    const tshirtsNextBtn = document.getElementById('tshirtsNextBtn');
-    if (!tshirtsCarouselTrack) return;
+  function slayderQulaqAs(zolaq) {
+    const solOx = document.getElementById('tshirtsPrevBtn');
+    const sagOx = document.getElementById('tshirtsNextBtn');
+    if (!zolaq) return;
 
-    const updateCarouselArrows = () => {
-      const scrollLeft = tshirtsCarouselTrack.scrollLeft;
-      const maxScroll = tshirtsCarouselTrack.scrollWidth - tshirtsCarouselTrack.clientWidth;
-      if (tshirtsPrevBtn) {
-        tshirtsPrevBtn.style.display = scrollLeft > 15 ? 'flex' : 'none';
-      }
-      if (tshirtsNextBtn) {
-        tshirtsNextBtn.style.display = (maxScroll > 15 && scrollLeft < maxScroll - 15) ? 'flex' : 'none';
-      }
+    const oxYenile = () => {
+      const surusme = zolaq.scrollLeft;
+      const maks = zolaq.scrollWidth - zolaq.clientWidth;
+      if (solOx) solOx.style.display = surusme > 15 ? 'flex' : 'none';
+      if (sagOx) sagOx.style.display = (maks > 15 && surusme < maks - 15) ? 'flex' : 'none';
     };
 
-    if (tshirtsNextBtn) {
-      tshirtsNextBtn.onclick = () => {
-        tshirtsCarouselTrack.scrollTo({
-          left: tshirtsCarouselTrack.scrollWidth,
-          behavior: 'smooth'
-        });
-        setTimeout(updateCarouselArrows, 400);
+    if (sagOx) {
+      sagOx.onclick = () => {
+        zolaq.scrollTo({ left: zolaq.scrollWidth, behavior: 'smooth' });
+        setTimeout(oxYenile, 350);
       };
     }
 
-    if (tshirtsPrevBtn) {
-      tshirtsPrevBtn.onclick = () => {
-        tshirtsCarouselTrack.scrollTo({
-          left: 0,
-          behavior: 'smooth'
-        });
-        setTimeout(updateCarouselArrows, 400);
+    if (solOx) {
+      solOx.onclick = () => {
+        zolaq.scrollTo({ left: 0, behavior: 'smooth' });
+        setTimeout(oxYenile, 350);
       };
     }
 
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
-    let hasDragged = false;
+    let basildi = false;
+    let basX = 0;
+    let surusIlk = 0;
+    let cekildi = false;
 
-    tshirtsCarouselTrack.onmousedown = (e) => {
-      isDown = true;
-      hasDragged = false;
-      startX = e.pageX - tshirtsCarouselTrack.offsetLeft;
-      scrollStart = tshirtsCarouselTrack.scrollLeft;
-      tshirtsCarouselTrack.style.scrollBehavior = 'auto';
-      tshirtsCarouselTrack.style.cursor = 'grabbing';
+    zolaq.onmousedown = (e) => {
+      basildi = true;
+      cekildi = false;
+      basX = e.pageX - zolaq.offsetLeft;
+      surusIlk = zolaq.scrollLeft;
+      zolaq.style.scrollBehavior = 'auto';
+      zolaq.style.cursor = 'grabbing';
     };
 
     window.addEventListener('mouseup', () => {
-      if (!isDown) return;
-      isDown = false;
-      tshirtsCarouselTrack.style.scrollBehavior = 'smooth';
-      tshirtsCarouselTrack.style.cursor = 'grab';
-      updateCarouselArrows();
+      if (!basildi) return;
+      basildi = false;
+      zolaq.style.scrollBehavior = 'smooth';
+      zolaq.style.cursor = 'grab';
+      oxYenile();
     });
 
-    tshirtsCarouselTrack.onmousemove = (e) => {
-      if (!isDown) return;
+    zolaq.onmousemove = (e) => {
+      if (!basildi) return;
       e.preventDefault();
-      const x = e.pageX - tshirtsCarouselTrack.offsetLeft;
-      const walk = (x - startX);
-      if (Math.abs(walk) > 5) {
-        hasDragged = true;
-      }
-      tshirtsCarouselTrack.scrollLeft = scrollStart - walk;
+      const x = e.pageX - zolaq.offsetLeft;
+      const addim = (x - basX);
+      if (Math.abs(addim) > 5) cekildi = true;
+      zolaq.scrollLeft = surusIlk - addim;
     };
 
-    tshirtsCarouselTrack.querySelectorAll('a').forEach(link => {
+    zolaq.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', (e) => {
-        if (hasDragged) {
-          e.preventDefault();
-        }
+        if (cekildi) e.preventDefault();
       });
     });
 
-    tshirtsCarouselTrack.addEventListener('scroll', updateCarouselArrows, { passive: true });
-    window.addEventListener('resize', updateCarouselArrows);
-    updateCarouselArrows();
-    setTimeout(updateCarouselArrows, 150);
+    zolaq.addEventListener('scroll', oxYenile, { passive: true });
+    window.addEventListener('resize', oxYenile);
+    oxYenile();
   }
 
-  // --- DYNAMIC RENDERING: CATEGORY PAGES (product-grid-12) ---
-  let currentCategoryProducts = [];
-
-  function getPageCategory() {
-    const path = window.location.pathname.toLowerCase();
-    if (path.includes('t-shirts')) return 't-shirts';
-    if (path.includes('sweatshirts')) return 'sweatshirts';
-    if (path.includes('accessories')) return 'accessories';
-    if (path.includes('oversized')) return 'oversized';
-    if (path.includes('men')) return 'men';
-    if (path.includes('women')) return 'women';
-    if (path.includes('gift-guide')) return 'gift-guide';
+  function sehifeBolmesiTap() {
+    const yol = window.location.pathname.toLowerCase();
+    if (yol.includes('t-shirts')) return 't-shirts';
+    if (yol.includes('sweatshirts')) return 'sweatshirts';
+    if (yol.includes('accessories')) return 'accessories';
+    if (yol.includes('oversized')) return 'oversized';
+    if (yol.includes('men')) return 'men';
+    if (yol.includes('women')) return 'women';
+    if (yol.includes('gift-guide')) return 'gift-guide';
     return null;
   }
 
-  function filterProductsForPage(products, pageCategory) {
-    if (!pageCategory) return products;
-
-    switch (pageCategory) {
+  function mehsulFiltrle(siyahi, bolme) {
+    if (!bolme) return siyahi;
+    switch (bolme) {
       case 't-shirts':
-        return products.filter(p => p.category === 'T-shirts');
+        return siyahi.filter(p => p.category === 'T-shirts');
       case 'sweatshirts':
-        return products.filter(p => p.category === 'Hoodies & Sweatshirts');
+        return siyahi.filter(p => p.category === 'Hoodies & Sweatshirts');
       case 'accessories':
-        return products.filter(p => p.category === 'Accessories');
+        return siyahi.filter(p => p.category === 'Accessories');
       case 'oversized':
-        return products.filter(p => p.name.toLowerCase().includes('oversized'));
+        return siyahi.filter(p => p.name.toLowerCase().includes('oversized'));
       case 'men':
-        return products.filter(p => p.category === 'T-shirts' || p.category === 'Hoodies & Sweatshirts');
+        return siyahi.filter(p => p.category === 'T-shirts' || p.category === 'Hoodies & Sweatshirts');
       case 'women':
-        return products.slice(); // Entire collection is unisex
+        return siyahi.slice();
       case 'gift-guide':
-        return products.filter(p => p.category === 'Accessories' || p.price <= 25);
+        return siyahi.filter(p => p.category === 'Accessories' || p.price <= 25);
       default:
-        return products;
+        return siyahi;
     }
   }
 
-  function renderCategoryGrid(products) {
-    const grid = document.getElementById('productsGrid') || document.querySelector('.product-grid-12');
-    if (!grid) return;
+  function kataloqQefesiQur(siyahi) {
+    const qefes = document.getElementById('productsGrid') || document.querySelector('.product-grid-12');
+    if (!qefes) return;
 
-    if (!products || products.length === 0) {
-      grid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1; padding: 3rem 0; color: #888;">No products found.</p>';
+    if (!siyahi || siyahi.length === 0) {
+      qefes.innerHTML = '<p style="text-align:center; grid-column:1 / -1; padding:3rem 0; color:#888;">No products found.</p>';
       return;
     }
 
-    grid.innerHTML = products.map(p => `
+    qefes.innerHTML = siyahi.map(p => `
       <article class="product-card" data-product-id="${p.id}">
         <div class="product-card-image-wrap">
           <a href="product.html?id=${p.id}" style="display:block;">
-            <img src="${p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
+            <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
           </a>
           <button class="quick-view-btn" data-product-id="${p.id}" aria-label="Quick view ${p.name}">Quick View</button>
         </div>
@@ -469,33 +474,32 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="product.html?id=${p.id}" style="text-decoration:none; color:inherit;">
             <h3 class="product-card-title">${p.name}</h3>
           </a>
-          <div class="product-card-price tabular-nums" data-base-price="${p.price}">${formatPrice(p.price)}</div>
+          <div class="product-card-price tabular-nums" data-base-price="${p.price}">${qiymetFormat(p.price)}</div>
           <button class="product-add-btn" data-product-id="${p.id}">Add to Bag</button>
         </div>
       </article>
     `).join('');
 
-    // Attach card event listeners
-    grid.querySelectorAll('.quick-view-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+    qefes.querySelectorAll('.quick-view-btn').forEach(d => {
+      d.addEventListener('click', (e) => {
         e.preventDefault();
-        const pid = btn.getAttribute('data-product-id');
-        const prod = state.products.find(item => item.id === pid);
-        if (prod) openQuickView(prod);
+        const id = d.getAttribute('data-product-id');
+        const tap = mehsullar.find(x => x.id === id);
+        if (tap) baxisAc(tap);
       });
     });
 
-    grid.querySelectorAll('.product-add-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+    qefes.querySelectorAll('.product-add-btn').forEach(d => {
+      d.addEventListener('click', (e) => {
         e.preventDefault();
-        const pid = btn.getAttribute('data-product-id');
-        const prod = state.products.find(item => item.id === pid);
-        if (prod) {
-          addToCart({
-            id: prod.id,
-            title: prod.name,
-            basePrice: prod.price,
-            image: prod.image,
+        const id = d.getAttribute('data-product-id');
+        const tap = mehsullar.find(x => x.id === id);
+        if (tap) {
+          sebeteAt({
+            id: tap.id,
+            title: tap.name,
+            basePrice: tap.price,
+            image: tap.featuredImage || tap.image,
             size: 'M'
           });
         }
@@ -503,84 +507,81 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function initCategoryPage() {
-    const pageCategory = getPageCategory();
-    if (!pageCategory) return;
+  function bolmeSehifesiQur() {
+    const bolme = sehifeBolmesiTap();
+    if (!bolme) return;
 
-    currentCategoryProducts = filterProductsForPage(state.products, pageCategory);
+    let bolmeMehsullari = mehsulFiltrle(mehsullar, bolme);
 
-    const countEl = document.getElementById('collectionItemCount') || document.querySelector('.collection-item-count');
-    if (countEl) {
-      countEl.textContent = `Showing ${currentCategoryProducts.length} Products`;
+    const sayEl = document.getElementById('collectionItemCount') || document.querySelector('.collection-item-count');
+    if (sayEl) {
+      sayEl.textContent = `Showing ${bolmeMehsullari.length} Products`;
     }
 
-    renderCategoryGrid(currentCategoryProducts);
+    kataloqQefesiQur(bolmeMehsullari);
 
-    const sortSelect = document.getElementById('sortSelect');
-    if (sortSelect) {
-      sortSelect.addEventListener('change', (e) => {
+    const secimSirala = document.getElementById('sortSelect');
+    if (secimSirala) {
+      secimSirala.addEventListener('change', (e) => {
         const val = e.target.value;
-        let sorted = [...currentCategoryProducts];
+        let siralanmis = [...bolmeMehsullari];
         if (val === 'price-asc') {
-          sorted.sort((a, b) => a.price - b.price);
+          siralanmis.sort((a, b) => a.price - b.price);
         } else if (val === 'price-desc') {
-          sorted.sort((a, b) => b.price - a.price);
+          siralanmis.sort((a, b) => b.price - a.price);
+        } else if (val === 'name-asc') {
+          siralanmis.sort((a, b) => a.name.localeCompare(b.name));
         }
-        renderCategoryGrid(sorted);
+        kataloqQefesiQur(siralanmis);
       });
     }
   }
 
-  // --- PRODUCT DETAIL PAGE (product.html) ---
-  function initProductDetailPage() {
-    const detailTitleEl = document.getElementById('detailTitle');
-    if (!detailTitleEl) return;
+  function mehsulDetaliQur() {
+    const basliqEl = document.getElementById('detailTitle');
+    if (!basliqEl) return;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const prodId = urlParams.get('id');
+    const parametr = new URLSearchParams(window.location.search);
+    const id = parametr.get('id');
 
-    let product = state.products.find(p => p.id === prodId);
-    if (!product) {
-      product = state.products[0];
-    }
-    if (!product) return;
+    let mal = mehsullar.find(p => p.id === id) || mehsullar[0];
+    if (!mal) return;
 
-    document.title = `${product.name} | Peaky Blinders Official Store`;
-    detailTitleEl.textContent = product.name;
+    document.title = `${mal.name} | Peaky Blinders Official Store`;
+    basliqEl.textContent = mal.name;
 
-    const detailBreadcrumbTitleEl = document.getElementById('detailBreadcrumbTitle');
-    if (detailBreadcrumbTitleEl) detailBreadcrumbTitleEl.textContent = product.name;
+    const corekBasliq = document.getElementById('detailBreadcrumbTitle');
+    if (corekBasliq) corekBasliq.textContent = mal.name;
 
-    const detailImageEl = document.getElementById('detailImage');
-    if (detailImageEl) {
-      detailImageEl.src = product.image;
-      detailImageEl.alt = product.name;
+    const sekilEl = document.getElementById('detailImage');
+    if (sekilEl) {
+      sekilEl.src = mal.featuredImage || mal.image;
+      sekilEl.alt = mal.name;
     }
 
-    const detailPriceEl = document.getElementById('detailPrice');
-    if (detailPriceEl) {
-      detailPriceEl.setAttribute('data-base-price', product.price);
-      detailPriceEl.textContent = formatPrice(product.price);
+    const qiymetEl = document.getElementById('detailPrice');
+    if (qiymetEl) {
+      qiymetEl.setAttribute('data-base-price', mal.price);
+      qiymetEl.textContent = qiymetFormat(mal.price);
     }
 
-    const detailCatLinkEl = document.getElementById('detailCatLink');
-    if (detailCatLinkEl) {
-      detailCatLinkEl.textContent = product.category;
-      if (product.category === 'T-shirts') detailCatLinkEl.href = 't-shirts.html';
-      else if (product.category === 'Hoodies & Sweatshirts') detailCatLinkEl.href = 'sweatshirts.html';
-      else if (product.category === 'Accessories') detailCatLinkEl.href = 'accessories.html';
-      else detailCatLinkEl.href = 't-shirts.html';
+    const bolmeKecid = document.getElementById('detailCatLink');
+    if (bolmeKecid) {
+      bolmeKecid.textContent = mal.category || 'Collection';
+      if (mal.category === 'T-shirts') bolmeKecid.href = 't-shirts.html';
+      else if (mal.category === 'Hoodies & Sweatshirts') bolmeKecid.href = 'sweatshirts.html';
+      else if (mal.category === 'Accessories') bolmeKecid.href = 'accessories.html';
+      else bolmeKecid.href = 't-shirts.html';
     }
 
-    // Dynamic sizes if available in product variants
-    let selectedDetailSize = 'M';
-    const sizeOptionsContainer = document.querySelector('.size-options');
-    if (sizeOptionsContainer && product.variants && product.variants[0] && Array.isArray(product.variants[0].sizes)) {
-      const sizesList = product.variants[0].sizes.map(s => s.size);
-      if (sizesList.length > 0) {
-        selectedDetailSize = sizesList.includes('M') ? 'M' : sizesList[0];
-        sizeOptionsContainer.innerHTML = sizesList.map(sz => `
-          <button class="size-pill ${sz === selectedDetailSize ? 'active' : ''}" data-size="${sz}">${sz}</button>
+    let detalOlcu = 'M';
+    const olcuQutu = document.querySelector('.size-options');
+    if (olcuQutu && mal.variants && mal.variants[0] && Array.isArray(mal.variants[0].sizes)) {
+      const olcuSiyahisi = mal.variants[0].sizes.map(s => s.size);
+      if (olcuSiyahisi.length > 0) {
+        detalOlcu = olcuSiyahisi.includes('M') ? 'M' : olcuSiyahisi[0];
+        olcuQutu.innerHTML = olcuSiyahisi.map(sz => `
+          <button class="size-pill ${sz === detalOlcu ? 'active' : ''}" data-size="${sz}">${sz}</button>
         `).join('');
       }
     }
@@ -589,169 +590,177 @@ document.addEventListener('DOMContentLoaded', () => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.detail-size-section .size-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
-        selectedDetailSize = pill.getAttribute('data-size') || 'M';
+        detalOlcu = pill.getAttribute('data-size') || 'M';
       });
     });
 
-    const detailAddBtn = document.getElementById('detailAddBtn');
-    if (detailAddBtn) {
-      detailAddBtn.addEventListener('click', () => {
-        addToCart({
-          id: product.id,
-          title: product.name,
-          basePrice: product.price,
-          image: product.image,
-          size: selectedDetailSize
+    const atDugme = document.getElementById('detailAddBtn');
+    if (atDugme) {
+      atDugme.addEventListener('click', () => {
+        sebeteAt({
+          id: mal.id,
+          title: mal.name,
+          basePrice: mal.price,
+          image: mal.featuredImage || mal.image,
+          size: detalOlcu
         });
       });
     }
   }
 
-  // --- SEARCH MODAL & LIVE FILTER ---
-  function renderSearchResults(query) {
-    if (!searchResults) return;
-    const q = query.trim().toLowerCase();
-    const source = state.products;
+  function axtarisGoster(sorgu) {
+    if (!axtarisNetice) return;
+    const q = sorgu.trim().toLowerCase();
 
-    const matches = q
-      ? source.filter(p => p.name.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)))
-      : source.slice(0, 6);
+    const uygunlar = q
+      ? mehsullar.filter(p => p.name.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)))
+      : mehsullar.slice(0, 8);
 
-    if (matches.length === 0) {
-      searchResults.innerHTML = '<p style="text-align:center; padding: 2rem; color: #888;">No products found.</p>';
+    if (uygunlar.length === 0) {
+      axtarisNetice.innerHTML = '<p style="text-align:center; padding:2rem; color:#888;">No products found.</p>';
       return;
     }
 
-    searchResults.innerHTML = matches.map(p => `
-      <div class="search-result-item" data-id="${p.id}" style="display: flex; gap: 1rem; align-items: center; padding: 0.75rem; border-bottom: 1px solid #eee; cursor: pointer;">
-        <img src="${p.image}" alt="${p.name}" style="width: 50px; height: 60px; object-fit: cover;">
+    axtarisNetice.innerHTML = uygunlar.map(p => `
+      <div class="search-result-item" data-id="${p.id}" style="display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid #333; cursor:pointer;">
+        <img src="${p.featuredImage || p.image}" alt="${p.name}" style="width:48px; height:58px; object-fit:cover;">
         <div>
-          <div style="font-weight: 700; font-family: var(--font-serif);">${p.name}</div>
-          <div style="color: var(--primary-color); font-weight: 700;">${formatPrice(p.price)}</div>
+          <div style="font-weight:700; font-family:var(--font-serif); font-size:0.92rem; color:#fff;">${p.name}</div>
+          <div style="color:#aaa; font-size:0.85rem;" data-base-price="${p.price}">${qiymetFormat(p.price)}</div>
         </div>
       </div>
     `).join('');
 
-    searchResults.querySelectorAll('.search-result-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const pid = item.getAttribute('data-id');
-        const prod = state.products.find(p => p.id === pid);
-        if (prod) {
-          closeSearch();
-          openQuickView(prod);
-        }
+    axtarisNetice.querySelectorAll('.search-result-item').forEach(setir => {
+      setir.addEventListener('click', () => {
+        const id = setir.getAttribute('data-id');
+        window.location.href = `product.html?id=${id}`;
       });
     });
   }
 
-  function openSearch() {
-    if (searchModal) {
-      searchModal.classList.add('active');
+  function axtarisAcFunksiya() {
+    if (axtarisModal) {
+      axtarisModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      if (searchInput) {
-        searchInput.value = '';
-        searchInput.focus();
+      if (axtarisGiris) {
+        axtarisGiris.value = '';
+        setTimeout(() => axtarisGiris.focus(), 80);
       }
-      renderSearchResults('');
+      axtarisGoster('');
     }
   }
 
-  function closeSearch() {
-    if (searchModal) {
-      searchModal.classList.remove('active');
+  function axtarisBaglaFunksiya() {
+    if (axtarisModal) {
+      axtarisModal.classList.remove('active');
       document.body.style.overflow = '';
     }
   }
 
-  if (searchTrigger) searchTrigger.addEventListener('click', (e) => {
+  if (axtarisDugme) axtarisDugme.addEventListener('click', (e) => {
     e.preventDefault();
-    openSearch();
+    axtarisAcFunksiya();
   });
 
-  if (searchCloseBtn) searchCloseBtn.addEventListener('click', closeSearch);
-  if (searchModal) {
-    searchModal.addEventListener('click', (e) => {
-      if (e.target === searchModal) closeSearch();
+  if (axtarisBagla) axtarisBagla.addEventListener('click', axtarisBaglaFunksiya);
+  if (axtarisModal) {
+    axtarisModal.addEventListener('click', (e) => {
+      if (e.target === axtarisModal) axtarisBaglaFunksiya();
     });
   }
 
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      renderSearchResults(e.target.value);
+  if (axtarisGiris) {
+    axtarisGiris.addEventListener('input', (e) => {
+      axtarisGoster(e.target.value);
     });
   }
 
-  // --- CURRENCY SWITCHER ---
-  if (currencyPicker) {
-    currencyPicker.addEventListener('change', (e) => {
-      const chosen = e.target.value;
-      if (state.exchangeRates[chosen]) {
-        state.currency = chosen;
-        state.currencySymbol = state.exchangeRates[chosen].symbol;
-        updateAllDisplayedPrices();
-        showToast(`Currency updated to ${chosen} (${state.currencySymbol})`);
-      }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      axtarisBaglaFunksiya();
+      baxisBaglaFunksiya();
+      sebetiBagla();
+      mobilMenyuBaglaFunksiya();
+    }
+  });
+
+  if (valyutaSecici) {
+    valyutaSecici.addEventListener('change', (e) => {
+      valyutaDeyis(e.target.value);
     });
   }
 
-  // --- MOBILE NAV DRAWER ---
-  function openMobileNav() {
-    if (mobileNavDrawer && drawerBackdrop) {
-      mobileNavDrawer.classList.add('active');
-      drawerBackdrop.classList.add('active');
+  footerValyutalar.forEach(duyme => {
+    duyme.addEventListener('click', () => {
+      const txt = duyme.textContent.trim();
+      let kod = 'GBP';
+      if (txt === '£') kod = 'GBP';
+      else if (txt === '$') kod = 'USD';
+      else if (txt === '€') kod = 'EUR';
+      else if (txt.includes('C')) kod = 'CAD';
+      else if (txt.includes('A')) kod = 'AUD';
+      else if (txt === '¥') kod = 'JPY';
+      valyutaDeyis(kod);
+    });
+  });
+
+  function mobilMenyuAcFunksiya() {
+    if (mobilMenyuQutu && arxaFon) {
+      mobilMenyuQutu.classList.add('active');
+      arxaFon.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
   }
 
-  function closeMobileNav() {
-    if (mobileNavDrawer && drawerBackdrop) {
-      mobileNavDrawer.classList.remove('active');
-      drawerBackdrop.classList.remove('active');
+  function mobilMenyuBaglaFunksiya() {
+    if (mobilMenyuQutu && arxaFon) {
+      mobilMenyuQutu.classList.remove('active');
+      arxaFon.classList.remove('active');
       document.body.style.overflow = '';
     }
   }
 
-  if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMobileNav);
-  if (mobileNavClose) mobileNavClose.addEventListener('click', closeMobileNav);
+  if (mobilMenyuDugme) mobilMenyuDugme.addEventListener('click', mobilMenyuAcFunksiya);
+  if (mobilMenyuBagla) mobilMenyuBagla.addEventListener('click', mobilMenyuBaglaFunksiya);
 
-  // --- NEWSLETTER FORM ---
-  const newsletterForm = document.getElementById('newsletterForm');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+  const abuneForm = document.getElementById('newsletterForm');
+  if (abuneForm) {
+    abuneForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('newsletterEmail')?.value;
-      if (email) {
-        showToast('Thank you for subscribing to Peaky Blinders updates.');
-        newsletterForm.reset();
-      }
+      bildirisGoster('Thank you for subscribing to Peaky Blinders updates.');
+      abuneForm.reset();
     });
   }
 
-  // --- MASTER INITIALIZE ---
-  function initApp() {
-    renderFeaturedProducts(state.products);
-    renderCarouselProducts(state.products);
-    initCategoryPage();
-    initProductDetailPage();
-    renderCart();
-    updateAllDisplayedPrices();
+  const odenisDugmeleri = document.querySelectorAll('.checkout-btn');
+  odenisDugmeleri.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      bildirisGoster('Redirecting to secure checkout...');
+    });
+  });
+
+  function proqramiBaslat() {
+    basSehifeVitrin(mehsullar);
+    basSehifeSlayder(mehsullar);
+    bolmeSehifesiQur();
+    mehsulDetaliQur();
+    sebetiYenile();
+    qiymetleriYenile();
   }
 
-  // If products are already present in memory from window.PEAKY_PRODUCTS_DATA, initialize immediately
-  if (state.products && state.products.length > 0) {
-    initApp();
+  if (mehsullar && mehsullar.length > 0) {
+    proqramiBaslat();
   }
 
-  // In addition, attempt async fetch of products.json (works on web servers)
   fetch('products.json')
-    .then(res => res.json())
+    .then(cavab => cavab.json())
     .then(data => {
       if (data && Array.isArray(data.products) && data.products.length > 0) {
-        state.products = data.products;
-        initApp();
+        mehsullar = data.products;
+        proqramiBaslat();
       }
     })
-    .catch(() => {
-      // Offline or file:// protocol - window.PEAKY_PRODUCTS_DATA handles it
-    });
+    .catch(() => {});
 });

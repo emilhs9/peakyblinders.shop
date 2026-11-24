@@ -314,6 +314,17 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="searchModal" aria-label="Search products">
+    <div class="modal-container" style="grid-template-columns: 1fr; max-width: 600px; padding: 2rem;">
+      <button class="modal-close-btn" id="searchCloseBtn" aria-label="Close search">&times;</button>
+      <h3 style="font-family: var(--font-serif); text-transform: uppercase; margin-bottom: 1rem;">Search Collection</h3>
+      <input type="text" id="searchInput" placeholder="Search by name (e.g. Hoodie, Jumper, T-Shirt)..." 
+        style="width: 100%; padding: 0.875rem 1rem; border: 1px solid #ccc; font-family: var(--font-serif); font-size: 1rem; margin-bottom: 1.5rem;">
+      <div id="searchResults" style="max-height: 380px; overflow-y: auto;">
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notice -->
   <div class="toast-notice" id="toastNotice"></div>
 
