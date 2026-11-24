@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const mezenne = {
-    GBP: { simvol: '£', kurs: 1.0 },
-    USD: { simvol: '$', kurs: 1.3032 },
-    EUR: { simvol: '€', kurs: 1.1949 },
-    CAD: { simvol: '$', kurs: 1.8722 },
-    AUD: { simvol: '$', kurs: 1.967 },
-    JPY: { simvol: '¥', kurs: 207.1755 }
+    GBP: { simvol: '£', kurs: 1.0, htmlSimvol: '£', ad: 'Pound' },
+    USD: { simvol: '$', kurs: 1.3032, htmlSimvol: '$', ad: 'United States Dollar' },
+    EUR: { simvol: '€', kurs: 1.1949, htmlSimvol: '€', ad: 'Euro' },
+    CAD: { simvol: '$', kurs: 1.8722, htmlSimvol: '$<sub>C</sub>', ad: 'Canadian Dollar' },
+    AUD: { simvol: '$', kurs: 1.967, htmlSimvol: '$<sub>A</sub>', ad: 'Australian Dollar' },
+    JPY: { simvol: '¥', kurs: 207.1755, htmlSimvol: '¥', ad: 'Japanese Yen' }
   };
 
   let cariValyuta = localStorage.getItem('peaky_valyuta') || 'GBP';
@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const baxisOlculer = document.querySelectorAll('#quickViewModal .size-pill');
 
   const valyutaSecici = document.getElementById('currencyPicker');
+  const valyutaDugme = document.getElementById('currencyTrigger');
+  const valyutaMenyu = document.getElementById('currencyDropdown');
+  const valyutaVariantlar = document.querySelectorAll('.currency-menu-item');
   const headerValyutaSimvol = document.getElementById('headerCurrencySymbol');
   const footerValyutalar = document.querySelectorAll('.currency-symbol');
 
@@ -83,13 +86,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    if (headerValyutaSimvol) {
-      headerValyutaSimvol.textContent = mezenne[cariValyuta].simvol;
+    if (headerValyutaSimvol && mezenne[cariValyuta]) {
+      headerValyutaSimvol.innerHTML = mezenne[cariValyuta].htmlSimvol;
     }
 
     if (valyutaSecici) {
       valyutaSecici.value = cariValyuta;
     }
+
+    valyutaVariantlar.forEach(variant => {
+      variant.classList.toggle('active', variant.getAttribute('data-currency') === cariValyuta);
+    });
 
     footerValyutalar.forEach(span => {
       const txt = span.textContent.trim();
@@ -689,6 +696,34 @@ document.addEventListener('DOMContentLoaded', () => {
       mobilMenyuBaglaFunksiya();
     }
   });
+
+  if (valyutaDugme && valyutaMenyu) {
+    valyutaDugme.addEventListener('click', (hadise) => {
+      hadise.stopPropagation();
+      const aciqdir = valyutaMenyu.classList.contains('active');
+      valyutaMenyu.classList.toggle('active', !aciqdir);
+      valyutaDugme.setAttribute('aria-expanded', (!aciqdir).toString());
+    });
+
+    document.addEventListener('click', (hadise) => {
+      if (!valyutaMenyu.contains(hadise.target) && hadise.target !== valyutaDugme && !valyutaDugme.contains(hadise.target)) {
+        valyutaMenyu.classList.remove('active');
+        valyutaDugme.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    valyutaVariantlar.forEach(variant => {
+      variant.addEventListener('click', (hadise) => {
+        hadise.stopPropagation();
+        const kod = variant.getAttribute('data-currency');
+        if (kod) {
+          valyutaDeyis(kod);
+          valyutaMenyu.classList.remove('active');
+          valyutaDugme.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
 
   if (valyutaSecici) {
     valyutaSecici.addEventListener('change', (e) => {
