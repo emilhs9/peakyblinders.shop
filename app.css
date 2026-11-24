@@ -1219,7 +1219,8 @@ button {
 }
 
 .newsletter-wrap {
-  max-width: 400px;
+  max-width: 480px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }
@@ -1238,10 +1239,21 @@ button {
 .newsletter-subtitle {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
   font-size: 0.9375rem;
-  line-height: 1.45;
+  line-height: 1.55;
   color: #ffffff;
   margin-bottom: 28px;
   text-align: center;
+}
+
+.newsletter-subtitle .subtitle-line {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .newsletter-subtitle .subtitle-line {
+    white-space: normal;
+  }
 }
 
 .newsletter-form {
