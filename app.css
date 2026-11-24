@@ -752,19 +752,29 @@ button {
   fill: currentColor;
 }
 
+.tshirts-carousel-section .section-cta-wrap {
+  text-align: center;
+  padding: 25px 0 27px 0;
+  margin: 0;
+  line-height: 1;
+}
+
 .best-sellers-btn {
   background-color: #243342;
   color: #ffffff;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.8125rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   text-decoration: none;
-  padding: 10px 28px;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 37px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 0;
+  letter-spacing: 0.02em;
   transition: background-color var(--transition-fast);
 }
 
@@ -777,6 +787,7 @@ button {
   .tshirt-carousel-card {
     flex: 0 0 calc((100% - 3 * 10px) / 4);
   }
+
   .tshirt-carousel-spacer {
     display: none;
   }
