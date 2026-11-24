@@ -1686,6 +1686,16 @@ button {
 .currency-symbol {
   cursor: pointer;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.currency-symbol svg {
+  height: 18px;
+  width: auto;
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .currency-symbol.active {
