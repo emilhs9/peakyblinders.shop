@@ -1342,7 +1342,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 720px;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -1367,13 +1367,13 @@ button {
 
 .footer-legal-text {
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
-  font-size: 0.9625rem;
+  font-size: 1.155rem;
   line-height: 1.45;
   color: #ffffff;
   text-align: center;
   width: 100%;
   max-width: 100%;
-  margin: 0 auto 15px auto;
+  margin: 0 auto 18px auto;
 }
 
 .footer-banner {
