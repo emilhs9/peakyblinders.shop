@@ -668,10 +668,117 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  if (axtarisDugme) axtarisDugme.addEventListener('click', (e) => {
-    e.preventDefault();
-    axtarisAcFunksiya();
-  });
+  function sehifeAxtarisiIcraEt(sorgu, urlYenile = true) {
+    const netice = document.getElementById('searchResultsGrid');
+    if (!netice) return;
+
+    const q = (sorgu || '').trim();
+    if (!q) {
+      netice.innerHTML = '';
+      if (urlYenile) {
+        history.pushState(null, '', window.location.pathname);
+      }
+      return;
+    }
+
+    if (urlYenile) {
+      history.pushState(null, '', `?search=${encodeURIComponent(q)}`);
+    }
+
+    const qLower = q.toLowerCase();
+    const tapilanlar = mehsullar.filter(p => {
+      const ad = (p.name || '').toLowerCase();
+      const kat = (p.category || '').toLowerCase();
+      const id = (p.id || '').toLowerCase();
+      return ad.includes(qLower) || kat.includes(qLower) || id.includes(qLower);
+    });
+
+    if (tapilanlar.length === 0) {
+      netice.innerHTML = `<div class="search-empty-state"><p>No products found matching "${q}".</p></div>`;
+      return;
+    }
+
+    netice.innerHTML = tapilanlar.map(p => `
+      <a href="product.html?id=${p.id}" class="search-product-card" data-product-id="${p.id}">
+        <div class="search-product-image-wrap">
+          <img src="${p.featuredImage || p.image}" alt="${p.name}" class="search-product-image" loading="lazy">
+        </div>
+        <div class="search-product-info">
+          <h3 class="search-product-title">${p.name}</h3>
+          <div class="search-product-price tabular-nums" data-base-price="${p.price}">${qiymetFormat(p.price)}</div>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  function axtarisSehifesiniQur() {
+    const form = document.getElementById('searchPageForm');
+    const giris = document.getElementById('searchPageInput');
+    const submitBtn = document.getElementById('searchPageSubmit');
+    const netice = document.getElementById('searchResultsGrid');
+    if (!form || !giris || !netice) return;
+
+    giris.addEventListener('input', () => {
+      if (submitBtn) {
+        if (giris.value.trim().length > 0) {
+          submitBtn.style.opacity = '1';
+          submitBtn.style.pointerEvents = 'auto';
+        } else {
+          submitBtn.style.opacity = '0';
+          submitBtn.style.pointerEvents = 'none';
+        }
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      sehifeAxtarisiIcraEt(giris.value, true);
+    });
+
+    const parametrler = new URLSearchParams(window.location.search);
+    const ilkinSorgu = parametrler.get('search') || parametrler.get('q') || '';
+    if (ilkinSorgu.trim()) {
+      giris.value = ilkinSorgu.trim();
+      if (submitBtn) {
+        submitBtn.style.opacity = '1';
+        submitBtn.style.pointerEvents = 'auto';
+      }
+      sehifeAxtarisiIcraEt(ilkinSorgu.trim(), false);
+    } else {
+      if (submitBtn) {
+        submitBtn.style.opacity = '0';
+        submitBtn.style.pointerEvents = 'none';
+      }
+      netice.innerHTML = '';
+      giris.focus();
+    }
+
+    window.addEventListener('popstate', () => {
+      const p = new URLSearchParams(window.location.search);
+      const s = p.get('search') || p.get('q') || '';
+      giris.value = s;
+      if (submitBtn) {
+        if (s.trim().length > 0) {
+          submitBtn.style.opacity = '1';
+          submitBtn.style.pointerEvents = 'auto';
+        } else {
+          submitBtn.style.opacity = '0';
+          submitBtn.style.pointerEvents = 'none';
+        }
+      }
+      sehifeAxtarisiIcraEt(s, false);
+    });
+  }
+
+  if (axtarisDugme) {
+    axtarisDugme.addEventListener('click', (e) => {
+      if (window.location.pathname.endsWith('search.html')) {
+        e.preventDefault();
+        const sehifeGiris = document.getElementById('searchPageInput');
+        if (sehifeGiris) sehifeGiris.focus();
+      }
+    });
+  }
 
   if (axtarisBagla) axtarisBagla.addEventListener('click', axtarisBaglaFunksiya);
   if (axtarisModal) {
@@ -777,6 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
     basSehifeSlayder(mehsullar);
     bolmeSehifesiQur();
     mehsulDetaliQur();
+    axtarisSehifesiniQur();
     sebetiYenile();
     qiymetleriYenile();
   }
