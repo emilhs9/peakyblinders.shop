@@ -164,7 +164,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-07-peaky-blinders-christmas-jumpe.jpg",
+      "featuredImage": "/images/img-07-peaky-blinders-christmas-jumpe.jpg",
       "prices": {
         "GBP": 40,
         "USD": 52,
@@ -476,7 +476,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-08-no-f-king-fighting-hoodie.jpg",
+      "featuredImage": "/images/img-08-no-f-king-fighting-hoodie.jpg",
       "prices": {
         "GBP": 47,
         "USD": 62,
@@ -635,7 +635,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-09-peaky-blinders-winter-jumper.jpg",
+      "featuredImage": "/images/img-09-peaky-blinders-winter-jumper.jpg",
       "prices": {
         "GBP": 40,
         "USD": 52,
@@ -1379,7 +1379,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-10-small-heath-t-shirt.jpg",
+      "featuredImage": "/images/img-10-small-heath-t-shirt.jpg",
       "prices": {
         "GBP": 22,
         "USD": 29,
@@ -1865,7 +1865,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-11-final-notes-hoodie.jpg",
+      "featuredImage": "/images/img-11-final-notes-hoodie.jpg",
       "prices": {
         "GBP": 47,
         "USD": 62,
@@ -2024,7 +2024,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-12-king-of-hearts-limted-edition-.jpg",
+      "featuredImage": "/images/img-12-king-of-hearts-limted-edition-.jpg",
       "prices": {
         "GBP": 30,
         "USD": 39,
@@ -2705,7 +2705,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-13-the-streets-belong-to-us-t-shi.jpg",
+      "featuredImage": "/images/img-13-the-streets-belong-to-us-t-shi.jpg",
       "prices": {
         "GBP": 22,
         "USD": 29,
@@ -3128,7 +3128,7 @@ window.PEAKY_PRODUCTS_DATA = {
           ]
         }
       ],
-      "featuredImage": "images/img-14-the-garrison-tavern-oversized-.png",
+      "featuredImage": "/images/img-14-the-garrison-tavern-oversized-.png",
       "prices": {
         "GBP": 25,
         "USD": 33,

@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function sebetiYaddaSaxla() {
     try {
       localStorage.setItem('peaky_sebet', JSON.stringify(sebet));
-    } catch (e) {}
+    } catch (e) { }
   }
 
   function sebetiYenile() {
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const secilmisler = siyahi.slice(0, 8);
     qefes.innerHTML = secilmisler.map(p => `
-      <a href="product.html?id=${p.id}" class="product-card" data-product-id="${p.id}">
+      <a href="/product/?id=${p.id}" class="product-card" data-product-id="${p.id}">
         <div class="product-card-image-wrap">
           <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
         </div>
@@ -342,18 +342,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!zolaq || !siyahi || siyahi.length === 0) return;
 
     const nizam = [
-      { id: 'solomons-bakery-oversized-sweatshi', name: 'Solomons Bakery Oversized Sweatshirt', price: 35, image: 'images/img-15-solomons-bakery-oversized-swea.png' },
-      { id: 'bleak-midwinter-oversized-jumper', name: 'Bleak Midwinter Oversized Sweatshirt', price: 40, image: 'images/img-16-bleak-midwinter-oversized-swea.png' },
-      { id: 'the-streets-belong-to-us-t-shirt', name: 'The Streets Belong to Us T-Shirt', price: 22, image: 'images/img-17-the-streets-belong-to-us-t-shi.png' },
-      { id: 'peaky-blinders-women-t-shirt', name: 'Take Over T-Shirt', price: 22, image: 'images/img-18-take-over-t-shirt.png' },
-      { id: 'peaky-blinders-merch-hoodie', name: 'No F**king Fighting Hoodie', price: 47, image: 'images/img-19-no-f-king-fighting-hoodie.png' },
-      { id: 'peaky-blinders-by-order-hoodie', name: 'Peaky Blinders Bakerboy Hoodie', price: 47, image: 'images/img-20-peaky-blinders-bakerboy-hoodie.png' },
-      { id: 'king-of-hearts-t-shirt', name: 'King of Hearts T-Shirt', price: 22, image: 'images/img-21-king-of-hearts-t-shirt.png' },
-      { id: 'bleak-midwinter-t-shirt', name: 'Bleak Midwinter T-Shirt', price: 22, image: 'images/img-22-bleak-midwinter-t-shirt.png' },
-      { id: 'solomons-bakery-t-shirt', name: 'Solomons Bakery T-Shirt', price: 22, image: 'images/img-23-solomons-bakery-t-shirt.png' },
-      { id: 'the-final-message-t-shirt', name: 'Letter to Tom Shelby T-Shirt', price: 22, image: 'images/img-24-letter-to-tom-shelby-t-shirt.png' },
-      { id: 'peaky-blinders-king-of-hearts-t-shirt', name: 'King of Hearts (Back Print) T-Shirt', price: 30, image: 'images/img-35-king-of-hearts-backprint.png' },
-      { id: 'shelby-co-ltd-t-shirt', name: 'Shelby Co. Ltd T-Shirt', price: 22, image: 'images/img-36-shelby-co-ltd-t-shirt.png' }
+      { id: 'solomons-bakery-oversized-sweatshi', name: 'Solomons Bakery Oversized Sweatshirt', price: 35, image: '/images/img-15-solomons-bakery-oversized-swea.png' },
+      { id: 'bleak-midwinter-oversized-jumper', name: 'Bleak Midwinter Oversized Sweatshirt', price: 40, image: '/images/img-16-bleak-midwinter-oversized-swea.png' },
+      { id: 'the-streets-belong-to-us-t-shirt', name: 'The Streets Belong to Us T-Shirt', price: 22, image: '/images/img-17-the-streets-belong-to-us-t-shi.png' },
+      { id: 'peaky-blinders-women-t-shirt', name: 'Take Over T-Shirt', price: 22, image: '/images/img-18-take-over-t-shirt.png' },
+      { id: 'peaky-blinders-merch-hoodie', name: 'No F**king Fighting Hoodie', price: 47, image: '/images/img-19-no-f-king-fighting-hoodie.png' },
+      { id: 'peaky-blinders-by-order-hoodie', name: 'Peaky Blinders Bakerboy Hoodie', price: 47, image: '/images/img-20-peaky-blinders-bakerboy-hoodie.png' },
+      { id: 'king-of-hearts-t-shirt', name: 'King of Hearts T-Shirt', price: 22, image: '/images/img-21-king-of-hearts-t-shirt.png' },
+      { id: 'bleak-midwinter-t-shirt', name: 'Bleak Midwinter T-Shirt', price: 22, image: '/images/img-22-bleak-midwinter-t-shirt.png' },
+      { id: 'solomons-bakery-t-shirt', name: 'Solomons Bakery T-Shirt', price: 22, image: '/images/img-23-solomons-bakery-t-shirt.png' },
+      { id: 'the-final-message-t-shirt', name: 'Letter to Tom Shelby T-Shirt', price: 22, image: '/images/img-24-letter-to-tom-shelby-t-shirt.png' },
+      { id: 'peaky-blinders-king-of-hearts-t-shirt', name: 'King of Hearts (Back Print) T-Shirt', price: 30, image: '/images/img-35-king-of-hearts-backprint.png' },
+      { id: 'shelby-co-ltd-t-shirt', name: 'Shelby Co. Ltd T-Shirt', price: 22, image: '/images/img-36-shelby-co-ltd-t-shirt.png' }
     ];
 
     zolaq.innerHTML = nizam.map(c => {
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const sekil = c.image || tap.image;
       const qiym = c.price || tap.price;
       return `
-        <a href="product.html?id=${c.id}" class="tshirt-carousel-card" data-product-id="${c.id}">
+        <a href="/product/?id=${c.id}" class="tshirt-carousel-card" data-product-id="${c.id}">
           <div class="tshirt-card-image-wrap">
             <img src="${sekil}" alt="${basliq}" class="product-card-image" loading="lazy">
           </div>
@@ -451,8 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yol.includes('sweatshirts')) return 'sweatshirts';
     if (yol.includes('accessories')) return 'accessories';
     if (yol.includes('oversized')) return 'oversized';
-    if (yol.includes('men')) return 'men';
     if (yol.includes('women')) return 'women';
+    if (yol.includes('men')) return 'men';
     if (yol.includes('gift-guide')) return 'gift-guide';
     return null;
   }
@@ -491,13 +491,13 @@ document.addEventListener('DOMContentLoaded', () => {
     qefes.innerHTML = siyahi.map(p => `
       <article class="product-card" data-product-id="${p.id}">
         <div class="product-card-image-wrap">
-          <a href="product.html?id=${p.id}" style="display:block;">
+          <a href="/product/?id=${p.id}" style="display:block;">
             <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
           </a>
           <button class="quick-view-btn" data-product-id="${p.id}" aria-label="Quick view ${p.name}">Quick View</button>
         </div>
         <div class="product-card-info">
-          <a href="product.html?id=${p.id}" style="text-decoration:none; color:inherit;">
+          <a href="/product/?id=${p.id}" style="text-decoration:none; color:inherit;">
             <h3 class="product-card-title">${p.name}</h3>
           </a>
           <div class="product-card-price tabular-nums" data-base-price="${p.price}" data-product-id="${p.id}">${qiymetFormat(p.price, p.id)}</div>
@@ -603,10 +603,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const bolmeKecid = document.getElementById('detailCatLink');
     if (bolmeKecid) {
       bolmeKecid.textContent = mal.category || 'Collection';
-      if (mal.category === 'T-shirts') bolmeKecid.href = 't-shirts.html';
-      else if (mal.category === 'Hoodies & Sweatshirts') bolmeKecid.href = 'sweatshirts.html';
-      else if (mal.category === 'Accessories') bolmeKecid.href = 'accessories.html';
-      else bolmeKecid.href = 't-shirts.html';
+      if (mal.category === 'T-shirts') bolmeKecid.href = '/t-shirts/';
+      else if (mal.category === 'Hoodies & Sweatshirts') bolmeKecid.href = '/sweatshirts/';
+      else if (mal.category === 'Accessories') bolmeKecid.href = '/accessories/';
+      else bolmeKecid.href = '/t-shirts/';
     }
 
     let detalOlcu = 'M';
@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
     axtarisNetice.querySelectorAll('.search-result-item').forEach(setir => {
       setir.addEventListener('click', () => {
         const id = setir.getAttribute('data-id');
-        window.location.href = `product.html?id=${id}`;
+        window.location.href = `/product/?id=${id}`;
       });
     });
   }
@@ -724,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     netice.innerHTML = tapilanlar.map(p => `
-      <a href="product.html?id=${p.id}" class="search-product-card" data-product-id="${p.id}">
+      <a href="/product/?id=${p.id}" class="search-product-card" data-product-id="${p.id}">
         <div class="search-product-image-wrap">
           <img src="${p.featuredImage || p.image}" alt="${p.name}" class="search-product-image" loading="lazy">
         </div>
@@ -797,7 +797,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (axtarisDugme) {
     axtarisDugme.addEventListener('click', (e) => {
-      if (window.location.pathname.endsWith('search.html')) {
+      if (window.location.pathname.replace(/\/+$/, '').endsWith('/search')) {
         e.preventDefault();
         const sehifeGiris = document.getElementById('searchPageInput');
         if (sehifeGiris) sehifeGiris.focus();
@@ -920,7 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
     proqramiBaslat();
   }
 
-  fetch('products.json')
+  fetch('/products.json')
     .then(cavab => cavab.json())
     .then(data => {
       if (data && Array.isArray(data.products) && data.products.length > 0) {
@@ -928,5 +928,5 @@ document.addEventListener('DOMContentLoaded', () => {
         proqramiBaslat();
       }
     })
-    .catch(() => {});
+    .catch(() => { });
 });
