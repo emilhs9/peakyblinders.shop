@@ -76,6 +76,11 @@
           <svg class="svg-inline--fa" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M507.3 484.7l-141.5-141.5C397 306.8 415.1 259.7 415.1 208c0-114.9-93.13-208-208-208S-.0002 93.13-.0002 208S93.12 416 207.1 416c51.68 0 98.85-18.96 135.2-50.15l141.5 141.5C487.8 510.4 491.9 512 496 512s8.188-1.562 11.31-4.688C513.6 501.1 513.6 490.9 507.3 484.7zM208 384C110.1 384 32 305 32 208S110.1 32 208 32S384 110.1 384 208S305 384 208 384z"></path></svg>
         </a>
 
+        <button class="action-btn favorites-open-trigger" aria-label="View favorites">
+          <svg class="svg-inline--fa" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 448l-30.16-27.44C118.7 323.4 48 259.4 48 180.9 48 117 98.11 67.15 162 67.15c36.12 0 70.79 16.81 94 43.31 23.21-26.5 57.88-43.31 94-43.31 63.89 0 114 49.85 114 113.7 0 78.47-70.7 142.5-177.8 239.7L256 448zM162 99.15c-46.31 0-82 35.42-82 81.7 0 64.94 64.61 123.5 162.5 212.3L256 405.4l13.5-12.26C367.4 304.3 432 245.8 432 180.9c0-46.28-35.69-81.7-82-81.7-33.89 0-66.16 20.47-80.74 51.18L256 178.1l-13.26-27.77C228.2 119.6 195.9 99.15 162 99.15z"></path></svg>
+          <span class="fav-badge" id="headerFavCount" style="display:none;">0</span>
+        </button>
+
         <button class="action-btn cart-open-trigger" aria-label="View basket">
           <svg class="svg-inline--fa" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="bag-shopping" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M128 128V96C128 42.98 170.1 0 224 0C277 0 320 42.98 320 96V128H400C426.5 128 448 149.5 448 176V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V176C0 149.5 21.49 128 48 128H128zM160 128H288V96C288 60.65 259.3 32 224 32C188.7 32 160 60.65 160 96V128zM48 160C39.16 160 32 167.2 32 176V416C32 451.3 60.65 480 96 480H352C387.3 480 416 451.3 416 416V176C416 167.2 408.8 160 400 160H320V240C320 248.8 312.8 256 304 256C295.2 256 288 248.8 288 240V160H160V240C160 248.8 152.8 256 144 256C135.2 256 128 248.8 128 240V160H48z"></path></svg>
         </button>
@@ -194,6 +199,13 @@
       <p class="cart-shipping-notice">Shipping and taxes calculated at checkout.</p>
       <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
     </div>
+  </aside>
+  <aside class="cart-drawer" id="favoritesDrawer" aria-label="Favorites">
+    <div class="drawer-header">
+      <h3 class="drawer-title">Favorites</h3>
+      <button class="drawer-close" id="favoritesCloseBtn" aria-label="Close favorites">&times;</button>
+    </div>
+    <div class="cart-drawer-body" id="favoritesItemsList"></div>
   </aside>
 
   <div class="cart-drawer" id="mobileNavDrawer" style="left: 0; right: auto; transform: translateX(-100%);">

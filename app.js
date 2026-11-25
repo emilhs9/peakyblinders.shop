@@ -24,6 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sebet = [];
   }
 
+  let favoriler = [];
+  try {
+    const favYaddas = localStorage.getItem('peaky_favoriler');
+    if (favYaddas) favoriler = JSON.parse(favYaddas) || [];
+  } catch (e) {
+    favoriler = [];
+  }
+
   let mehsullar = [];
   if (window.PEAKY_PRODUCTS_DATA && Array.isArray(window.PEAKY_PRODUCTS_DATA.products)) {
     mehsullar = window.PEAKY_PRODUCTS_DATA.products;
@@ -36,6 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const sebetSiyahi = document.getElementById('cartItemsList');
   const sebetCem = document.getElementById('cartSubtotal');
   const sebetSayac = document.getElementById('cartBadge');
+
+  const favoriQutu = document.getElementById('favoritesDrawer');
+  const favoriAcDugmeler = document.querySelectorAll('.favorites-open-trigger');
+  const favoriBaglaDugme = document.getElementById('favoritesCloseBtn');
+  const favoriSiyahi = document.getElementById('favoritesItemsList');
+  const favoriSayac = document.getElementById('headerFavCount');
+
+  const urekBosSvg = '<svg viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M256 448l-30.16-27.44C118.7 323.4 48 259.4 48 180.9 48 117 98.11 67.15 162 67.15c36.12 0 70.79 16.81 94 43.31 23.21-26.5 57.88-43.31 94-43.31 63.89 0 114 49.85 114 113.7 0 78.47-70.7 142.5-177.8 239.7L256 448zM162 99.15c-46.31 0-82 35.42-82 81.7 0 64.94 64.61 123.5 162.5 212.3L256 405.4l13.5-12.26C367.4 304.3 432 245.8 432 180.9c0-46.28-35.69-81.7-82-81.7-33.89 0-66.16 20.47-80.74 51.18L256 178.1l-13.26-27.77C228.2 119.6 195.9 99.15 162 99.15z"></path></svg>';
+  const urekDoluSvg = '<svg viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"></path></svg>';
 
   const baxisModal = document.getElementById('quickViewModal');
   const baxisBagla = document.getElementById('modalCloseBtn');
@@ -116,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     sebetiYenile();
+    favorileriYenile();
   }
 
   function valyutaDeyis(yeniKod) {
@@ -208,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sebetiAc() {
     if (sebetQutu && arxaFon) {
+      if (favoriQutu) favoriQutu.classList.remove('active');
       sebetQutu.classList.add('active');
       arxaFon.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -228,8 +247,152 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
 
   if (sebetBaglaDugme) sebetBaglaDugme.addEventListener('click', sebetiBagla);
+  function favoriDugmeHtml(pId) {
+    const aktiv = favoriler.includes(pId);
+    return `<button type="button" class="fav-heart-btn ${aktiv ? 'active' : ''}" data-fav-id="${pId}" aria-label="Toggle favorite">${aktiv ? urekDoluSvg : urekBosSvg}</button>`;
+  }
+
+  function favorileriYaddaSaxla() {
+    try {
+      localStorage.setItem('peaky_favoriler', JSON.stringify(favoriler));
+    } catch (e) { }
+  }
+
+  function favoriDugmeleriYenile() {
+    document.querySelectorAll('.fav-heart-btn').forEach(btn => {
+      const id = btn.getAttribute('data-fav-id');
+      const aktiv = favoriler.includes(id);
+      btn.classList.toggle('active', aktiv);
+      btn.innerHTML = aktiv ? urekDoluSvg : urekBosSvg;
+    });
+  }
+
+  function favorileriYenile() {
+    if (favoriSayac) {
+      if (favoriler.length > 0) {
+        favoriSayac.textContent = favoriler.length.toString();
+        favoriSayac.style.display = 'block';
+      } else {
+        favoriSayac.textContent = '0';
+        favoriSayac.style.display = 'none';
+      }
+    }
+
+    favoriDugmeleriYenile();
+
+    if (!favoriSiyahi) return;
+
+    if (favoriler.length === 0) {
+      favoriSiyahi.innerHTML = '<div class="cart-empty-message"><p>Your favorites list is empty.</p></div>';
+      return;
+    }
+
+    let html = '';
+    favoriler.forEach(id => {
+      const p = mehsullar.find(x => x.id === id);
+      if (!p) return;
+      const qiymet = qiymetFormat(p.price, p.id);
+      const sekil = p.featuredImage || p.image;
+      html += `
+        <div class="cart-item" style="display:flex; gap:14px; padding:14px 0; border-bottom:1px solid #222; align-items:center;">
+          <a href="/product/?id=${p.id}" style="flex-shrink:0;">
+            <img src="${sekil}" alt="${p.name}" class="cart-item-img" style="width:68px; height:80px; object-fit:cover;">
+          </a>
+          <div class="cart-item-details" style="flex:1;">
+            <a href="/product/?id=${p.id}" style="color:inherit; text-decoration:none;">
+              <h4 class="cart-item-title" style="font-family:var(--font-serif); font-size:0.95rem; margin-bottom:4px;">${p.name}</h4>
+            </a>
+            <div class="cart-item-price tabular-nums" style="font-weight:700; margin-bottom:8px;">${qiymet}</div>
+            <div class="fav-item-actions">
+              <button type="button" class="fav-add-btn" data-fav-add="${p.id}">Add to Bag</button>
+              <button type="button" class="fav-remove-btn" data-fav-remove="${p.id}">Remove</button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    favoriSiyahi.innerHTML = html || '<div class="cart-empty-message"><p>Your favorites list is empty.</p></div>';
+  }
+
+  function favoriDeyis(pId) {
+    if (!pId) return;
+    const idx = favoriler.indexOf(pId);
+    if (idx === -1) {
+      favoriler.push(pId);
+      const p = mehsullar.find(x => x.id === pId);
+      bildirisGoster(p ? `${p.name} added to favorites` : 'Added to favorites');
+    } else {
+      favoriler.splice(idx, 1);
+    }
+    favorileriYaddaSaxla();
+    favorileriYenile();
+  }
+
+  function favoriAc() {
+    if (favoriQutu && arxaFon) {
+      if (sebetQutu) sebetQutu.classList.remove('active');
+      favoriQutu.classList.add('active');
+      arxaFon.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function favoriBagla() {
+    if (favoriQutu && arxaFon) {
+      favoriQutu.classList.remove('active');
+      if (!sebetQutu || !sebetQutu.classList.contains('active')) {
+        arxaFon.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
+  favoriAcDugmeler.forEach(duyme => duyme.addEventListener('click', (e) => {
+    e.preventDefault();
+    favoriAc();
+  }));
+
+  if (favoriBaglaDugme) favoriBaglaDugme.addEventListener('click', favoriBagla);
+
+  if (favoriSiyahi) {
+    favoriSiyahi.addEventListener('click', (e) => {
+      const addBtn = e.target.closest('[data-fav-add]');
+      if (addBtn) {
+        const id = addBtn.getAttribute('data-fav-add');
+        const p = mehsullar.find(x => x.id === id);
+        if (p) {
+          favoriBagla();
+          sebeteAt({
+            id: p.id,
+            title: p.name,
+            basePrice: p.price,
+            image: p.featuredImage || p.image,
+            size: 'M'
+          });
+        }
+        return;
+      }
+      const remBtn = e.target.closest('[data-fav-remove]');
+      if (remBtn) {
+        const id = remBtn.getAttribute('data-fav-remove');
+        favoriDeyis(id);
+      }
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    const heartBtn = e.target.closest('.fav-heart-btn');
+    if (!heartBtn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const id = heartBtn.getAttribute('data-fav-id');
+    favoriDeyis(id);
+  });
+
   if (arxaFon) arxaFon.addEventListener('click', () => {
     sebetiBagla();
+    favoriBagla();
     mobilMenyuBaglaFunksiya();
   });
 
@@ -329,6 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="/product/?id=${p.id}" class="product-card" data-product-id="${p.id}">
         <div class="product-card-image-wrap">
           <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
+          ${favoriDugmeHtml(p.id)}
         </div>
         <div class="product-card-info">
           <h3 class="product-card-title">${p.name}</h3>
@@ -365,6 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="/product/?id=${c.id}" class="tshirt-carousel-card" data-product-id="${c.id}">
           <div class="tshirt-card-image-wrap">
             <img src="${sekil}" alt="${basliq}" class="product-card-image" loading="lazy">
+            ${favoriDugmeHtml(c.id)}
           </div>
           <div class="tshirt-card-info">
             <h3 class="tshirt-card-title">${basliq}</h3>
@@ -494,6 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/product/?id=${p.id}" style="display:block;">
             <img src="${p.featuredImage || p.image}" alt="${p.name}" class="product-card-image" loading="lazy">
           </a>
+          ${favoriDugmeHtml(p.id)}
           <button class="quick-view-btn" data-product-id="${p.id}" aria-label="Quick view ${p.name}">Quick View</button>
         </div>
         <div class="product-card-info">
@@ -591,6 +757,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sekilEl) {
       sekilEl.src = mal.featuredImage || mal.image;
       sekilEl.alt = mal.name;
+      if (sekilEl.parentElement) {
+        sekilEl.parentElement.style.position = 'relative';
+        const eskiBtn = sekilEl.parentElement.querySelector('.fav-heart-btn');
+        if (eskiBtn) eskiBtn.remove();
+        sekilEl.parentElement.insertAdjacentHTML('beforeend', favoriDugmeHtml(mal.id));
+      }
     }
 
     const qiymetEl = document.getElementById('detailPrice');
@@ -727,6 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="/product/?id=${p.id}" class="search-product-card" data-product-id="${p.id}">
         <div class="search-product-image-wrap">
           <img src="${p.featuredImage || p.image}" alt="${p.name}" class="search-product-image" loading="lazy">
+          ${favoriDugmeHtml(p.id)}
         </div>
         <div class="search-product-info">
           <h3 class="search-product-title">${p.name}</h3>
