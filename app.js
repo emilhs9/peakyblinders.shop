@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       variant.classList.toggle('active', variant.getAttribute('data-currency') === cariValyuta);
     });
 
-    footerValyutalar.forEach(span => {
+    document.querySelectorAll('.currency-symbol').forEach(span => {
       const kod = span.getAttribute('data-currency') || 'GBP';
       span.classList.toggle('active', kod === cariValyuta);
     });
@@ -836,12 +836,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  footerValyutalar.forEach(duyme => {
+  document.querySelectorAll('.currency-symbol').forEach(duyme => {
     duyme.addEventListener('click', () => {
       const kod = duyme.getAttribute('data-currency') || 'GBP';
       valyutaDeyis(kod);
     });
   });
+
+  qiymetleriYenile();
 
   function mobilMenyuAcFunksiya() {
     if (mobilMenyuQutu && arxaFon) {

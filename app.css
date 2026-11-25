@@ -1677,7 +1677,7 @@ button {
 
 .currency-symbols {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   gap: 18px;
   font-family: var(--font-serif), 'Courier Prime', Courier, monospace;
   font-size: 1.35rem;
@@ -1695,6 +1695,9 @@ button {
   line-height: 1;
   display: inline-flex;
   align-items: flex-end;
+  padding-bottom: 5px;
+  border-bottom: 3px solid transparent;
+  transition: border-color var(--transition-fast);
 }
 
 .currency-symbol svg {
@@ -1704,9 +1707,13 @@ button {
   display: block;
 }
 
-.currency-symbol.active {
-  border-bottom: 3px solid #ffffff;
-  padding-bottom: 4px;
+.currency-symbol:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.currency-symbol.active,
+.currency-symbol.active:hover {
+  border-bottom-color: #ffffff;
 }
 
 .site-subfooter {
