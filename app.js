@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const mezenne = {
     GBP: { simvol: '£', kurs: 1.0, htmlSimvol: funtSvg, ad: 'Pound' },
-    USD: { simvol: '$', kurs: 1.3032, htmlSimvol: dollarSvg, ad: 'United States Dollar' },
-    EUR: { simvol: '€', kurs: 1.1949, htmlSimvol: euroSvg, ad: 'Euro' },
-    CAD: { simvol: '$', kurs: 1.8722, htmlSimvol: dollarSvg + '<sub>c</sub>', ad: 'Canadian Dollar' },
-    AUD: { simvol: '$', kurs: 1.967, htmlSimvol: dollarSvg + '<sub>A</sub>', ad: 'Australian Dollar' },
-    JPY: { simvol: '¥', kurs: 207.1755, htmlSimvol: yenSvg, ad: 'Japanese Yen' }
+    USD: { simvol: '$', kurs: 1.3113, htmlSimvol: dollarSvg, ad: 'United States Dollar' },
+    EUR: { simvol: '€', kurs: 1.1962, htmlSimvol: euroSvg, ad: 'Euro' },
+    CAD: { simvol: '$', kurs: 1.8713, htmlSimvol: dollarSvg + '<sub>c</sub>', ad: 'Canadian Dollar' },
+    AUD: { simvol: '$', kurs: 1.9759, htmlSimvol: dollarSvg + '<sub>A</sub>', ad: 'Australian Dollar' },
+    JPY: { simvol: '¥', kurs: 208.8597, htmlSimvol: yenSvg, ad: 'Japanese Yen' }
   };
 
   let cariValyuta = localStorage.getItem('peaky_valyuta') || 'GBP';
@@ -77,17 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2400);
   }
 
-  function qiymetFormat(gbpDeyer) {
+  function qiymetFormat(gbpDeyer, pId) {
     const v = mezenne[cariValyuta] || mezenne.GBP;
+    if (pId && mehsullar && mehsullar.length > 0) {
+      const p = mehsullar.find(x => x.id === pId);
+      if (p && p.prices && p.prices[cariValyuta] !== undefined) {
+        return `${v.simvol}${p.prices[cariValyuta]}`;
+      }
+    }
     const netice = Math.round(Number(gbpDeyer) * v.kurs);
     return `${v.simvol}${netice}`;
   }
 
   function qiymetleriYenile() {
     document.querySelectorAll('[data-base-price]').forEach(el => {
+      const pId = el.getAttribute('data-product-id');
       const esas = parseFloat(el.getAttribute('data-base-price'));
       if (!isNaN(esas)) {
-        el.textContent = qiymetFormat(esas);
+        el.textContent = qiymetFormat(esas, pId);
       }
     });
 
@@ -140,12 +147,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sebetAyaq) sebetAyaq.style.display = 'block';
 
-    let cemGbp = 0;
+    let cemValyuta = 0;
     let umumiSay = 0;
     let html = '';
+    const v = mezenne[cariValyuta] || mezenne.GBP;
 
     sebet.forEach((mal, sira) => {
-      cemGbp += mal.basePrice * mal.quantity;
+      let tekQiymet = Math.round(Number(mal.basePrice) * v.kurs);
+      if (mehsullar && mehsullar.length > 0) {
+        const p = mehsullar.find(x => x.id === mal.id);
+        if (p && p.prices && p.prices[cariValyuta] !== undefined) {
+          tekQiymet = p.prices[cariValyuta];
+        }
+      }
+      cemValyuta += tekQiymet * mal.quantity;
       umumiSay += mal.quantity;
 
       html += `
@@ -154,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="cart-item-details" style="flex:1;">
             <h4 class="cart-item-title" style="font-family:var(--font-serif); font-size:0.95rem; margin-bottom:4px;">${mal.title}</h4>
             <div class="cart-item-size" style="font-size:0.8rem; color:#aaa; margin-bottom:6px;">Size: ${mal.size}</div>
-            <div class="cart-item-price tabular-nums" style="font-weight:700; margin-bottom:8px;">${qiymetFormat(mal.basePrice)}</div>
+            <div class="cart-item-price tabular-nums" style="font-weight:700; margin-bottom:8px;" data-base-price="${mal.basePrice}" data-product-id="${mal.id}">${v.simvol}${tekQiymet}</div>
             <div class="cart-item-qty" style="display:flex; align-items:center; gap:8px;">
               <button class="qty-btn" data-emel="azalt" data-sira="${sira}" style="width:26px; height:26px; border:1px solid #444; color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">-</button>
               <span class="qty-count tabular-nums" style="font-size:0.9rem; min-width:18px; text-align:center;">${mal.quantity}</span>
@@ -167,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     sebetSiyahi.innerHTML = html;
-    if (sebetCem) sebetCem.textContent = qiymetFormat(cemGbp);
+    if (sebetCem) sebetCem.textContent = `${v.simvol}${cemValyuta}`;
     if (sebetSayac) sebetSayac.textContent = umumiSay.toString();
   }
 
@@ -252,7 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (baxisQiymet) {
       const q = mal.price !== undefined ? mal.price : mal.basePrice;
       baxisQiymet.setAttribute('data-base-price', q);
-      baxisQiymet.textContent = qiymetFormat(q);
+      baxisQiymet.setAttribute('data-product-id', mal.id);
+      baxisQiymet.textContent = qiymetFormat(q, mal.id);
     }
 
     baxisOlculer.forEach(pill => {
@@ -352,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="tshirt-card-info">
             <h3 class="tshirt-card-title">${basliq}</h3>
-            <div class="tshirt-card-price tabular-nums" data-base-price="${qiym}">${qiymetFormat(qiym)}</div>
+            <div class="tshirt-card-price tabular-nums" data-base-price="${qiym}" data-product-id="${c.id}">${qiymetFormat(qiym, c.id)}</div>
           </div>
         </a>
       `;
@@ -484,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="product.html?id=${p.id}" style="text-decoration:none; color:inherit;">
             <h3 class="product-card-title">${p.name}</h3>
           </a>
-          <div class="product-card-price tabular-nums" data-base-price="${p.price}">${qiymetFormat(p.price)}</div>
+          <div class="product-card-price tabular-nums" data-base-price="${p.price}" data-product-id="${p.id}">${qiymetFormat(p.price, p.id)}</div>
           <button class="product-add-btn" data-product-id="${p.id}">Add to Bag</button>
         </div>
       </article>
@@ -536,9 +552,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const val = e.target.value;
         let siralanmis = [...bolmeMehsullari];
         if (val === 'price-asc') {
-          siralanmis.sort((a, b) => a.price - b.price);
+          siralanmis.sort((a, b) => {
+            const pa = (a.prices && a.prices[cariValyuta] !== undefined) ? a.prices[cariValyuta] : a.price;
+            const pb = (b.prices && b.prices[cariValyuta] !== undefined) ? b.prices[cariValyuta] : b.price;
+            return pa - pb;
+          });
         } else if (val === 'price-desc') {
-          siralanmis.sort((a, b) => b.price - a.price);
+          siralanmis.sort((a, b) => {
+            const pa = (a.prices && a.prices[cariValyuta] !== undefined) ? a.prices[cariValyuta] : a.price;
+            const pb = (b.prices && b.prices[cariValyuta] !== undefined) ? b.prices[cariValyuta] : b.price;
+            return pb - pa;
+          });
         } else if (val === 'name-asc') {
           siralanmis.sort((a, b) => a.name.localeCompare(b.name));
         }
@@ -572,7 +596,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const qiymetEl = document.getElementById('detailPrice');
     if (qiymetEl) {
       qiymetEl.setAttribute('data-base-price', mal.price);
-      qiymetEl.textContent = qiymetFormat(mal.price);
+      qiymetEl.setAttribute('data-product-id', mal.id);
+      qiymetEl.textContent = qiymetFormat(mal.price, mal.id);
     }
 
     const bolmeKecid = document.getElementById('detailCatLink');
@@ -636,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${p.featuredImage || p.image}" alt="${p.name}" style="width:48px; height:58px; object-fit:cover;">
         <div>
           <div style="font-weight:700; font-family:var(--font-serif); font-size:0.92rem; color:#fff;">${p.name}</div>
-          <div style="color:#aaa; font-size:0.85rem;" data-base-price="${p.price}">${qiymetFormat(p.price)}</div>
+          <div style="color:#aaa; font-size:0.85rem;" data-base-price="${p.price}" data-product-id="${p.id}">${qiymetFormat(p.price, p.id)}</div>
         </div>
       </div>
     `).join('');
@@ -705,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="search-product-info">
           <h3 class="search-product-title">${p.name}</h3>
-          <div class="search-product-price tabular-nums" data-base-price="${p.price}">${qiymetFormat(p.price)}</div>
+          <div class="search-product-price tabular-nums" data-base-price="${p.price}" data-product-id="${p.id}">${qiymetFormat(p.price, p.id)}</div>
         </div>
       </a>
     `).join('');
