@@ -104,14 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     footerValyutalar.forEach(span => {
-      const txt = span.textContent.trim();
-      let kod = 'GBP';
-      if (txt === '£' || span.querySelector('[data-icon="sterling-sign"]') || span.querySelector('svg') || span.getAttribute('data-currency') === 'GBP') kod = 'GBP';
-      else if (txt === '$') kod = 'USD';
-      else if (txt === '€') kod = 'EUR';
-      else if (txt.includes('C')) kod = 'CAD';
-      else if (txt.includes('A')) kod = 'AUD';
-      else if (txt === '¥') kod = 'JPY';
+      const kod = span.getAttribute('data-currency') || 'GBP';
       span.classList.toggle('active', kod === cariValyuta);
     });
 
@@ -738,14 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   footerValyutalar.forEach(duyme => {
     duyme.addEventListener('click', () => {
-      const txt = duyme.textContent.trim();
-      let kod = 'GBP';
-      if (txt === '£' || duyme.querySelector('[data-icon="sterling-sign"]') || duyme.querySelector('svg') || duyme.getAttribute('data-currency') === 'GBP') kod = 'GBP';
-      else if (txt === '$') kod = 'USD';
-      else if (txt === '€') kod = 'EUR';
-      else if (txt.includes('C')) kod = 'CAD';
-      else if (txt.includes('A')) kod = 'AUD';
-      else if (txt === '¥') kod = 'JPY';
+      const kod = duyme.getAttribute('data-currency') || 'GBP';
       valyutaDeyis(kod);
     });
   });
