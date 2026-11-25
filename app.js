@@ -16,6 +16,89 @@ document.addEventListener('DOMContentLoaded', () => {
   let cariValyuta = localStorage.getItem('peaky_valyuta') || 'GBP';
   if (!mezenne[cariValyuta]) cariValyuta = 'GBP';
 
+  let kuponKodu = localStorage.getItem('peaky_kupon') || '';
+
+  function cihazIdAl() {
+    let id = '';
+    try {
+      id = localStorage.getItem('peaky_device_id') || '';
+    } catch (e) { }
+    if (!id) {
+      const m = document.cookie.match(/(?:^|;\s*)peaky_device_id=([^;]+)/);
+      if (m) id = decodeURIComponent(m[1]);
+    }
+    if (!id) {
+      id = (window.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : 'dev-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+    }
+    try {
+      localStorage.setItem('peaky_device_id', id);
+    } catch (e) { }
+    document.cookie = 'peaky_device_id=' + encodeURIComponent(id) + '; path=/; max-age=315360000; SameSite=Lax';
+    return id;
+  }
+
+  const cihazId = cihazIdAl();
+
+  function idbAc() {
+    return new Promise((resolve) => {
+      if (!window.indexedDB) { resolve(null); return; }
+      const req = indexedDB.open('PeakyStoreDB', 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains('account')) {
+          db.createObjectStore('account');
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(null);
+    });
+  }
+
+  async function idbYaz(melumat) {
+    try {
+      const db = await idbAc();
+      if (!db) return;
+      const tx = db.transaction('account', 'readwrite');
+      tx.objectStore('account').put(melumat, cihazId);
+    } catch (e) { }
+  }
+
+  async function idbOxu() {
+    try {
+      const db = await idbAc();
+      if (!db) return null;
+      return await new Promise((resolve) => {
+        const tx = db.transaction('account', 'readonly');
+        const req = tx.objectStore('account').get(cihazId);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => resolve(null);
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function hesabiBackendSaxla() {
+    const simdi = Date.now();
+    try { localStorage.setItem('peaky_updated_at', String(simdi)); } catch (e) { }
+    const payload = {
+      deviceId: cihazId,
+      cart: sebet,
+      favorites: favoriler,
+      currency: cariValyuta,
+      coupon: kuponKodu
+    };
+    idbYaz(payload);
+    fetch('/api/state', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch(() => { });
+  }
+
   let sebet = [];
   try {
     const yaddas = localStorage.getItem('peaky_sebet');
@@ -140,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!mezenne[yeniKod]) return;
     cariValyuta = yeniKod;
     localStorage.setItem('peaky_valyuta', cariValyuta);
+    hesabiBackendSaxla();
     qiymetleriYenile();
     bildirisGoster(`${cariValyuta} (${mezenne[cariValyuta].simvol})`);
   }
@@ -148,16 +232,26 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       localStorage.setItem('peaky_sebet', JSON.stringify(sebet));
     } catch (e) { }
+    hesabiBackendSaxla();
+  }
+
+  const etiketSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>';
+  const zibilSvg = '<svg width="13" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
+
+  function bagQiymetFormat(deyer, simvol) {
+    const num = Number(deyer) || 0;
+    return `${simvol}${num.toFixed(2)}`;
   }
 
   function sebetiYenile() {
     if (!sebetSiyahi) return;
 
     const sebetAyaq = document.querySelector('.cart-drawer-footer');
+    const v = mezenne[cariValyuta] || mezenne.GBP;
 
     if (sebet.length === 0) {
       sebetSiyahi.innerHTML = '<div class="cart-empty-message"><p>Your bag is empty.</p></div>';
-      if (sebetCem) sebetCem.textContent = qiymetFormat(0);
+      if (sebetCem) sebetCem.textContent = bagQiymetFormat(0, v.simvol);
       if (sebetSayac) sebetSayac.textContent = '0';
       if (sebetAyaq) sebetAyaq.style.display = 'none';
       return;
@@ -168,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let cemValyuta = 0;
     let umumiSay = 0;
     let html = '';
-    const v = mezenne[cariValyuta] || mezenne.GBP;
 
     sebet.forEach((mal, sira) => {
       let tekQiymet = Math.round(Number(mal.basePrice) * v.kurs);
@@ -181,26 +274,54 @@ document.addEventListener('DOMContentLoaded', () => {
       cemValyuta += tekQiymet * mal.quantity;
       umumiSay += mal.quantity;
 
+      const secimler = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
+        `<option value="${n}" ${n === mal.quantity ? 'selected' : ''}>${n}</option>`
+      ).join('');
+      const reng = mal.color || 'Black';
+
       html += `
-        <div class="cart-item" style="display:flex; gap:14px; padding:14px 0; border-bottom:1px solid #222; align-items:center;">
-          <img src="${mal.image}" alt="${mal.title}" class="cart-item-img" style="width:68px; height:80px; object-fit:cover;">
-          <div class="cart-item-details" style="flex:1;">
-            <h4 class="cart-item-title" style="font-family:var(--font-serif); font-size:0.95rem; margin-bottom:4px;">${mal.title}</h4>
-            <div class="cart-item-size" style="font-size:0.8rem; color:#aaa; margin-bottom:6px;">Size: ${mal.size}</div>
-            <div class="cart-item-price tabular-nums" style="font-weight:700; margin-bottom:8px;" data-base-price="${mal.basePrice}" data-product-id="${mal.id}">${v.simvol}${tekQiymet}</div>
-            <div class="cart-item-qty" style="display:flex; align-items:center; gap:8px;">
-              <button class="qty-btn" data-emel="azalt" data-sira="${sira}" style="width:26px; height:26px; border:1px solid #444; color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">-</button>
-              <span class="qty-count tabular-nums" style="font-size:0.9rem; min-width:18px; text-align:center;">${mal.quantity}</span>
-              <button class="qty-btn" data-emel="artir" data-sira="${sira}" style="width:26px; height:26px; border:1px solid #444; color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">+</button>
-              <button class="qty-btn" data-emel="sil" data-sira="${sira}" style="margin-left:auto; background:none; border:none; color:#888; text-decoration:underline; font-size:0.8rem; cursor:pointer;">Remove</button>
+        <div class="bag-item-row">
+          <a href="/product/?id=${mal.id}" style="flex-shrink:0;">
+            <img src="${mal.image}" alt="${mal.title}" class="bag-item-thumb">
+          </a>
+          <div class="bag-item-info">
+            <a href="/product/?id=${mal.id}" style="text-decoration:none; color:inherit;">
+              <h4 class="bag-item-title">${mal.title}</h4>
+            </a>
+            <div class="bag-item-meta">${reng} (size ${mal.size || 'M'})</div>
+            <div class="bag-item-price-row tabular-nums" data-base-price="${mal.basePrice}" data-product-id="${mal.id}">
+              ${etiketSvg}
+              <span>${bagQiymetFormat(tekQiymet, v.simvol)}</span>
             </div>
+          </div>
+          <div class="bag-item-controls">
+            <div class="bag-qty-wrap">
+              <span class="bag-qty-label">Quantity</span>
+              <select class="bag-qty-select" data-sira="${sira}" aria-label="Quantity">
+                ${secimler}
+              </select>
+            </div>
+            <button type="button" class="bag-remove-btn" data-emel="sil" data-sira="${sira}">
+              ${zibilSvg}
+              <span>Remove</span>
+            </button>
           </div>
         </div>
       `;
     });
 
     sebetSiyahi.innerHTML = html;
-    if (sebetCem) sebetCem.textContent = `${v.simvol}${cemValyuta}`;
+
+    let yekun = cemValyuta;
+    const statusMsg = document.getElementById('couponStatusMsg');
+    if (kuponKodu.toUpperCase() === 'TAKE10') {
+      yekun = cemValyuta * 0.9;
+      if (statusMsg) statusMsg.textContent = 'TAKE10 applied (10% off)';
+    } else if (statusMsg) {
+      statusMsg.textContent = '';
+    }
+
+    if (sebetCem) sebetCem.textContent = bagQiymetFormat(yekun, v.simvol);
     if (sebetSayac) sebetSayac.textContent = umumiSay.toString();
   }
 
@@ -256,6 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       localStorage.setItem('peaky_favoriler', JSON.stringify(favoriler));
     } catch (e) { }
+    hesabiBackendSaxla();
   }
 
   function favoriDugmeleriYenile() {
@@ -404,20 +526,113 @@ document.addEventListener('DOMContentLoaded', () => {
       const idx = parseInt(d.getAttribute('data-sira'), 10);
       if (isNaN(idx) || !sebet[idx]) return;
 
-      if (emel === 'artir') {
-        sebet[idx].quantity += 1;
-      } else if (emel === 'azalt') {
-        sebet[idx].quantity -= 1;
-        if (sebet[idx].quantity <= 0) {
-          sebet.splice(idx, 1);
-        }
-      } else if (emel === 'sil') {
+      if (emel === 'sil') {
         sebet.splice(idx, 1);
+        sebetiYaddaSaxla();
+        sebetiYenile();
       }
+    });
+
+    sebetSiyahi.addEventListener('change', (e) => {
+      const sel = e.target.closest('.bag-qty-select');
+      if (!sel) return;
+      const idx = parseInt(sel.getAttribute('data-sira'), 10);
+      const yeniSay = parseInt(sel.value, 10);
+      if (isNaN(idx) || !sebet[idx] || isNaN(yeniSay) || yeniSay < 1) return;
+      sebet[idx].quantity = yeniSay;
       sebetiYaddaSaxla();
       sebetiYenile();
     });
   }
+
+  const couponToggleBtn = document.getElementById('couponToggleBtn');
+  const couponFormWrap = document.getElementById('couponFormWrap');
+  const couponInput = document.getElementById('couponInput');
+  const couponApplyBtn = document.getElementById('couponApplyBtn');
+
+  if (couponToggleBtn && couponFormWrap) {
+    couponToggleBtn.addEventListener('click', () => {
+      const aciq = couponToggleBtn.getAttribute('aria-expanded') === 'true';
+      couponToggleBtn.setAttribute('aria-expanded', aciq ? 'false' : 'true');
+      couponFormWrap.classList.toggle('collapsed', aciq);
+    });
+  }
+
+  if (couponApplyBtn && couponInput) {
+    if (kuponKodu) couponInput.value = kuponKodu;
+    couponApplyBtn.addEventListener('click', () => {
+      const kod = couponInput.value.trim().toUpperCase();
+      if (kod === 'TAKE10') {
+        kuponKodu = 'TAKE10';
+        localStorage.setItem('peaky_kupon', kuponKodu);
+        hesabiBackendSaxla();
+        sebetiYenile();
+        bildirisGoster('Coupon TAKE10 applied');
+      } else if (!kod) {
+        kuponKodu = '';
+        localStorage.removeItem('peaky_kupon');
+        hesabiBackendSaxla();
+        sebetiYenile();
+      } else {
+        const statusMsg = document.getElementById('couponStatusMsg');
+        if (statusMsg) {
+          statusMsg.style.color = '#b91c1c';
+          statusMsg.textContent = 'Invalid coupon code';
+        }
+      }
+    });
+  }
+
+  async function hesabiYukle() {
+    let backendData = null;
+    try {
+      const res = await fetch(`/api/state?deviceId=${encodeURIComponent(cihazId)}`, { cache: 'no-store' });
+      if (res.ok) {
+        backendData = await res.json();
+      }
+    } catch (e) { }
+
+    if (backendData && backendData.exists) {
+      const yerliBosdur = sebet.length === 0 && favoriler.length === 0;
+      if (yerliBosdur) {
+        sebet = Array.isArray(backendData.cart) ? backendData.cart : sebet;
+        favoriler = Array.isArray(backendData.favorites) ? backendData.favorites : favoriler;
+        if (backendData.currency && mezenne[backendData.currency]) {
+          cariValyuta = backendData.currency;
+        }
+        if (typeof backendData.coupon === 'string') {
+          kuponKodu = backendData.coupon;
+        }
+        try {
+          localStorage.setItem('peaky_sebet', JSON.stringify(sebet));
+          localStorage.setItem('peaky_favoriler', JSON.stringify(favoriler));
+          localStorage.setItem('peaky_valyuta', cariValyuta);
+          localStorage.setItem('peaky_kupon', kuponKodu);
+        } catch (e) { }
+        idbYaz({ deviceId: cihazId, cart: sebet, favorites: favoriler, currency: cariValyuta, coupon: kuponKodu });
+      } else {
+        hesabiBackendSaxla();
+      }
+    } else {
+      const idbData = await idbOxu();
+      if (idbData) {
+        if ((!sebet || sebet.length === 0) && Array.isArray(idbData.cart) && idbData.cart.length > 0) {
+          sebet = idbData.cart;
+          try { localStorage.setItem('peaky_sebet', JSON.stringify(sebet)); } catch (e) { }
+        }
+        if ((!favoriler || favoriler.length === 0) && Array.isArray(idbData.favorites) && idbData.favorites.length > 0) {
+          favoriler = idbData.favorites;
+          try { localStorage.setItem('peaky_favoriler', JSON.stringify(favoriler)); } catch (e) { }
+        }
+      }
+      if (sebet.length > 0 || favoriler.length > 0) {
+        hesabiBackendSaxla();
+      }
+    }
+    qiymetleriYenile();
+  }
+
+  hesabiYukle();
 
   function baxisAc(mal) {
     aktivModalMehsul = mal;
